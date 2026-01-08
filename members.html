@@ -98,11 +98,18 @@
 </head>
 <body>
 
-<nav></nav>
+<nav>
+        <div class="logo">CRAVITY 成員介紹</div>
+        <ul>
+            <li><a href="index.html">團體介紹</a></li>
+	        <li><a href="members.html">成員介紹</a></li>
+            <li><a href="discography.html">打歌活動</a></li>
+            <li><a href="variety.html">綜藝活動</a></li>
+        </ul>
+</nav>
 
 <header style="text-align: center; padding: 60px 0;">
-    <h1 style="color: #4a148c; letter-spacing: 5px;">CRAVITY STARS</h1>
-    <p>9 位成員與他們的 CCREW 夥伴</p>
+    <h1 style="color: #4a148c; letter-spacing: 5px;">CRAVITY Member</h1>
 </header>
 
 <main class="members-grid" id="members-list">
@@ -112,14 +119,15 @@
     const members = [
         {
             id: "serim",
-            name: "朴世琳 Park Se Rim",
-            krName: "박세림",
+            name: "朴世琳",
+            krName: "박세림 Park Se Rim",
             birth: "1999.03.03",
             pos: "隊長(前),主Rapper",
             mbti: "ENFJ",
             blood: "A",
             nick: "朴豬豬",
-	    animal: "狼、豬",
+			memo:"",
+	    	emoji: "🐺、🐽",
             color: "#FF8772 (珊瑚色)",
             img: "images/serim.jpg",
             ccrewName: "WOOLPI",
@@ -134,7 +142,8 @@
             mbti: "ISFJ",
             blood: "A",
             nick: "",
-	    animal: "企鵝",
+			memo:"",
+	    	emoji: 🐧",
             color: "#CC3D3D (紅色)",
             img: "images/allen.jpg",
             ccrewName: "QUEENI",
@@ -142,14 +151,15 @@
         },
         {
             id: "jungmo",
-            name: "具廷謨 Koo Jung Mo",
-            krName: "구정모",
+            name: "具廷謨",
+            krName: "구정모 Koo Jung Mo",
             birth: "2000.2.5",
             pos: "領唱",
             mbti: "INTP",
             blood: "B",
             nick: "",
-	    animal: "貓",
+			memo:"",
+	    	emoji: "🐱",
             color: "#E00096 (洋紅色)",
             img: "images/jungmo.jpg",
             ccrewName: "RANGMO",
@@ -157,14 +167,15 @@
         },
         {
             id: "woobin",
-            name: "徐宇璸 Seo Woo Bin",
-            krName: "서우빈",
+            name: "徐宇璸 Ruby",
+            krName: "서우빈 Seo Woo Bin",
             birth: "2000.10.16",
             pos: "主唱",
             mbti: "ISTP",
             blood: "B",
             nick: "",
-	    animal: "短尾矮袋鼠、熊",
+			memo:"",
+	    	emoji: "🐻",
             color: "#FF5E00 (橘色)",
             img: "images/woobin.jpg",
             ccrewName: "WOOKA",
@@ -172,14 +183,15 @@
         },
         {
             id: "wonjin",
-            name: "咸元進 Ham Won Jin",
-            krName: "함원진",
+            name: "咸元進",
+            krName: "함원진 Ham Won Jin",
             birth: "2001.3.22",
             pos: "隊長、領唱、領舞",
             mbti: "ENFP",
             blood: "O",
             nick: "",
-	    animal: "小雞",
+			memo:"",
+	    	emoji: "🐥",
             color: "#A366FF (紫色)",
             img: "images/wonjin.jpg",
             ccrewName: "DAKONG",
@@ -187,14 +199,15 @@
         },
         {
             id: "minhee",
-            name: "姜珉熙 Kang Min Hee",
-            krName: "강민희",
+            name: "姜珉熙",
+            krName: "강민희 Kang Min Hee",
             birth: "2002.9.17",
             pos: "領唱",
             mbti: "ISTP",
             blood: "AB",
-            nick: "土豆、馬爾濟斯",
-	    animal: "狗",
+            nick: "馬爾濟斯、土豆",
+			memo:"",
+	    	emoji: "🐶、🥔",
             color: "#050099 (藍色)",
             img: "images/minhee.jpg",
             ccrewName: "KANGMONG",
@@ -202,14 +215,15 @@
         },
         {
             id: "hyeongjun",
-            name: "宋刑準 Song Hyeong Jun",
-            krName: "송형준",
+            name: "宋刑準",
+            krName: "송형준 Song Hyeong Jun",
             birth: "2002.11.30",
             pos: "隊長、主舞、副唱、Center",
             mbti: "INFJ",
             blood: "A",
             nick: "巧克力貴賓(巧貴)、統營蜂蜜麵包",
-	    animal: "檸檬",
+			memo:"",
+	    	emoji: "🐶、🍋",
             color: "#47C83E (綠色)",
             img: "images/hyeongjun.jpg",
             ccrewName: "TEORI",
@@ -217,14 +231,15 @@
         },
         {
             id: "taeyoung",
-            name: "金太榮 Kim Tae Young",
-            krName: "김태영",
+            name: "金太榮",
+            krName: "김태영 Kim Tae Young",
             birth: "2003.1.27",
             pos: "領舞、副唱、忙內",
             mbti: "ENFP",
             blood: "AB",
             nick: "",
-	    animal: "狐狸",
+			memo:"",
+	    	emoji: "🦊",
             color: "#0DB4A0 (藍綠色)",
             img: "images/taeyoung.jpg",
             ccrewName: "YONG-T",
@@ -233,14 +248,15 @@
 
         {
             id: "seongmin",
-            name: "安性珉 An Seong Min",
-            krName: "안성민",
+            name: "安性珉",
+            krName: "안성민 An Seong Min",
             birth: "2003.8.1",
             pos: "副唱、忙內",
             mbti: "ISTP",
             blood: "O",
-            nick: "",
-	    animal: "企鵝",
+            nick: "咚",
+			memo:"",
+	    	emoji: "兔子",
             color: "#FFBB00 (黃色)",
             img: "images/seongmin.jpg",
             ccrewName: "TOMMY",
@@ -262,9 +278,10 @@
                     <li><b>定位：</b>${m.pos}</li>
                     <li><b>MBTI：</b>${m.mbti}</li>
                     <li><b>血型：</b>${m.blood}型</li>
-		    <li><b>代表emoji：</b>${m.animal}</li>
+		    		<li><b>代表emoji：</b>${m.emoji}</li>
                     <li><b>代表色：</b>${m.color}</li>
-                    <li><b>綽號：</b>${m.nick}</li>
+                    <li><b>稱呼：</b>${m.nick}<br>
+					<p>${m.memo}</p></li>
                 </ul>
             </div>
             <div class="ccrew-box">
@@ -273,10 +290,11 @@
                     <h4>CCREW: ${m.ccrewName}</h4>
                 </div>
             </div>
-            <a href="activity_${m.id}.html" class="btn-activity">查看個人活動</a>
+            <a href="activity_member.html?member={m.id}" class="btn-activity">查看個人活動</a>
         `;
         listContainer.appendChild(card);
     });
 </script>
 </body>
+
 </html>
