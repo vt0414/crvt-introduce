@@ -98,13 +98,6 @@ nav ul li a:hover {
     -webkit-text-fill-color: transparent;
 }
 
-.tagline {
-    font-size: 1.2rem;
-    letter-spacing: 5px;
-    margin-bottom: 30px;
-    opacity: 0.8;
-}
-
 /* 團體事件 - 時間軸 */
 .section-title {
     font-size: 2.5rem;
@@ -112,20 +105,50 @@ nav ul li a:hover {
     position: relative;
 }
 
-.timeline {
-    border-left: 3px solid var(--main-purple);
-    padding-left: 30px;
-    max-width: 600px;
+/* 2. 團體事件 - 時間軸區塊 */
+.timeline-container {
+    width: 100%;
+    max-width: 700px; /* 固定寬度 */
+    max-height: 500px; /* 固定高度，超過則顯示滾動條 */
+    overflow-y: auto; /* 開啟垂直滾動 */
+    padding: 30px 20px 30px 60px; /* 留出左側給點點空間 */
+    background: rgba(255, 255, 255, 0.3); /* 輕微透明背景 */
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    
+    /* 自訂捲軸樣式 (夢幻紫) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--main-purple) transparent;
 }
 
+/* Chrome/Edge/Safari 的滾動條樣式 */
+.timeline-container::-webkit-scrollbar {
+    width: 6px;
+}
+.timeline-container::-webkit-scrollbar-thumb {
+    background-color: var(--main-purple);
+    border-radius: 10px;
+}
+.timeline-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.timeline {
+    border-left: 3px solid var(--main-purple);
+    position: relative;
+}
+
+/* 確保時間軸點點位置正確 */
 .timeline-item {
     position: relative;
     margin-bottom: 40px;
+    padding-left: 20px;
 }
 
 .timeline-dot {
     position: absolute;
-    left: -41.5px;
+    left: -31.5px; /* 根據邊距微調 */
     width: 20px;
     height: 20px;
     background: var(--main-purple);
@@ -181,4 +204,5 @@ select {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.2); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
+
 }
