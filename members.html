@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>CRAVITY Members & CCREW</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            padding: 50px 8%;
+        }
+
+        .member-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(171, 71, 188, 0.2);
+        }
+
+        /* 成員照片與基本資訊 */
+        .member-photo {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+        }
+
+        .info-content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .info-content h3 {
+            margin: 0;
+            color: #4a148c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .korean-name { font-size: 0.9rem; opacity: 0.7; }
+
+        .details-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            line-height: 1.8;
+        }
+
+        .details-list li b { color: #ab47bc; }
+
+        /* CCREW 區塊 */
+        .ccrew-box {
+            background: rgba(255, 255, 255, 0.4);
+            margin: 10px;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px dashed #ab47bc;
+        }
+
+        .ccrew-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .ccrew-info h4 { margin: 0; font-size: 0.9rem; color: #4a148c; }
+        .ccrew-info p { margin: 0; font-size: 0.75rem; color: #666; }
+
+        .btn-activity {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            background: var(--main-purple);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-activity:hover { background: var(--dark-purple); }
+    </style>
+</head>
+<body>
+
+<nav></nav>
+
+<header style="text-align: center; padding: 60px 0;">
+    <h1 style="color: #4a148c; letter-spacing: 5px;">CRAVITY STARS</h1>
+    <p>9 位成員與他們的 CCREW 夥伴</p>
+</header>
+
+<main class="members-grid" id="members-list">
+    </main>
+
+<script>
+    const members = [
+        {
+            id: "serim",
+            name: "朴世琳 Park Se Rim",
+            krName: "박세림",
+            birth: "1999.03.03",
+            pos: "隊長(前),主Rapper",
+            mbti: "ENFJ",
+            blood: "A",
+            nick: "朴豬豬",
+	    animal: "狼、豬",
+            color: "#FF8772 (珊瑚色)",
+            img: "images/serim.jpg",
+            ccrewName: "WOOLPI",
+            ccrewImg: "images/ccrew_woolpi.jpg",
+        },
+        {
+            id: "allen",
+            name: "馬蒔權 Allen",
+            krName: "마시권",
+            birth: "1999.4.26",
+            pos: "主Rapper,主舞",
+            mbti: "ISFJ",
+            blood: "A",
+            nick: "",
+	    animal: "企鵝",
+            color: "#CC3D3D (紅色)",
+            img: "images/allen.jpg",
+            ccrewName: "QUEENI",
+            ccrewImg: "images/ccrew_queeni.jpg",
+        },
+        {
+            id: "jungmo",
+            name: "具廷謨 Koo Jung Mo",
+            krName: "구정모",
+            birth: "2000.2.5",
+            pos: "領唱",
+            mbti: "INTP",
+            blood: "B",
+            nick: "",
+	    animal: "貓",
+            color: "#E00096 (洋紅色)",
+            img: "images/jungmo.jpg",
+            ccrewName: "RANGMO",
+            ccrewImg: "images/ccrew_rangmo.jpg",
+        },
+        {
+            id: "woobin",
+            name: "徐宇璸 Seo Woo Bin",
+            krName: "서우빈",
+            birth: "2000.10.16",
+            pos: "主唱",
+            mbti: "ISTP",
+            blood: "B",
+            nick: "",
+	    animal: "短尾矮袋鼠、熊",
+            color: "#FF5E00 (橘色)",
+            img: "images/woobin.jpg",
+            ccrewName: "WOOKA",
+            ccrewImg: "images/ccrew_wooka.jpg",
+        },
+        {
+            id: "wonjin",
+            name: "咸元進 Ham Won Jin",
+            krName: "함원진",
+            birth: "2001.3.22",
+            pos: "隊長、領唱、領舞",
+            mbti: "ENFP",
+            blood: "O",
+            nick: "",
+	    animal: "小雞",
+            color: "#A366FF (紫色)",
+            img: "images/wonjin.jpg",
+            ccrewName: "DAKONG",
+            ccrewImg: "images/ccrew_dakong.jpg",
+        },
+        {
+            id: "minhee",
+            name: "姜珉熙 Kang Min Hee",
+            krName: "강민희",
+            birth: "2002.9.17",
+            pos: "領唱",
+            mbti: "ISTP",
+            blood: "AB",
+            nick: "土豆、馬爾濟斯",
+	    animal: "狗",
+            color: "#050099 (藍色)",
+            img: "images/minhee.jpg",
+            ccrewName: "KANGMONG",
+            ccrewImg: "images/ccrew_kangmong.jpg",
+        },
+        {
+            id: "hyeongjun",
+            name: "宋刑準 Song Hyeong Jun",
+            krName: "송형준",
+            birth: "2002.11.30",
+            pos: "隊長、主舞、副唱、Center",
+            mbti: "INFJ",
+            blood: "A",
+            nick: "巧克力貴賓(巧貴)、統營蜂蜜麵包",
+	    animal: "檸檬",
+            color: "#47C83E (綠色)",
+            img: "images/hyeongjun.jpg",
+            ccrewName: "TEORI",
+            ccrewImg: "images/ccrew_teori.jpg",
+        },
+        {
+            id: "taeyoung",
+            name: "金太榮 Kim Tae Young",
+            krName: "김태영",
+            birth: "2003.1.27",
+            pos: "領舞、副唱、忙內",
+            mbti: "ENFP",
+            blood: "AB",
+            nick: "",
+	    animal: "狐狸",
+            color: "#0DB4A0 (藍綠色)",
+            img: "images/taeyoung.jpg",
+            ccrewName: "YONG-T",
+            ccrewImg: "images/ccrew_yongT.jpg",
+        },
+
+        {
+            id: "seongmin",
+            name: "安性珉 An Seong Min",
+            krName: "안성민",
+            birth: "2003.8.1",
+            pos: "副唱、忙內",
+            mbti: "ISTP",
+            blood: "O",
+            nick: "",
+	    animal: "企鵝",
+            color: "#FFBB00 (黃色)",
+            img: "images/seongmin.jpg",
+            ccrewName: "TOMMY",
+            ccrewImg: "images/ccrew_tommy.jpg",
+        },
+    ];
+
+    const listContainer = document.getElementById('members-list');
+
+    members.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'member-card';
+        card.innerHTML = `
+            <img src="${m.img}" class="member-photo" alt="${m.name}">
+            <div class="info-content">
+                <h3>${m.name} <span class="korean-name">${m.krName}</span></h3>
+                <ul class="details-list">
+                    <li><b>生日：</b>${m.birth}</li>
+                    <li><b>定位：</b>${m.pos}</li>
+                    <li><b>MBTI：</b>${m.mbti}</li>
+                    <li><b>血型：</b>${m.blood}型</li>
+		    <li><b>代表emoji：</b>${m.animal}</li>
+                    <li><b>代表色：</b>${m.color}</li>
+                    <li><b>綽號：</b>${m.nick}</li>
+                </ul>
+            </div>
+            <div class="ccrew-box">
+                <img src="${m.ccrewImg}" class="ccrew-img" alt="${m.ccrewName}">
+                <div class="ccrew-info">
+                    <h4>CCREW: ${m.ccrewName}</h4>
+                </div>
+            </div>
+            <a href="activity_${m.id}.html" class="btn-activity">查看個人活動</a>
+        `;
+        listContainer.appendChild(card);
+    });
+</script>
+</body>
+</html>
