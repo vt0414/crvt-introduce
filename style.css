@@ -1,0 +1,184 @@
+/* 基礎設定 */
+:root {
+    --bg-light: #fdfcfb;
+    --main-purple: #ab47bc;
+    --soft-pink: #f3e5f5;
+    --dark-purple: #4a148c;
+    --glass: rgba(255, 255, 255, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    background: linear-gradient(135deg, #fdfcfb 0%, #e2d1f9 100%);
+    color: var(--dark-purple);
+    overflow-x: hidden;
+}
+
+/* 宇宙星星背景效果 */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(226, 209, 249, 0.2) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 導覽列 */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10%;
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+}
+
+nav .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: var(--main-purple);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--dark-purple);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--main-purple);
+}
+
+/* 共用區塊樣式 */
+.section {
+    padding: 100px 10%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(171, 71, 188, 0.1);
+}
+
+/* 團體介紹區 */
+.hero h1 {
+    font-size: 4rem;
+    margin: 0;
+    background: linear-gradient(to right, #6a1b9a, #ab47bc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+    opacity: 0.8;
+}
+
+/* 團體事件 - 時間軸 */
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.timeline {
+    border-left: 3px solid var(--main-purple);
+    padding-left: 30px;
+    max-width: 600px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -41.5px;
+    width: 20px;
+    height: 20px;
+    background: var(--main-purple);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--main-purple);
+}
+
+/* CP 介紹區 */
+.cp-container {
+    width: 100%;
+    max-width: 900px;
+}
+
+.cp-picker {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.circle-frame {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid white;
+    box-shadow: 0 0 25px rgba(171, 71, 188, 0.2);
+    margin-bottom: 20px;
+    transition: 0.5s;
+}
+
+.circle-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+select {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--main-purple);
+    background: white;
+    color: var(--dark-purple);
+    outline: none;
+}
+
+.plus-sign {
+    font-size: 3rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
