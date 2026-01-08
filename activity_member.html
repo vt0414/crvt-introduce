@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAVITY | Member Activity</title>
+    <style>
+        /* --- 1. 宇宙夢幻粉紫風格設定 --- */
+        :root {
+            --bg-color: #fdfcfb;
+            --main-purple: #ab47bc;
+            --dark-purple: #4a148c;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --star-color: #e1bee7;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1f9 100%);
+            color: var(--dark-purple);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- 2. 導覽列與標題 --- */
+        header {
+            padding: 40px 10%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px 20px;
+            background: white;
+            border: 1px solid var(--main-purple);
+            border-radius: 50px;
+            cursor: pointer;
+            color: var(--main-purple);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--main-purple);
+            color: white;
+            box-shadow: 0 0 15px var(--star-color);
+        }
+
+        #member-name-title {
+            font-size: 2.5rem;
+            letter-spacing: 5px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        /* --- 3. 活動區塊佈局 --- */
+        #activity-app {
+            padding: 40px 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .program-section {
+            margin-bottom: 60px;
+            padding: 0 5%;
+        }
+
+        .program-header {
+            margin-bottom: 20px;
+            border-left: 6px solid var(--main-purple);
+            padding-left: 15px;
+        }
+
+        .program-title {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        /* --- 4. 橫向滑動卡片 --- */
+        .cards-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 20px 10px;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory; /* 強制對齊 */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 隱藏滾動條但保持功能 */
+        .cards-wrapper::-webkit-scrollbar { height: 8px; }
+        .cards-wrapper::-webkit-scrollbar-thumb { background: var(--star-color); border-radius: 10px; }
+
+        .activity-card {
+            flex: 0 0 320px; /* 固定寬度 */
+            scroll-snap-align: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px rgba(171, 71, 188, 0.1);
+            transition: 0.4s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(171, 71, 188, 0.2);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-ep {
+            font-size: 0.85rem;
+            color: var(--main-purple);
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            margin: 0 0 15px 0;
+            height: 2.8rem; /* 限制標題高度維持整齊 */
+            overflow: hidden;
+        }
+
+        .card-meta {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .yt-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: var(--main-purple);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .yt-btn:hover { background: var(--dark-purple); }
+
+        .loading { text-align: center; font-size: 1.5rem; margin-top: 100px; }
+
+        /* 手機適應 */
+        @media (max-width: 600px) {
+            .activity-card { flex: 0 0 85vw; }
+            #member-name-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="back-btn" onclick="location.href='members.html'">← 成員列表</button>
+        <h1 id="member-name-title">LOADING...</h1>
+        <p>ACTIVITY LOG</p>
+    </header>
+
+    <main id="activity-app">
+        <div class="loading">正在穿梭星系抓取活動資料...</div>
+    </main>
+
+    <script>
+        // 1. 配置你的 API 網址 (填入你的 Sheety URL)
+        const SHEET_API = 'https://api.sheety.co/你的ID/cravity/activities';
+
+        // 2. 啟動頁面邏輯
+        async function loadActivity() {
+            const app = document.getElementById('activity-app');
+            const title = document.getElementById('member-name-title');
+
+            // 抓取網址參數 ?member=serim
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentMember = urlParams.get('member');
+
+            if (!currentMember) {
+                app.innerHTML = '<div class="loading">未指定成員，請返回列表</div>';
+                return;
+            }
+
+            title.innerText = currentMember.toUpperCase();
+
+            try {
+                // 抓取 Google Sheet 資料
+                const response = await fetch(SHEET_API);
+                const data = await response.json();
+                
+                // 注意：Sheety 的 JSON 結構通常是 { "activities": [...] }
+                const allActivities = data.activities;
+
+                // A. 根據 memberId 過濾資料
+                const memberData = allActivities.filter(item => item.memberId === currentMember);
+
+                if (memberData.length === 0) {
+                    app.innerHTML = '<div class="loading">目前尚無活動資料更新</div>';
+                    return;
+                }
+
+                // B. 按 Category (節目大分類) 分組
+                const grouped = memberData.reduce((acc, obj) => {
+                    const key = obj.cattitle;
+                    if (!acc[key]) acc[key] = [];
+                    acc[key].push(obj);
+                    return acc;
+                }, {});
+
+                // C. 渲染 HTML
+                app.innerHTML = ''; // 清除 loading
+                for (const category in grouped) {
+                    const section = document.createElement('section');
+                    section.className = 'program-section';
+                    
+                    section.innerHTML = `
+                        <div class="program-header">
+                            <h2 class="program-title">${category}</h2>
+                        </div>
+                        <div class="cards-wrapper">
+                            ${grouped[title].map(item => `
+                                <div class="activity-card">
+                                    <img src="${item.imageUrl}" class="card-img" onerror="this.src='https://via.placeholder.com/320x180?text=No+Image'">
+                                    <div class="card-body">
+                                        <div class="card-ep">${item.subTitle}</div>
+                                        <div class="card-meta">
+                                            <div>👥 參與：${item.cast}</div>
+                                            <div>📅 時間：${item.date}</div>
+                                        </div>
+                                        <a href="${item.videoUrl}" target="_blank" class="yt-btn">WATCH SOURCE</a>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    app.appendChild(section);
+                }
+
+            } catch (err) {
+                console.error(err);
+                app.innerHTML = '<div class="loading">宇宙訊號微弱，請確認 Sheet API 設定</div>';
+            }
+        }
+
+        loadActivity();
+    </script>
+</body>
+</html>
