@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAVITY Universe | Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <nav>
+        <div class="logo">CRAVITY</div>
+        <ul>
+            <li><a href="#intro">團體介紹</a></li>
+            <li><a href="#events">團體事件</a></li>
+            <li><a href="#cp-zone">CP介紹</a></li>
+            <li><a href="members.html">成員介紹</a></li>
+        </ul>
+    </nav>
+
+    <header id="intro" class="section hero">
+        <div class="glass-card">
+            <h1>CRAVITY</h1>
+            <p class="tagline">Center of Gravity · Creativity</p>
+            <p class="description">
+                CRAVITY 是由韓國 Starship 娛樂於 2020 年推出的九人男子團體。<br>
+                成員包括：世琳、Allen、廷謨、宇璸、元進、熙特、泰英、性珉、憲泰。<br>
+                團名寓意著「重力中心」，也代表著用「創意」將你吸引進我們的宇宙。
+            </p>
+            <div class="fandom">LUVITY : 愛與引力的交集</div>
+        </div>
+    </header>
+
+    <section id="events" class="section">
+        <h2 class="section-title">MILSTONES</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>2020.04.14</h3>
+                    <p>正式出道 - 迷你一輯《HIDEOUT: REMEMBER WHO WE ARE》</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>2020.09.01</h3>
+                    <p>憑藉〈Flame〉獲得出道後首個音樂節目一位</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>2022.09.27</h3>
+                    <p>發行迷你四輯《NEW WAVE》，展現清爽活力風格</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cp-zone" class="section cp-section">
+        <h2 class="section-title">GRAVITY ORBIT</h2>
+        <div class="cp-container">
+            <div class="cp-picker">
+    <div class="member-box">
+        <div class="circle-frame">
+            <img id="left-img" src="" alt="Member Left">
+        </div>
+        <select id="left-select" onchange="handleLeftChange()"></select> 
+    </div>
+
+    <div class="plus-sign">💜</div>
+
+    <div class="member-box">
+        <div class="circle-frame">
+            <img id="right-img" src="" alt="Member Right">
+        </div>
+        <select id="right-select" onchange="updateCP()"></select>
+    </div>
+</div>
+
+            <div class="cp-display glass-card">
+                <h3 id="cp-name">選擇兩位成員</h3>
+                <p id="cp-desc">探索他們之間的化學反應...</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+const members = [
+    { id: "serim", name: "世琳 Serim", img: "images/serim.jpg" },
+    { id: "allen", name: "蒔權 Allen", img: "images/allen.jpg" },
+    { id: "jungmo", name: "廷謨 Jungmo", img: "images/jungmo.jpg" },
+    { id: "woobin", name: "宇璸 Woobin", img: "images/woobin.jpg" },
+    { id: "wonjin", name: "元進 Wonjin", img: "images/wonjin.jpg" },
+    { id: "minhee", name: "珉熙 Minhee", img: "images/minhee.jpg" },
+    { id: "hyeongjun", name: "刑準 Hyeongjun", img: "images/hyeongjun.jpg" },
+    { id: "taeyoung", name: "太榮 Taeyoung", img: "images/taeyoung.jpg" },
+    { id: "sungmin", name: "性珉 Sungmin", img: "images/sungmin.jpg" }
+];
+
+        const cpData = {
+    "serim-allen": { name: "99z", desc: "同為1999年生。" },
+            "serim-jungmo": { name: "炸豬排z", desc: "因世琳曾連續一周陪廷謨吃炸豬排。" },
+            "serim-woobin": { name: "宇琳z", desc: "名字組合。" },
+            "serim-wonjin": { name: "大王泡泡糖z", desc: "出道showcase時，世琳被說項大王泡泡糖一樣黏著元進。" },
+            "serim-minhee": { name: "??", desc: "XXX。" },
+            "serim-hyeongjun": { name: "世宋z", desc: "名字組合。" },
+            "serim-taeyoung": { name: "玫瑰z", desc: "都喜歡玫瑰。" },
+            "serim-sungmin": { name: "大忙z", desc: "為團內年紀最大的跟最小的。" },
+    "allen-jungmo": { name: "艾謨z", desc: "名字組合。" },
+            "allen-woobin": { name: "??", desc: "XXX。" },
+            "allen-wonjin": { name: "明太魚z", desc: "都是厚嘴唇像名太魚一樣。" },
+            "allen-minhee": { name: "積極z、尷尬z", desc: "在節目曾被成員戲稱是尷尬的關係。" },
+            "allen-hyeongjun":{ name: "艾刑", desc: "名字組合。" },
+            "allen-taeyoung": { name: "倫太", desc: "XXX。" },
+            "allen-sungmin": { name: "治癒z", desc: "XXX。" },
+    "jungmo-woobin": { name: "00z", desc: "同為2000年生。" },
+            "jungmo-wonjin": { name: "番茄z", desc: "因元進曾說不喜歡吃番茄，廷謨說會幫他吃掉。" },
+            "jungmo-minhee": { name: "米尼謨", desc: "名字組合。" },
+            "jungmo-hyeongjun":{ name: "嘟囔z", desc: "因講話都會嘟嘟囔囔的說不清楚。" },
+            "jungmo-taeyoung": { name: "貓咪z", desc: "同為貓塑。" },
+            "jungmo-sungmin": { name: "咚具z", desc: "性珉因屁股翹而被成員愛稱咚。" },
+    "woobin-wonjin": { name: "??", desc: "XXX。" },
+            "woobin-minhee": { name: "冬季z", desc: "同為冬季出生。" },
+            "woobin-hyeongjun":{ name: "Honeyz", desc: "因宇璸的聲音世蜜嗓，刑準為統營蜂蜜麵包。" },
+            "woobin-taeyoung": { name: "??", desc: "XXX。" },
+            "woobin-sungmin": { name: "??", desc: "XXX。" },
+    "wonjin-minhee": { name: "棒球z", desc: "都喜歡打棒球。" },
+            "wonjin-hyeongjun":{ name: "乒乓z", desc: "曾在節目中說彼此的關係像乒乓球一樣。" },
+            "wonjin-taeyoung": { name: "淘氣鬼z", desc: "XXX。" },
+            "wonjin-sungmin": { name: "O型z", desc: "都是O型血。" },
+    "minhee-hyeongjun":{ name: "狗狗z", desc: "同為狗塑，珉熙為馬爾濟斯，刑準為巧克力貴賓。" },
+            "minhee-taeyoung": { name: "ABz", desc: "同為AB型血。" },
+            "minhee-sungmin": { name: "Miniz", desc: "名字組合。" },
+    "hyeongjun-taeyoung": { name: "大眼z", desc: "眼睛都很大。" },
+            "hyeongjun-sungmin": { name: "枕頭z", desc: "XXX。" },
+    "taeyoung-sungmin": { name: "忙內z", desc: "同為2003年生，隊內最小。" },
+};
+
+// 初始化
+window.onload = () => {
+    initLeftSelect();
+    handleLeftChange(); // 初始化右邊選單
+};
+
+// 1. 生成左邊所有成員
+function initLeftSelect() {
+    const leftSelect = document.getElementById('left-select');
+    members.forEach(m => {
+        let opt = new Option(m.name, m.id);
+        leftSelect.add(opt);
+    });
+}
+
+// 2. 當左邊改變：更新左圖，並重新生成「過濾後」的右邊選單
+function handleLeftChange() {
+    const leftVal = document.getElementById('left-select').value;
+    const rightSelect = document.getElementById('right-select');
+    
+    // 更新左圖
+    document.getElementById('left-img').src = members.find(m => m.id === leftVal).img;
+
+    // 清空並重新生成右邊（排除左邊選中的人）
+    const currentRightVal = rightSelect.value; 
+    rightSelect.innerHTML = "";
+    
+    members.filter(m => m.id !== leftVal).forEach(m => {
+        let opt = new Option(m.name, m.id);
+        rightSelect.add(opt);
+    });
+
+    // 盡量保留原本右邊選的人
+    if (currentRightVal && currentRightVal !== leftVal) {
+        rightSelect.value = currentRightVal;
+    }
+
+    updateCP();
+}
+
+// 3. 更新右圖與 CP 文字
+function updateCP() {
+    const left = document.getElementById('left-select').value;
+    const right = document.getElementById('right-select').value;
+    
+    if (right) {
+        document.getElementById('right-img').src = members.find(m => m.id === right).img;
+    }
+
+    // 更新文字邏輯 (同前一個回答的 cpData 邏輯)
+    const cpName = document.getElementById('cp-name');
+    const cpDesc = document.getElementById('cp-desc');
+    const key = [left, right].sort().join('-');
+
+    if (cpData[key]) {
+        cpName.innerText = cpData[key].name;
+        cpDesc.innerText = cpData[key].desc;
+    } else {
+        cpName.innerText = "探索引力";
+        cpDesc.innerText = "這兩位成員正展現著獨特的組合魅力！";
+    }
+}
+</script>
+</body>
+
+</html>
