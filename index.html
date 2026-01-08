@@ -3,40 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAVITY Universe | Home</title>
+    <title>CRAVITY | Home</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="stars"></div>
 
-    <nav>
-        <div class="logo">CRAVITY</div>
+  <nav>
+        <div class="logo">CRAVITY 團體介紹</div>
         <ul>
-            <li><a href="#intro">團體介紹</a></li>
-            <li><a href="#events">團體事件</a></li>
-            <li><a href="#cp-zone">CP介紹</a></li>
-            <li><a href="members.html">成員介紹</a></li>
+            <li><a href="index.html">團體介紹</a></li>
+	        <li><a href="members.html">成員介紹</a></li>
+            <li><a href="discography.html">打歌活動</a></li>
+            <li><a href="variety.html">綜藝活動</a></li>
         </ul>
     </nav>
 
     <header id="intro" class="section hero">
         <div class="glass-card">
             <h1>CRAVITY</h1>
-            <p class="tagline">Center of Gravity · Creativity</p>
             <p class="description">
-                CRAVITY 是由韓國 Starship 娛樂於 2020 年推出的九人男子團體。<br>
-                成員包括：世琳、Allen、廷謨、宇璸、元進、熙特、泰英、性珉、憲泰。<br>
-                團名寓意著「重力中心」，也代表著用「創意」將你吸引進我們的宇宙。
+                韓國 Starship 娛樂於 2020 年 4 月 14 日推出的九人男子團體。<br>
+                團名是由「Creativity」和「Gravity」組成，<br>
+                有將大眾吸引進我們的宇宙、平行世界的含意，擁有獨一無二的色彩。
+                同時也是「重力中心」(Center of Gravity）的縮寫，<br>
+                組合成員聚集一起形成完美平衡，就像大家合力完成完美舞台一樣。
+                2025年6月4日後，團名意義變更為「Crave」和「Gravity」組成。
             </p>
             <div class="fandom">LUVITY : 愛與引力的交集</div>
         </div>
     </header>
 
-    <section id="events" class="section">
-        <h2 class="section-title">MILSTONES</h2>
+   <section id="events" class="section">
+    <h2 class="section-title">MILESTONES</h2>
+    
+    <div class="timeline-container">
         <div class="timeline">
-            <div class="timeline-item">
+             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <h3>2020.04.14</h3>
@@ -46,20 +50,29 @@
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <h3>2020.09.01</h3>
-                    <p>憑藉〈Flame〉獲得出道後首個音樂節目一位</p>
+                    <h3>2020.05.11</h3>
+                    <p>粉絲名正式確認為「Luvity」，意為愛與引力的交集。</p>
                 </div>
             </div>
             <div class="timeline-item">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <h3>2022.09.27</h3>
-                    <p>發行迷你四輯《NEW WAVE》，展現清爽活力風格</p>
+                    <h3>2025.06.04</h3>
+                    <p>1.隊長由世琳變更為元進&刑準雙隊長<br>
+                    2.團名意義變更為「Crave」和「Gravity」<br>
+                    3.Logo變更</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>2024.XX.XX</h3>
+                    <p>未來更多重要的里程碑...</p>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <section id="cp-zone" class="section cp-section">
         <h2 class="section-title">GRAVITY ORBIT</h2>
         <div class="cp-container">
@@ -101,43 +114,56 @@ const members = [
     { id: "sungmin", name: "性珉 Sungmin", img: "images/sungmin.jpg" }
 ];
 
-        const cpData = {
-    "serim-allen": { name: "99z", desc: "同為1999年生。" },
-            "serim-jungmo": { name: "炸豬排z", desc: "因世琳曾連續一周陪廷謨吃炸豬排。" },
-            "serim-woobin": { name: "宇琳z", desc: "名字組合。" },
-            "serim-wonjin": { name: "大王泡泡糖z", desc: "出道showcase時，世琳被說項大王泡泡糖一樣黏著元進。" },
-            "serim-minhee": { name: "??", desc: "XXX。" },
-            "serim-hyeongjun": { name: "世宋z", desc: "名字組合。" },
-            "serim-taeyoung": { name: "玫瑰z", desc: "都喜歡玫瑰。" },
-            "serim-sungmin": { name: "大忙z", desc: "為團內年紀最大的跟最小的。" },
-    "allen-jungmo": { name: "艾謨z", desc: "名字組合。" },
-            "allen-woobin": { name: "??", desc: "XXX。" },
-            "allen-wonjin": { name: "明太魚z", desc: "都是厚嘴唇像名太魚一樣。" },
-            "allen-minhee": { name: "積極z、尷尬z", desc: "在節目曾被成員戲稱是尷尬的關係。" },
-            "allen-hyeongjun":{ name: "艾刑", desc: "名字組合。" },
-            "allen-taeyoung": { name: "倫太", desc: "XXX。" },
-            "allen-sungmin": { name: "治癒z", desc: "XXX。" },
-    "jungmo-woobin": { name: "00z", desc: "同為2000年生。" },
-            "jungmo-wonjin": { name: "番茄z", desc: "因元進曾說不喜歡吃番茄，廷謨說會幫他吃掉。" },
-            "jungmo-minhee": { name: "米尼謨", desc: "名字組合。" },
-            "jungmo-hyeongjun":{ name: "嘟囔z", desc: "因講話都會嘟嘟囔囔的說不清楚。" },
-            "jungmo-taeyoung": { name: "貓咪z", desc: "同為貓塑。" },
-            "jungmo-sungmin": { name: "咚具z", desc: "性珉因屁股翹而被成員愛稱咚。" },
-    "woobin-wonjin": { name: "??", desc: "XXX。" },
-            "woobin-minhee": { name: "冬季z", desc: "同為冬季出生。" },
-            "woobin-hyeongjun":{ name: "Honeyz", desc: "因宇璸的聲音世蜜嗓，刑準為統營蜂蜜麵包。" },
-            "woobin-taeyoung": { name: "??", desc: "XXX。" },
-            "woobin-sungmin": { name: "??", desc: "XXX。" },
-    "wonjin-minhee": { name: "棒球z", desc: "都喜歡打棒球。" },
-            "wonjin-hyeongjun":{ name: "乒乓z", desc: "曾在節目中說彼此的關係像乒乓球一樣。" },
-            "wonjin-taeyoung": { name: "淘氣鬼z", desc: "XXX。" },
-            "wonjin-sungmin": { name: "O型z", desc: "都是O型血。" },
-    "minhee-hyeongjun":{ name: "狗狗z", desc: "同為狗塑，珉熙為馬爾濟斯，刑準為巧克力貴賓。" },
-            "minhee-taeyoung": { name: "ABz", desc: "同為AB型血。" },
-            "minhee-sungmin": { name: "Miniz", desc: "名字組合。" },
+const cpData = {
+    // A 字頭
+    "allen-hyeongjun": { name: "艾刑/Alhyung", desc: "名字組合。" },
+    "allen-jungmo": { name: "艾謨/Almo", desc: "名字組合，VITY PARK第一集使用的隊名。" },
+    "allen-minhee": { name: "積極z、尷尬z", desc: "在節目曾被成員戲稱是尷尬的關係。" },
+    "allen-serim": { name: "99z、Rapper line", desc: "同為 1999 年生、Rapper line則因定位同為Rap。" },
+    "allen-sungmin": { name: "Healingz/治癒z", desc: "溫暖人心的組合。" },
+    "allen-taeyoung": { name: "倫太", desc: "名字組合。" },
+    "allen-wonjin": { name: "明太魚z", desc: "同為厚嘴唇，像明太魚一樣。" },
+    "allen-woobin": { name: "Rupeng", desc: "Ruby與企鵝(Penguin)。" },
+
+    // H 字頭
+    "hyeongjun-jungmo": { name: "嘟囔z", desc: "因講話都會嘟嘟囔囔的說不清楚。" },
+    "hyeongjun-minhee": { name: "狗狗z、02z", desc: "同為狗塑，珉熙為馬爾濟斯，刑準為巧克力貴賓，02z則因同為2002年生。" },
+    "hyeongjun-serim": { name: "世宋世宋", desc: "名字組合。" },
+    "hyeongjun-sungmin": { name: "枕頭z", desc: "曾在CRAVITY PARK中出現了關於丟枕頭的對話而誕生的組合名。" },
     "hyeongjun-taeyoung": { name: "大眼z", desc: "眼睛都很大。" },
-            "hyeongjun-sungmin": { name: "枕頭z", desc: "XXX。" },
-    "taeyoung-sungmin": { name: "忙內z", desc: "同為2003年生，隊內最小。" },
+    "hyeongjun-wonjin": { name: "乒乓z", desc: "曾在節目中說彼此有如乒乓球一般你來我往的默契。" },
+    "hyeongjun-woobin": { name: "Honeyz", desc: "宇璸是甜美蜜嗓，刑準是統營蜂蜜麵包。" },
+
+    // J 字頭
+    "jungmo-minhee": { name: "米尼謨/Minimo", desc: "名字組合。" },
+    "jungmo-serim": { name: "炸豬排z", desc: "因世琳曾連續一周陪廷謨吃炸豬排。" },
+    "jungmo-sungmin": { name: "咚具z", desc: "性珉的愛稱「咚」與廷謨名字的組合。" },
+    "jungmo-taeyoung": { name: "永久z/榮具z、貓貓z", desc: "韓文中榮具與永久同音，取自兩人名字，貓貓z則因同為貓塑組合。" },
+    "jungmo-wonjin": { name: "Tomatoz/番茄z", desc: "元進不喜歡吃番茄，廷謨說會幫他吃掉。" },
+    "jungmo-woobin": { name: "00z、B型z", desc: "同為 2000 年生，B型z則因同為 B 型血。" },
+
+    // M 字頭
+    "minhee-serim": { name: "啾啾z", desc: "源自韓文的狗狗主人견주與瑪爾濟斯말티쥬，指在活潑好動的瑪爾濟斯狀態的珉熙與像主人一樣制服他的世琳。" },
+    "minhee-sungmin": { name: "Miniz", desc: "名字組合。" },
+    "minhee-taeyoung": { name: "ABz", desc: "同為 AB 型血。" },
+    "minhee-wonjin": { name: "棒球z、Minionz/小小兵z", desc: "都喜歡打棒球，Minionz/小小兵z則為名字組合。" },
+    "minhee-woobin": { name: "冬季z", desc: "一起翻唱EXO的〈12月的奇蹟〉。" },
+
+    // S 字頭
+    "serim-sungmin": { name: "大忙z", desc: "團內年紀最大與最小的組合。" },
+    "serim-taeyoung": { name: "玫瑰z", desc: "兩人都非常喜歡玫瑰。" },
+    "serim-wonjin": { name: "大王泡泡糖z", desc: "대지즈原意為「大王口香糖」之縮寫，指兩人都喜歡黏著成員們。" },
+    "serim-woobin": { name: "熱帶雨林z/雨林z", desc: "名字組合。" },
+    "sungmin-taeyoung": { name: "忙內z、03z", desc: "同為 2003 年生，隊內最小。" },
+    "sungmin-wonjin": { name: "O型z", desc: "同為 O 型血。" },
+    "sungmin-woobin": { name: "米其林z", desc: "大廚宇璸與美食家性珉，在直播中由粉絲決定的名字。" },
+
+    // T 字頭
+    "taeyoung-wonjin": { name: "淘氣鬼z", desc: "隊內最調皮的組合。" },
+    "taeyoung-woobin": { name: "波永/補染", desc: "CRAVITY PARK EP.1所抽到的單詞。" },
+
+    // W 字頭
+    "wonjin-woobin": { name: "風倍清z/音倍清z", desc: "探索中。" }
 };
 
 // 初始化
@@ -185,24 +211,29 @@ function updateCP() {
     const left = document.getElementById('left-select').value;
     const right = document.getElementById('right-select').value;
     
-    if (right) {
-        document.getElementById('right-img').src = members.find(m => m.id === right).img;
+    // 更新右邊頭像 (這部分維持原樣)
+    const rightMember = members.find(m => m.id === right);
+    if (rightMember) {
+        document.getElementById('right-img').src = rightMember.img;
     }
 
-    // 更新文字邏輯 (同前一個回答的 cpData 邏輯)
     const cpName = document.getElementById('cp-name');
     const cpDesc = document.getElementById('cp-desc');
-    const key = [left, right].sort().join('-');
+
+    // --- 排序 Key ---
+    const key = [left, right].sort().join('-'); 
+    console.log("當前組合 Key:", key); // 可以在控制台檢查組合名稱
 
     if (cpData[key]) {
         cpName.innerText = cpData[key].name;
         cpDesc.innerText = cpData[key].desc;
     } else {
-        cpName.innerText = "探索引力";
-        cpDesc.innerText = "這兩位成員正展現著獨特的組合魅力！";
+        cpName.innerText = "探索中";
+        cpDesc.innerText = "這兩位成員正展現著獨特的化學反應！";
     }
 }
 </script>
 </body>
 
 </html>
+
