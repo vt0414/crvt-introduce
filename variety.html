@@ -3,255 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAVITY | Variety & Media</title>
+    <title>CRAVITY 綜藝活動</title>
+    <link rel="stylesheet" href="style.css">
+    
     <style>
-        :root {
-            --main-purple: #ab47bc;
-            --dark-purple: #4a148c;
-            --glass: rgba(255, 255, 255, 0.6);
-        }
-
+        /* --- 確保背景不斷層 --- */
         body {
-            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1f9 100%);
-            font-family: 'PingFang TC', sans-serif;
-            color: var(--dark-purple);
+            background-attachment: fixed !important;
+            background-size: cover !important;
             margin: 0;
-            padding-bottom: 50px;
+            padding: 0;
         }
 
-        header { padding: 40px 5%; text-align: center; }
-
-        /* --- 搜尋篩選控制台 --- */
-        .filter-console {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            margin: 0 5% 40px 5%;
-            padding: 25px;
-            border-radius: 25px;
-            border: 1px solid white;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            box-shadow: 0 10px 30px rgba(171, 71, 188, 0.1);
+        /* --- 修正內容不被導覽列遮擋 (假設導覽列高約 60-80px) --- */
+        .main-content {
+            padding-top: 100px; 
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
-        .filter-group { display: flex; flex-direction: column; gap: 5px; }
-        .filter-group label { font-size: 0.8rem; font-weight: bold; color: var(--main-purple); }
-        
-        input, select {
-            padding: 10px;
-            border-radius: 12px;
-            border: 1px solid #e1bee7;
+        /* --- 搜尋欄樣式 --- */
+        .search-container {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        #varietySearch {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+            font-size: 16px;
             outline: none;
-            color: var(--dark-purple);
         }
 
-        /* --- 內容區塊 --- */
-        .category-section { padding: 0 5%; margin-bottom: 80px; }
-        .category-title { 
-            font-size: 2.2rem; 
-            letter-spacing: 3px;
-            border-bottom: 3px solid var(--main-purple);
-            display: inline-block;
-            margin-bottom: 30px;
+        /* --- 分類區塊樣式 --- */
+        .category-group { margin-bottom: 60px; }
+        .group-title {
+            font-size: 28px;
+            color: #ff0000; /* CRAVITY 代表色 */
+            border-left: 5px solid #ff0000;
+            padding-left: 15px;
+            margin-bottom: 25px;
         }
 
-        .variety-grid {
+        /* --- 卡片網格系統 --- */
+        .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 25px;
         }
 
-        /* --- 卡片樣式 --- */
-        .v-card {
-            background: var(--glass);
-            border-radius: 20px;
+        .variety-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             overflow: hidden;
-            border: 1px solid white;
+            transition: transform 0.3s;
+        }
+        .variety-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.1); }
+
+        .card-img { width: 100%; height: 180px; object-fit: cover; }
+        .card-body { padding: 20px; }
+        .v-subtitle { color: #00d2ff; font-size: 13px; font-weight: bold; }
+        .v-title { font-size: 18px; margin: 8px 0; color: #fff; line-height: 1.4; }
+        .v-info { font-size: 14px; color: #bbb; margin-bottom: 5px; }
+        .v-note { font-size: 12px; color: #888; font-style: italic; margin-top: 10px; }
+
+        .watch-btn {
+            display: block;
+            text-align: center;
+            background: #ff0000;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
             transition: 0.3s;
         }
-        .v-card:hover { transform: translateY(-10px); }
-        .v-img { width: 100%; height: 180px; object-fit: cover; }
-        .v-body { padding: 20px; }
-        .v-sub { color: var(--main-purple); font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; }
-        .v-title { font-size: 1.2rem; margin: 5px 0; height: 1.5em; overflow: hidden; }
-        .v-meta { font-size: 0.85rem; color: #555; line-height: 1.7; }
-        .v-note { font-size: 0.8rem; color: #888; font-style: italic; margin-top: 10px; }
-        .v-link {
-            display: block; text-align: center; margin-top: 15px; padding: 10px;
-            background: var(--main-purple); color: white; text-decoration: none; border-radius: 10px;
-        }
-
-        /* 隱藏不符合篩選的卡片 */
-        .hidden { display: none; }
-/* 導覽列 */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 10%;
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(10px);
-    z-index: 100;
-}
-
-nav .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    letter-spacing: 3px;
-    color: var(--main-purple);
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: var(--dark-purple);
-    font-weight: 500;
-    transition: 0.3s;
-}
-
-nav ul li a:hover {
-    color: var(--main-purple);
-}
-
-
+        .watch-btn:hover { background: #fff; color: #000; }
     </style>
 </head>
 <body>
- <nav>
+
+    <nav>
         <div class="logo">CRAVITY 綜藝活動</div>
         <ul>
             <li><a href="index.html">團體介紹</a></li>
-	    <li><a href="members.html">成員介紹</a></li>
+            <li><a href="members.html">成員介紹</a></li>
             <li><a href="discography.html">打歌活動</a></li>
             <li><a href="variety.html">綜藝活動</a></li>
         </ul>
     </nav>
-    <div class="filter-console">
-        <div class="filter-group">
-            <label>關鍵字搜尋</label>
-            <input type="text" id="search-text" placeholder="輸入 IdolRadio, 認識的哥哥..." oninput="filterData()">
+
+    <div class="main-content">
+        <div class="search-container">
+            <input type="text" id="varietySearch" placeholder="搜尋節目、標題或成員..." onkeyup="renderVariety()">
         </div>
-        <div class="filter-group">
-            <label>成員篩選</label>
-            <select id="search-member" onchange="filterData()">
-                <option value="">全部成員</option>
-                <option value="Cravity">全體</option>
-                <option value="世琳">世琳</option>
-                <option value="Allen">Allen</option>
-                <option value="廷謨">廷謨</option>
-                <option value="宇璸">宇璸</option>
-                <option value="元進">元進</option>
-                <option value="珉熙">珉熙</option>
-		<option value="刑準">刑準</option>
-                <option value="太榮">太榮</option>
-                <option value="性珉">性珉</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>起始日期</label>
-            <input type="date" id="date-start" onchange="filterData()">
-        </div>
-        <div class="filter-group">
-            <label>結束日期</label>
-            <input type="date" id="date-end" onchange="filterData()">
+
+        <div id="varietyDisplay">
+            <p style="text-align: center; color: #888;">正在加載綜藝活動資料...</p>
         </div>
     </div>
 
-    <main id="variety-app">
-        <section class="category-section" id="section-電台">
-            <h2 class="category-title">電台 RADIO</h2>
-            <div class="variety-grid" id="grid-電台"></div>
-        </section>
-
-        <section class="category-section" id="section-綜藝">
-            <h2 class="category-title">綜藝 VARIETY</h2>
-            <div class="variety-grid" id="grid-綜藝"></div>
-        </section>
-
-        <section class="category-section" id="section-採訪">
-            <h2 class="category-title">採訪 INTERVIEW</h2>
-            <div class="variety-grid" id="grid-採訪"></div>
-        </section>
-    </main>
-
     <script>
-        const SHEET_API = 'https://api.sheety.co/你的ID/cravity/variety';
-        let allVarietyData = [];
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec"; 
 
-        async function loadVariety() {
+        async function fetchVariety() {
             try {
-                const response = await fetch(SHEET_API);
-                const json = await response.json();
-                allVarietyData = json.variety;
-                renderVariety(allVarietyData);
-            } catch (err) {
-                console.error("讀取失敗");
+                const response = await fetch(`${SCRIPT_URL}?type=variety`);
+                varietyData = await response.json();
+                renderVariety();
+            } catch (error) {
+                document.getElementById('varietyDisplay').innerHTML = "<p style='text-align:center;'>資料讀取失敗，請檢查網路連接</p>";
             }
         }
 
-        function renderVariety(data) {
-            // 清空舊內容
-            document.getElementById('grid-電台').innerHTML = '';
-            document.getElementById('grid-綜藝').innerHTML = '';
-            document.getElementById('grid-採訪').innerHTML = '';
+        function renderVariety() {
+            const searchTerm = document.getElementById('varietySearch').value.toLowerCase();
+            const displayArea = document.getElementById('varietyDisplay');
+            
+            // 根據搜尋字詞篩選
+            const filtered = varietyData.filter(item => 
+                item.title.toLowerCase().includes(searchTerm) || 
+                item.subTitle.toLowerCase().includes(searchTerm) || 
+                item.cast.toLowerCase().includes(searchTerm)
+            );
 
-            data.forEach(item => {
-                const card = `
-                    <div class="v-card" data-member="${item.cast}" data-date="${item.date}" data-sub="${item.subTitle}">
-                        <img src="${item.imageUrl}" class="v-img">
-                        <div class="v-body">
-                            <div class="v-sub">${item.subTitle}</div>
-                            <h3 class="v-title">${item.title}</h3>
-                            <div class="v-meta">
-                                📅 日期：${item.date}<br>
-                                👥 參與：${item.cast}
+            // 分類邏輯 (對應你的 Sheets: mainCategory)
+            const categories = ["電台", "綜藝", "採訪"];
+            let html = "";
+
+            categories.forEach(cat => {
+                const items = filtered.filter(i => i.mainCategory === cat);
+                if (items.length > 0) {
+                    html += `
+                        <section class="category-group">
+                            <h2 class="group-title">${cat}</h2>
+                            <div class="card-grid">
+                                ${items.map(item => `
+                                    <div class="variety-card">
+                                        <img src="${item.imageUrl || 'https://via.placeholder.com/400x225?text=CRAVITY'}" class="card-img" alt="cover">
+                                        <div class="card-body">
+                                            <div class="v-subtitle">${item.subTitle}</div>
+                                            <div class="v-title">${item.title}</div>
+                                            <div class="v-info">📅 日期：${item.date ? item.date.split('T')[0] : 'TBA'}</div>
+                                            <div class="v-info">👥 成員：${item.cast}</div>
+                                            ${item.note ? `<div class="v-note">註：${item.note}</div>` : ''}
+                                            <a href="${item.link}" target="_blank" class="watch-btn">立即觀看</a>
+                                        </div>
+                                    </div>
+                                `).join('')}
                             </div>
-                            <div class="v-note">📝 ${item.note || '無備註'}</div>
-                            <a href="${item.link}" target="_blank" class="v-link">觀看內容</a>
-                        </div>
-                    </div>
-                `;
-                const targetGrid = document.getElementById(`grid-${item.mainCategory}`);
-                if (targetGrid) targetGrid.innerHTML += card;
-            });
-        }
-
-        function filterData() {
-            const searchText = document.getElementById('search-text').value.toLowerCase();
-            const searchMember = document.getElementById('search-member').value;
-            const dateStart = document.getElementById('date-start').value;
-            const dateEnd = document.getElementById('date-end').value;
-
-            const cards = document.querySelectorAll('.v-card');
-
-            cards.forEach(card => {
-                const sub = card.getAttribute('data-sub').toLowerCase();
-                const member = card.getAttribute('data-member');
-                const date = card.getAttribute('data-date'); // 預期格式 YYYY-MM-DD
-
-                // 篩選邏輯
-                const matchText = sub.includes(searchText);
-                const matchMember = searchMember === "" || member.includes(searchMember);
-                const matchDate = (!dateStart || date >= dateStart) && (!dateEnd || date <= dateEnd);
-
-                if (matchText && matchMember && matchDate) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
+                        </section>
+                    `;
                 }
             });
+
+            displayArea.innerHTML = html || "<p style='text-align:center;'>找不到符合的項目</p>";
         }
 
-        loadVariety();
+        window.onload = fetchVariety;
     </script>
 </body>
 </html>
