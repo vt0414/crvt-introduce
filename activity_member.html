@@ -6,47 +6,54 @@
     <title>CRAVITY | 成員個人活動</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .container { padding: 30px 5%; max-width: 1200px; margin: 0 auto; }
-        .group-section { margin-bottom: 50px; }
-        .group-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--main-purple);
-            padding-left: 15px;
-        }
+       .container { 
+    padding: 20px 5%; 
+    max-width: 1400px; /* 加寬最大限制，讓大螢幕更舒服 */
+    margin: 0 auto; 
+}
+
+/* 2. 移除區塊分欄：每個節目（標題）自成一個橫列 */
+.group-section { 
+    width: 100%;
+    margin-bottom: 40px; 
+    background: rgba(255, 255, 255, 0.4); /* 加個極淡底色區分 */
+    padding: 20px;
+    border-radius: 25px;
+}
+
+/* 3. 標題樣式：更簡潔 */
+.group-header {
+    margin-bottom: 15px;
+    border-left: 6px solid var(--main-purple);
+    padding-left: 15px;
+}
         .group-title { font-size: 1.5rem; color: var(--dark-purple); margin: 0; }
 
         /* 滑動容器 */
-        .slider-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        /* 確保包裹容器不會壓縮子元素 */
-.cards-wrapper {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding: 10px 5px;
-    /* 確保橫向排列不換行 */
-    flex-wrap: nowrap; 
+.slider-container {
+    position: relative;
+    width: 100%;
+    display: block; /* 確保佔據整行 */
 }
 
-/* 修正卡片被壓縮的問題 */
+.cards-wrapper {
+    display: flex;
+    flex-wrap: nowrap; /* 強制不換行 */
+    gap: 25px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 5px 20px 5px;
+    scrollbar-width: none;
+}
+
 .activity-card {
-    /* 核心設定：0 表示不允許壓縮，固定寬度 */
-    flex-shrink: 0; 
-    width: 280px; 
-    min-width: 280px; 
-    
+    flex: 0 0 300px; /* 關鍵：不放大、不縮小、固定 300px */
+    width: 300px;
     background: white;
     border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    transition: transform 0.3s;
 }
 
 /* 確保文字不會超出卡片 */
@@ -193,7 +200,7 @@
                         <div class="act-date">${formattedDate}</div>
                         <div class="act-subtitle">${act.subTitle}</div>
                         <div class="act-cast">參與：${act.cast}</div>
-                        <a href="${act.videoUrlYT}" target="_blank" class="btn-watch">觀看連結</a>
+                        <a href="${act.link}" target="_blank" class="btn-watch">觀看連結</a>
                     </div>
                 </div>
             `;
@@ -225,4 +232,5 @@
 
 </body>
 </html>
+
 
