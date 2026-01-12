@@ -27,55 +27,57 @@ a {
     text-decoration: none;
     color: inherit;
 }
+a, a:visited, a:hover, a:active {
+    text-decoration: none !important; /* 永遠不顯示底線 */
+    color: inherit; /* 繼承父元素的顏色，不要變藍色 */
+}
 
 /* 導覽列統一設計 */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 8%;
+    padding: 15px 5%;
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.7); /* 稍微調亮一點 */
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(15px);
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
 }
 
 nav .logo {
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* 稍微縮小一點避免手機版太擠 */
     font-weight: bold;
     color: var(--main-purple);
-    letter-spacing: 2px;
+    white-space: nowrap; /* 強制不換行 */
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 25px;
+    gap: 15px; /* 選單項目之間的距離 */
     margin: 0;
     padding: 0;
 }
 
 nav ul li a {
     color: var(--dark-purple);
-    font-weight: 600;
-    font-size: 1rem;
-    transition: 0.3s ease;
-    padding: 5px 10px;
-    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem; /* 手機版建議 0.9rem 比較剛好 */
+    transition: 0.3s;
+    white-space: nowrap;
 }
 
-/* 滑鼠移上去的效果：變紫色背景或文字變色 */
 nav ul li a:hover {
-    color: white;
-    background: var(--main-purple);
+    color: var(--main-purple);
 }
 
 /* 核心區塊修正：解決距離太遠問題 */
 .section {
-    padding: 60px 8%; /* 縮短上下距離 */
-    min-height: auto; /* 讓高度隨內容決定，不再強制佔滿螢幕 */
+    padding: 40px 5%; /* 減少上下內距，讓區塊靠攏 */
+    min-height: auto; /* 移除 80vh 的強制高度 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -97,8 +99,7 @@ nav ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 15px;
     width: 100%;
 }
 
@@ -140,37 +141,30 @@ nav ul li a:hover {
 /* 當螢幕寬度小於 768px (手機) */
 @media (max-width: 768px) {
     nav {
-        flex-direction: column;
-        padding: 10px;
+        padding: 10px 3%; /* 縮小左右內距 */
     }
     
-    nav ul {
-        padding: 0;
-        gap: 10px;
-        font-size: 0.85rem;
+    nav .logo {
+        font-size: 1rem; /* 手機版 Logo 再縮小一點點 */
     }
 
-    .hero h1 { font-size: 2.5rem; }
+    nav ul {
+        gap: 8px; /* 項目間距縮小 */
+    }
 
-    /* 首頁 CP 區變垂直排列 */
-    .cp-picker {
-        flex-direction: column;
-        gap: 15px;
+    nav ul li a {
+        font-size: 0.8rem; /* 字體縮小，確保四個選單能排在同一行 */
+    }
+
+    /* 首頁 CP 區圓框縮小，避免手機寬度不夠 */
+    .circle-frame {
+        width: 100px;
+        height: 100px;
     }
 
     .plus-sign {
         font-size: 1.5rem;
-        margin: 5px 0;
-    }
-
-    /* 成員頁變 1 欄 */
-    .members-grid {
-        grid-template-columns: 1fr;
-        padding: 30px 5%;
-    }
-
-    .section {
-        padding: 40px 5%; /* 手機版間距更小 */
     }
 }
+
 
