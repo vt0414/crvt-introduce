@@ -6,26 +6,31 @@
     <title>CRAVITY | 成員個人活動</title>
     <link rel="stylesheet" href="style.css">
     <style>
-       .container { 
-    padding: 20px 5%; 
-    max-width: 1400px; /* 加寬最大限制，讓大螢幕更舒服 */
-    margin: 0 auto; 
+        body {
+    background: linear-gradient(135deg, #fdfcfb 0%, #e2d1f9 100%);
+    background-attachment: fixed; /* 關鍵：讓背景固定，捲動時背景不動，就不會有斷層 */
+    margin: 0;
 }
-
-/* 2. 移除區塊分欄：每個節目（標題）自成一個橫列 */
-.group-section { 
+.container {
     width: 100%;
-    margin-bottom: 40px; 
-    background: rgba(255, 255, 255, 0.4); /* 加個極淡底色區分 */
-    padding: 20px;
-    border-radius: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 5%;
+    background: transparent; /* 確保沒有白色底 */
 }
 
-/* 3. 標題樣式：更簡潔 */
+.group-section {
+    width: 100%;
+    margin-bottom: 60px;
+    background: transparent; /* 移除原本的背景色 */
+    border: none; /* 移除邊框 */
+}
+
+/* 4. 強化標題的懸浮感，不產生斷層 */
 .group-header {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     border-left: 6px solid var(--main-purple);
-    padding-left: 15px;
+    padding: 5px 0 5px 20px;
 }
         .group-title { font-size: 1.5rem; color: var(--dark-purple); margin: 0; }
 
@@ -47,16 +52,15 @@
 }
 
 .activity-card {
-    flex: 0 0 300px; /* 關鍵：不放大、不縮小、固定 300px */
-    width: 300px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    flex: 0 0 300px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
     overflow: hidden;
-    transition: transform 0.3s;
 }
 
-/* 確保文字不會超出卡片 */
 .act-info {
     padding: 15px;
     display: flex;
@@ -232,5 +236,6 @@
 
 </body>
 </html>
+
 
 
