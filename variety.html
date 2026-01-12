@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* --- 修正背景與全域設定 (解決斷層) --- */
+        /* 1. 確保背景不斷層且固定 */
         body {
             background-attachment: fixed !important;
             background-size: cover !important;
@@ -15,102 +15,93 @@
             padding: 0;
         }
 
-        /* 確保內容不被導覽列擋住 */
-        .container {
+        /* 2. 內容間距 (避免被導覽列遮住) */
+        .variety-page-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 100px 20px 50px 20px;
         }
 
-        /* --- 搜尋框樣式 --- */
+        /* 3. 搜尋框 (配合打歌舞台樣式) */
         .search-wrapper {
             text-align: center;
             margin-bottom: 40px;
         }
-
-        .search-input {
-            width: 100%;
-            max-width: 500px;
+        .search-bar {
             padding: 12px 25px;
-            border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.2);
             color: white;
-            backdrop-filter: blur(10px);
-            font-size: 16px;
             outline: none;
+            backdrop-filter: blur(5px);
         }
 
-        /* --- 三大類區塊標題 --- */
-        .category-section {
-            margin-bottom: 60px;
-        }
-
-        .category-title {
-            font-size: 26px;
-            color: #ff0000; /* CRAVITY 代表色 */
-            border-bottom: 2px solid #ff0000;
+        /* 4. 分類標題 (電台/綜藝/採訪) */
+        .category-group { margin-bottom: 50px; }
+        .category-header {
+            font-size: 24px;
+            color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
             padding-bottom: 10px;
-            margin-bottom: 30px;
-            display: inline-block;
+            margin-bottom: 25px;
+            font-weight: bold;
         }
 
-        /* --- 卡片網格 (與打歌舞台風格一致) --- */
+        /* 5. 卡片樣式 (完全對齊打歌舞台：淺色、白字/灰字) */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .variety-card {
-    /* 改為跟打歌舞台一致的淺色透明感 */
-    background: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: 0.3s ease;
-}
-
-.variety-card:hover {
-    transform: translateY(-8px);
-    /* 懸停時加亮 */
-    background: rgba(255, 255, 255, 0.2);
-    border-color: #ff0000; 
-}
-
-/* 確保圖片加載失敗時的背景色 */
-.card-banner {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    background-color: #333; /* 圖片還沒跑出來前的底色 */
-    display: block;
-}
-
-        .card-content {
-            padding: 18px;
+            background: #fff; /* 跟打歌舞台一樣的白色基底 */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
-        .v-subtitle { color: #00d2ff; font-size: 13px; font-weight: bold; }
-        .v-title { font-size: 18px; margin: 8px 0; color: #fff; line-height: 1.4; height: 50px; overflow: hidden; }
-        .v-info { font-size: 14px; color: #ccc; margin-bottom: 4px; }
-        .v-note { font-size: 12px; color: #888; font-style: italic; margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+        .variety-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255,0,0,0.3); /* 滑過帶一點 CRAVITY 紅色陰影 */
+        }
 
-        .watch-btn {
+        .card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .card-body {
+            padding: 15px;
+            color: #333; /* 文字改為深色，配合白色卡片 */
+        }
+
+        .v-sub { font-size: 12px; color: #ff0000; font-weight: bold; margin-bottom: 5px; }
+        .v-title { font-size: 16px; font-weight: 800; margin-bottom: 10px; color: #000; line-height: 1.3; }
+        .v-text { font-size: 13px; color: #666; margin-bottom: 3px; }
+        
+        .watch-link {
             display: block;
             text-align: center;
             background: #ff0000;
-            color: white;
+            color: #fff;
             text-decoration: none;
-            padding: 10px;
-            border-radius: 6px;
-            margin-top: 15px;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
             font-weight: bold;
-            transition: 0.3s;
         }
+        .watch-link:hover { background: #333; }
 
-        .watch-btn:hover { background: white; color: black; }
     </style>
 </head>
 <body>
@@ -125,80 +116,69 @@
         </ul>
     </nav>
 
-    <div class="container">
+    <div class="variety-page-container">
         <div class="search-wrapper">
-            <input type="text" id="varietySearch" class="search-input" placeholder="搜尋節目名稱、標題或成員..." onkeyup="filterVariety()">
+            <input type="text" id="varietySearch" class="search-bar" placeholder="搜尋關鍵字..." onkeyup="renderData()">
         </div>
 
-        <div id="varietySections">
-            <p style="text-align: center;">加載綜藝活動資料中...</p>
-        </div>
+        <div id="varietyDisplay"></div>
     </div>
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec"; 
-        let varietyData = [];
+        let allVarietyData = [];
 
-        // 1. 從 Apps Script 抓取資料
-        async function fetchVariety() {
+        async function loadData() {
             try {
                 const response = await fetch(`${SCRIPT_URL}?type=variety`);
-                varietyData = await response.json();
-                renderVariety(varietyData);
-            } catch (error) {
-                document.getElementById('varietySections').innerHTML = "<p style='text-align:center;'>資料讀取失敗</p>";
+                allVarietyData = await response.json();
+                renderData();
+            } catch (e) {
+                document.getElementById('varietyDisplay').innerHTML = "<p style='color:white;'>讀取中或連線失敗...</p>";
             }
         }
 
-        // 2. 渲染卡片 (依照三個分類)
-        function renderVariety(data) {
-            const displayArea = document.getElementById('varietySections');
+        function renderData() {
+            const keyword = document.getElementById('varietySearch').value.toLowerCase();
+            const container = document.getElementById('varietyDisplay');
             const categories = ["電台", "綜藝", "採訪"];
-            let finalHtml = "";
+            
+            let html = "";
 
             categories.forEach(cat => {
-                const filteredItems = data.filter(item => item.mainCategory === cat);
-                
-                if (filteredItems.length > 0) {
-                    finalHtml += `
-                        <section class="category-section">
-                            <h2 class="category-title">${cat}</h2>
+                const filtered = allVarietyData.filter(item => 
+                    item.mainCategory === cat && 
+                    (item.title.toLowerCase().includes(keyword) || item.cast.toLowerCase().includes(keyword))
+                );
+
+                if (filtered.length > 0) {
+                    html += `
+                        <div class="category-group">
+                            <h2 class="category-header">${cat}</h2>
                             <div class="card-grid">
-                                ${filteredItems.map(item => `
+                                ${filtered.map(item => `
                                     <div class="variety-card">
-                                        <img class="card-banner" src="images/${item.imageUrl}" onerror="this.src='images/none.jpg'">
-                                        <div class="card-content">
-                                            <div class="v-subtitle">${item.subTitle}</div>
+                                        <img src="images/${item.imageUrl}" class="card-img" 
+                                            onerror="this.src='images/none.jpg'">
+                                        <div class="card-body">
+                                            <div class="v-sub">${item.subTitle}</div>
                                             <div class="v-title">${item.title}</div>
-                                            <div class="v-info">📅 ${item.date ? item.date.split('T')[0] : 'TBA'}</div>
-                                            <div class="v-info">👥 ${item.cast}</div>
-                                            ${item.note ? `<div class="v-note">${item.note}</div>` : ''}
-                                            <a href="${item.link}" target="_blank" class="watch-btn">立即觀看</a>
+                                            <div class="v-text">📅 ${item.date ? item.date.split('T')[0] : ''}</div>
+                                            <div class="v-text">👥 ${item.cast}</div>
+                                            <a href="${item.link}" target="_blank" class="watch-link">立即觀看</a>
                                         </div>
                                     </div>
                                 `).join('')}
                             </div>
-                        </section>
+                        </div>
                     `;
                 }
             });
 
-            displayArea.innerHTML = finalHtml || "<p style='text-align:center;'>目前沒有符合條件的內容</p>";
+            container.innerHTML = html || "<p style='color:white;text-align:center;'>找不到結果</p>";
         }
 
-        // 3. 搜尋過濾功能
-        function filterVariety() {
-            const searchTerm = document.getElementById('varietySearch').value.toLowerCase();
-            const filtered = varietyData.filter(item => 
-                item.title.toLowerCase().includes(searchTerm) || 
-                item.subTitle.toLowerCase().includes(searchTerm) || 
-                item.cast.toLowerCase().includes(searchTerm)
-            );
-            renderVariety(filtered);
-        }
-
-        window.onload = fetchVariety;
+        window.onload = loadData;
     </script>
 </body>
 </html>
-
