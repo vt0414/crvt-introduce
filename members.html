@@ -193,7 +193,7 @@
         memo: "",
         emoji: "🐥",
         color: "#A366FF (紫色)",
-        img: "images/wonjin.jpg",
+        img: "images/wonjinM.jpg",
         ccrewName: "DAKONG",
         ccrewImg: "images/ccrew_dakong.webp",
     },
@@ -271,7 +271,7 @@ members.forEach(m => {
     card.innerHTML = `
         <img src="${m.img}" class="member-photo" alt="${m.name}">
         <div class="info-content">
-            <h3>${m.name} <span class="korean-name">${m.krName}</span></h3>
+            <h3>${m.name} <br><span class="korean-name">${m.krName}</span></h3>
             <ul class="details-list">
                 <li><b>生日：</b>${m.birth}</li>
                 <li><b>定位：</b>${m.pos}</li>
@@ -285,7 +285,7 @@ members.forEach(m => {
         </div>
         <div class="ccrew-box" style="margin-top: auto;"> <img src="${m.ccrewImg}" class="ccrew-img" alt="${m.ccrewName}">
             <div class="ccrew-info">
-                <h4>CCREW: ${m.ccrewName}</h4>
+                <h4>${m.ccrewName}</h4>
             </div>
         </div>
         <a href="activity_member.html?member=${m.id}" class="btn-activity">查看個人活動</a>
@@ -296,5 +296,6 @@ members.forEach(m => {
 </body>
 
 </html>
+
 
 
