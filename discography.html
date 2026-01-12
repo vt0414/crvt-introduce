@@ -3,193 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAVITY | Discography Activity</title>
+    <title>CRAVITY | 打歌活動</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        /* 延用之前的夢幻粉紫變數與基礎樣式 */
-        :root {
-            --main-purple: #ab47bc;
-            --dark-purple: #4a148c;
-            --glass: rgba(255, 255, 255, 0.5);
-        }
-
-        body {
-            margin: 0;
-            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1f9 100%);
-            font-family: 'PingFang TC', sans-serif;
-            color: var(--dark-purple);
-        }
-
-        header { padding: 50px 10%; text-align: center; }
+        .container { padding: 40px 5%; max-width: 1400px; margin: 0 auto; }
+        .song-section { margin-bottom: 60px; }
         
-        /* 歌曲分組區塊 */
-        .song-section { margin-bottom: 60px; padding: 0 5%; }
         .song-header {
+            margin-bottom: 25px;
             display: flex;
             align-items: baseline;
             gap: 15px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--main-purple);
+            border-left: 6px solid #ff4081; /* 打歌頁用粉紅色區分 */
+            padding-left: 20px;
         }
-        .song-title { font-size: 2rem; margin: 0; color: var(--dark-purple); }
-        .album-tag { color: var(--main-purple); font-weight: bold; }
+        .song-title { font-size: 2rem; color: var(--dark-purple); margin: 0; }
+        .album-name { font-size: 1.1rem; color: #888; }
 
-        /* 橫向滑動容器 */
-        .stage-wrapper {
+        /* 滑動容器 */
+        .slider-container { position: relative; }
+        .cards-wrapper {
             display: flex;
+            gap: 25px;
             overflow-x: auto;
-            gap: 20px;
-            padding: 20px 0;
-            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 15px 5px;
+            scrollbar-width: none;
         }
-        .stage-wrapper::-webkit-scrollbar { height: 6px; }
-        .stage-wrapper::-webkit-scrollbar-thumb { background: #e1bee7; border-radius: 10px; }
+        .cards-wrapper::-webkit-scrollbar { display: none; }
 
-        /* 打歌舞台卡片 */
+        /* 打歌卡片 */
         .stage-card {
-            flex: 0 0 300px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            flex: 0 0 320px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
             overflow: hidden;
-            border: 1px solid white;
-            scroll-snap-align: start;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .stage-img { width: 100%; height: 170px; object-fit: cover; }
-        .stage-body { padding: 15px; }
-        .stage-date { font-size: 0.8rem; color: var(--main-purple); font-bold; }
-        .stage-name { font-size: 1.1rem; margin: 5px 0; font-weight: bold; }
+        .stage-img { width: 100%; height: 180px; object-fit: cover; }
+        .stage-info { padding: 20px; }
+        .stage-date { font-size: 0.85rem; color: #666; margin-bottom: 5px; }
+        .event-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; color: var(--dark-purple); }
 
-        /* 直拍區塊設計 */
-        .fancam-section {
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #ccc;
-        }
-        .fancam-label { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; display: block; }
-        
-        .fancam-select {
-            width: 100%;
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-size: 0.8rem;
-            background: white;
-            cursor: pointer;
-        }
-
-        .view-btn {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            padding: 8px;
-            background: var(--main-purple);
+        /* 按鈕區塊 */
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        .btn-main {
+            background: #ff4081;
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
+            border-radius: 12px;
             font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        /* 直拍區塊 */
+        .fancam-box {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+        }
+        .fancam-title { font-size: 0.8rem; font-weight: bold; margin-bottom: 8px; color: #555; }
+        .fancam-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .fancam-link {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: white;
+            border: 1px solid #ff4081;
+            color: #ff4081;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        .fancam-link:hover { background: #ff4081; color: white; }
+
+        .nav-arrow {
+            position: absolute;
+            top: 40%;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 10;
+            color: #ff4081;
+            font-size: 1.2rem;
+        }
+        .nav-arrow.left { left: -22px; }
+        .nav-arrow.right { right: -22px; }
+
+        @media (max-width: 768px) {
+            .nav-arrow { display: none; }
+            .stage-card { flex: 0 0 280px; }
         }
     </style>
 </head>
 <body>
-  <nav>
-        <div class="logo">CRAVITY</div>
-        <ul>
-            <li><a href="index.html">團體介紹</a></li>
-	    <li><a href="members.html">成員介紹</a></li>
-            <li><a href="discography.html">打歌活動</a></li>
-            <li><a href="variety.html">綜藝活動</a></li>
-        </ul>
-    </nav>
-    <header>
-        <h1>DISCOGRAPHY</h1>
-        <p>CRAVITY 舞台活動紀錄</p>
-    </header>
 
-    <main id="discography-app">
-        </main>
+<nav>
+    <div class="logo">CRAVITY 打歌活動</div>
+    <ul>
+        <li><a href="index.html">團體介紹</a></li>
+        <li><a href="members.html">成員介紹</a></li>
+        <li><a href="discography.html">打歌活動</a></li>
+        <li><a href="variety.html">綜藝活動</a></li>
+    </ul>
+</nav>
 
-    <script>
-        // 假設從 Google Sheet 取得的資料結構
-        // 欄位：song, album, date, cast, imageUrl, stageUrl, fancams (文字格式: "世琳:url,廷謨:url")
-        const SHEET_API = 'https://api.sheety.co/你的ID/cravity/discography';
+<div class="container" id="stage-list">
+    <p style="text-align: center; padding: 50px;">正在加載打歌活動資料...</p>
+</div>
 
-        async function loadStages() {
-            const app = document.getElementById('discography-app');
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec"; // 請填入你的部署網址
 
-            try {
-                const response = await fetch(SHEET_API);
-                const data = await response.json();
-                const stages = data.discography;
+    async function loadStages() {
+        try {
+            const response = await fetch(`${SCRIPT_URL}?type=discography`);
+            const data = await response.json();
 
-                // 1. 按「歌曲 (song)」進行分組
-                const grouped = stages.reduce((acc, obj) => {
-                    const key = obj.song;
-                    if (!acc[key]) acc[key] = [];
-                    acc[key].push(obj);
-                    return acc;
-                }, {});
+            // 1. 按歌曲 (song) 分組
+            const grouped = data.reduce((acc, stage) => {
+                if (!acc[stage.song]) acc[stage.song] = { album: stage.album, stages: [] };
+                acc[stage.song].stages.push(stage);
+                return acc;
+            }, {});
 
-                // 2. 渲染頁面
-                app.innerHTML = '';
-                for (const songName in grouped) {
-                    const albumName = grouped[songName][0].album; // 取該組第一筆的專輯名
+            renderUI(grouped);
+        } catch (err) {
+            console.error(err);
+            document.getElementById('stage-list').innerHTML = "資料加載失敗";
+        }
+    }
+
+    function renderUI(grouped) {
+        const container = document.getElementById('stage-list');
+        container.innerHTML = "";
+
+        for (const songTitle in grouped) {
+            const songData = grouped[songTitle];
+            const section = document.createElement('div');
+            section.className = 'song-section';
+
+            const stagesHTML = songData.stages.map(stage => {
+                // 解析直拍字串 "成員:網址,成員:網址"
+                let fancamsHTML = "";
+                if (stage.fancams) {
+                    const fans = stage.fancams.split(',').map(f => {
+                        const [name, url] = f.split(':');
+                        return `<a href="${url}" target="_blank" class="fancam-link">${name.trim()}</a>`;
+                    }).join('');
                     
-                    const section = document.createElement('section');
-                    section.className = 'song-section';
-                    section.innerHTML = `
-                        <div class="song-header">
-                            <h2 class="song-title">${songName}</h2>
-                            <span class="album-tag">| ${albumName}</span>
-                        </div>
-                        <div class="stage-wrapper">
-                            ${grouped[songName].map(stage => renderStageCard(stage)).join('')}
+                    fancamsHTML = `
+                        <div class="fancam-box">
+                            <div class="fancam-title">成員直拍</div>
+                            <div class="fancam-list">${fans}</div>
                         </div>
                     `;
-                    app.appendChild(section);
                 }
-            } catch (err) {
-                app.innerHTML = '<p style="text-align:center">讀取資料時出錯...</p>';
-            }
-        }
 
-        function renderStageCard(stage) {
-            // 處理直拍字串轉換成選單 (格式預期為 "成員:網址,成員:網址")
-            let fancamOptions = '<option value="">-- 選擇成員直拍 --</option>';
-            if (stage.fancams) {
-                const pairs = stage.fancams.split(',');
-                pairs.forEach(p => {
-                    const [name, url] = p.split(':');
-                    fancamOptions += `<option value="${url.trim()}">${name.trim()}</option>`;
-                });
-            }
-
-            return `
-                <div class="stage-card">
-                    <img src="${stage.imageUrl}" class="stage-img">
-                    <div class="stage-body">
-                        <div class="stage-date">${stage.date}</div>
-                        <div class="stage-name">${stage.eventTitle || 'Music Stage'}</div>
-                        <div class="stage-meta" style="font-size:0.8rem; color:#666;">
-                            👥 參與人員：${stage.cast}
-                        </div>
-                        
-                        <a href="${stage.stageUrl}" target="_blank" class="view-btn" style="background:#4a148c">觀看團體舞台</a>
-
-                        <div class="fancam-section">
-                            <span class="fancam-label">MEMBER FANCAM</span>
-                            <select class="fancam-select" onchange="if(this.value) window.open(this.value, '_blank')">
-                                ${fancamOptions}
-                            </select>
+                return `
+                    <div class="stage-card">
+                        <img src="${stage.imageUrl}" class="stage-img" onerror="this.src='https://via.placeholder.com/320x180?text=CRAVITY+STAGE'">
+                        <div class="stage-info">
+                            <div class="stage-date">${String(stage.date).split('T')[0]}</div>
+                            <div class="event-title">${stage.eventTitle}</div>
+                            <div class="btn-group">
+                                <a href="${stage.link}" target="_blank" class="btn-main">觀看舞台</a>
+                            </div>
+                            ${fancamsHTML}
                         </div>
                     </div>
+                `;
+            }).join('');
+
+            section.innerHTML = `
+                <div class="song-header">
+                    <h2 class="song-title">${songTitle}</h2>
+                    <span class="album-name">| ${songData.album}</span>
+                </div>
+                <div class="slider-container">
+                    <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
+                    <div class="cards-wrapper">${stagesHTML}</div>
+                    <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
                 </div>
             `;
+            container.appendChild(section);
         }
+    }
 
-        loadStages();
-    </script>
+    function scrollSlider(btn, dir) {
+        const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+        wrapper.scrollBy({ left: dir * 345, behavior: 'smooth' });
+    }
+
+    loadStages();
+</script>
 </body>
 </html>
