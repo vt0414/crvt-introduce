@@ -33,12 +33,12 @@ body {
     pointer-events: none;
 }
 
-/* 導覽列 */
+/* 導覽列 RWD 優化 */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 10%;
+    padding: 15px 5%;
     position: sticky;
     top: 0;
     background: rgba(255, 255, 255, 0.4);
@@ -47,36 +47,36 @@ nav {
 }
 
 nav .logo {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     color: var(--main-purple);
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li a {
     text-decoration: none;
     color: var(--dark-purple);
     font-weight: 500;
+    font-size: 0.9rem;
     transition: 0.3s;
 }
 
-nav ul li a:hover {
-    color: var(--main-purple);
-}
-
-/* 共用區塊樣式 */
+/* 共用區塊樣式 - 修正距離過遠問題 */
 .section {
-    padding: 100px 10%;
-    min-height: 80vh;
+    padding: 60px 5%; /* 減少上下內距 */
+    min-height: auto; /* 取消強制的 80vh，讓高度隨內容決定 */
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .glass-card {
@@ -84,79 +84,63 @@ nav ul li a:hover {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
-    padding: 50px;
+    padding: 30px; /* 縮小 Padding */
+    width: 100%;
+    max-width: 800px;
     text-align: center;
     box-shadow: 0 15px 35px rgba(171, 71, 188, 0.1);
 }
 
 /* 團體介紹區 */
 .hero h1 {
-    font-size: 4rem;
-    margin: 0;
+    font-size: 3rem; /* 稍微縮小避免手機溢出 */
+    margin: 0 0 20px 0;
     background: linear-gradient(to right, #6a1b9a, #ab47bc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* 團體事件 - 時間軸 */
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 50px;
-    position: relative;
+.description {
+    line-height: 1.8;
+    font-size: 1rem;
 }
 
 /* 2. 團體事件 - 時間軸區塊 */
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
 .timeline-container {
     width: 100%;
-    max-width: 700px; /* 固定寬度 */
-    max-height: 500px; /* 固定高度，超過則顯示滾動條 */
-    overflow-y: auto; /* 開啟垂直滾動 */
-    padding: 30px 20px 30px 60px; /* 留出左側給點點空間 */
-    background: rgba(255, 255, 255, 0.3); /* 輕微透明背景 */
+    max-width: 700px;
+    max-height: 450px;
+    overflow-y: auto;
+    padding: 20px 20px 20px 50px; 
+    background: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.5);
-    
-    /* 自訂捲軸樣式 (夢幻紫) */
-    scrollbar-width: thin;
-    scrollbar-color: var(--main-purple) transparent;
 }
 
-/* Chrome/Edge/Safari 的滾動條樣式 */
-.timeline-container::-webkit-scrollbar {
-    width: 6px;
-}
-.timeline-container::-webkit-scrollbar-thumb {
-    background-color: var(--main-purple);
-    border-radius: 10px;
-}
-.timeline-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.timeline {
-    border-left: 3px solid var(--main-purple);
-    position: relative;
-}
-
-/* 確保時間軸點點位置正確 */
 .timeline-item {
     position: relative;
-    margin-bottom: 40px;
-    padding-left: 20px;
+    margin-bottom: 30px;
+    padding-left: 15px;
 }
 
 .timeline-dot {
     position: absolute;
-    left: -31.5px; /* 根據邊距微調 */
-    width: 20px;
-    height: 20px;
+    left: -26.5px; /* 配合 padding 調整點點位置 */
+    width: 16px;
+    height: 16px;
     background: var(--main-purple);
     border-radius: 50%;
     box-shadow: 0 0 10px var(--main-purple);
 }
 
-/* CP 介紹區 */
+/* CP 介紹區 RWD 修正 */
 .cp-container {
     width: 100%;
     max-width: 900px;
@@ -164,20 +148,27 @@ nav ul li a:hover {
 
 .cp-picker {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 40px;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; /* 讓手機版能自動換行 */
+}
+
+.member-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .circle-frame {
-    width: 180px;
-    height: 180px;
+    width: 140px; /* 桌面端稍微縮小一點 */
+    height: 140px;
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid white;
-    box-shadow: 0 0 25px rgba(171, 71, 188, 0.2);
-    margin-bottom: 20px;
-    transition: 0.5s;
+    border: 4px solid white;
+    box-shadow: 0 0 20px rgba(171, 71, 188, 0.2);
+    margin-bottom: 15px;
 }
 
 .circle-frame img {
@@ -186,23 +177,61 @@ nav ul li a:hover {
     object-fit: cover;
 }
 
-select {
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid var(--main-purple);
-    background: white;
-    color: var(--dark-purple);
-    outline: none;
+.plus-sign {
+    font-size: 2rem;
+    animation: pulse 2s infinite;
 }
 
-.plus-sign {
-    font-size: 3rem;
-    animation: pulse 2s infinite;
+/* --- 手機版 RWD 調整 --- */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    nav .logo {
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+    }
+
+    nav ul {
+        gap: 10px;
+    }
+
+    nav ul li a {
+        font-size: 0.8rem;
+    }
+
+    .section {
+        padding: 40px 5%;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .cp-picker {
+        flex-direction: column; /* CP 選擇器在手機變垂直 */
+        gap: 10px;
+    }
+
+    .plus-sign {
+        transform: rotate(90deg); /* 讓加號變垂直指向 */
+        margin: 5px 0;
+    }
+
+    .circle-frame {
+        width: 120px;
+        height: 120px;
+    }
+
+    .timeline-container {
+        padding: 20px 10px 20px 40px;
+    }
 }
 
 @keyframes pulse {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.2); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
-
 }
