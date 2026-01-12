@@ -63,24 +63,30 @@
         }
 
         .variety-card {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: 0.3s ease;
-        }
+    /* 改為跟打歌舞台一致的淺色透明感 */
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s ease;
+}
 
-        .variety-card:hover {
-            transform: translateY(-8px);
-            border-color: #ff0000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
+.variety-card:hover {
+    transform: translateY(-8px);
+    /* 懸停時加亮 */
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #ff0000; 
+}
 
-        .card-banner {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
+/* 確保圖片加載失敗時的背景色 */
+.card-banner {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background-color: #333; /* 圖片還沒跑出來前的底色 */
+    display: block;
+}
 
         .card-content {
             padding: 18px;
@@ -160,7 +166,7 @@
                             <div class="card-grid">
                                 ${filteredItems.map(item => `
                                     <div class="variety-card">
-                                        <img class="card-banner" src="${item.imageUrl || 'images/none'}" alt="cover">
+                                        <img class="card-banner" src="images/${item.imageUrl}" onerror="this.src='images/none.jpg'">
                                         <div class="card-content">
                                             <div class="v-subtitle">${item.subTitle}</div>
                                             <div class="v-title">${item.title}</div>
@@ -195,3 +201,4 @@
     </script>
 </body>
 </html>
+
