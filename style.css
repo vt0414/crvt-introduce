@@ -21,19 +21,7 @@ body {
     overflow-x: hidden;
 }
 
-/* 宇宙星星背景效果 */
-.stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, transparent 0%, rgba(226, 209, 249, 0.2) 100%);
-    z-index: -1;
-    pointer-events: none;
-}
-
-/* 導覽列 RWD 優化 */
+/* 導覽列 RWD */
 nav {
     display: flex;
     justify-content: space-between;
@@ -41,42 +29,24 @@ nav {
     padding: 15px 5%;
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     z-index: 100;
-}
-
-nav .logo {
-    font-size: 1.4rem;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: var(--main-purple);
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
+    gap: 20px;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: var(--dark-purple);
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: 0.3s;
-}
-
-/* 共用區塊樣式 - 修正距離過遠問題 */
+/* 核心區塊修正：解決距離太遠問題 */
 .section {
-    padding: 60px 5%; /* 減少上下內距 */
-    min-height: auto; /* 取消強制的 80vh，讓高度隨內容決定 */
+    padding: 60px 8%; /* 縮短上下距離 */
+    min-height: auto; /* 讓高度隨內容決定，不再強制佔滿螢幕 */
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 .glass-card {
@@ -84,91 +54,29 @@ nav ul li a {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
-    padding: 30px; /* 縮小 Padding */
+    padding: 40px;
     width: 100%;
     max-width: 800px;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(171, 71, 188, 0.1);
 }
 
-/* 團體介紹區 */
-.hero h1 {
-    font-size: 3rem; /* 稍微縮小避免手機溢出 */
-    margin: 0 0 20px 0;
-    background: linear-gradient(to right, #6a1b9a, #ab47bc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.description {
-    line-height: 1.8;
-    font-size: 1rem;
-}
-
-/* 2. 團體事件 - 時間軸區塊 */
-.section-title {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.timeline-container {
-    width: 100%;
-    max-width: 700px;
-    max-height: 450px;
-    overflow-y: auto;
-    padding: 20px 20px 20px 50px; 
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.timeline-item {
-    position: relative;
-    margin-bottom: 30px;
-    padding-left: 15px;
-}
-
-.timeline-dot {
-    position: absolute;
-    left: -26.5px; /* 配合 padding 調整點點位置 */
-    width: 16px;
-    height: 16px;
-    background: var(--main-purple);
-    border-radius: 50%;
-    box-shadow: 0 0 10px var(--main-purple);
-}
-
-/* CP 介紹區 RWD 修正 */
-.cp-container {
-    width: 100%;
-    max-width: 900px;
-}
-
+/* CP 選擇器：這是首頁 RWD 的關鍵 */
 .cp-picker {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 30px;
-    flex-wrap: wrap; /* 讓手機版能自動換行 */
-}
-
-.member-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
 }
 
 .circle-frame {
-    width: 140px; /* 桌面端稍微縮小一點 */
-    height: 140px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     overflow: hidden;
-    border: 4px solid white;
-    box-shadow: 0 0 20px rgba(171, 71, 188, 0.2);
-    margin-bottom: 15px;
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .circle-frame img {
@@ -177,61 +85,59 @@ nav ul li a {
     object-fit: cover;
 }
 
-.plus-sign {
-    font-size: 2rem;
-    animation: pulse 2s infinite;
+/* 時間軸容器 */
+.timeline-container {
+    width: 100%;
+    max-width: 700px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 30px 20px 30px 60px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
 }
 
-/* --- 手機版 RWD 調整 --- */
+/* --- RWD 響應式設定 --- */
+
+/* 當螢幕寬度小於 992px (平板) */
+@media (max-width: 992px) {
+    .members-grid {
+        grid-template-columns: repeat(2, 1fr); /* 成員頁變 2 欄 */
+    }
+}
+
+/* 當螢幕寬度小於 768px (手機) */
 @media (max-width: 768px) {
     nav {
         flex-direction: column;
         padding: 10px;
     }
-
-    nav .logo {
-        margin-bottom: 10px;
-        font-size: 1.2rem;
-    }
-
+    
     nav ul {
+        padding: 0;
         gap: 10px;
+        font-size: 0.85rem;
     }
 
-    nav ul li a {
-        font-size: 0.8rem;
-    }
+    .hero h1 { font-size: 2.5rem; }
 
-    .section {
-        padding: 40px 5%;
-    }
-
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-
+    /* 首頁 CP 區變垂直排列 */
     .cp-picker {
-        flex-direction: column; /* CP 選擇器在手機變垂直 */
-        gap: 10px;
+        flex-direction: column;
+        gap: 15px;
     }
 
     .plus-sign {
-        transform: rotate(90deg); /* 讓加號變垂直指向 */
+        font-size: 1.5rem;
         margin: 5px 0;
     }
 
-    .circle-frame {
-        width: 120px;
-        height: 120px;
+    /* 成員頁變 1 欄 */
+    .members-grid {
+        grid-template-columns: 1fr;
+        padding: 30px 5%;
     }
 
-    .timeline-container {
-        padding: 20px 10px 20px 40px;
+    .section {
+        padding: 40px 5%; /* 手機版間距更小 */
     }
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.7; }
-    100% { transform: scale(1); opacity: 1; }
 }
