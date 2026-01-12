@@ -22,22 +22,54 @@ body {
 }
 
 /* 導覽列 RWD */
+/* 移除所有連結的預設樣式 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 導覽列統一設計 */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
+    padding: 15px 8%;
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    z-index: 100;
+    background: rgba(255, 255, 255, 0.7); /* 稍微調亮一點 */
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+nav .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--main-purple);
+    letter-spacing: 2px;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 20px;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: var(--dark-purple);
+    font-weight: 600;
+    font-size: 1rem;
+    transition: 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+/* 滑鼠移上去的效果：變紫色背景或文字變色 */
+nav ul li a:hover {
+    color: white;
+    background: var(--main-purple);
 }
 
 /* 核心區塊修正：解決距離太遠問題 */
@@ -141,3 +173,4 @@ nav ul {
         padding: 40px 5%; /* 手機版間距更小 */
     }
 }
+
