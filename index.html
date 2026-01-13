@@ -6,7 +6,9 @@
     <title>CRAVITY | Home</title>
     <link rel="stylesheet" href="style.css">
 	<style>
-        /* --- 修正背景與全域設定 (解決斷層) --- */
+        #events {
+        text-align: center;
+    }
         body {
             background-attachment: fixed !important;
             background-size: cover !important;
@@ -53,64 +55,79 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* 3. 時間軸：橫向滑動一次顯示一個 */
-        .timeline-scroll-wrapper {
-            max-width: 600px; /* 限制寬度使其一次顯示一個 */
-            margin: 0 auto;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            display: flex;
-            padding-bottom: 20px;
-            /* 隱藏滾動條 */
-            scrollbar-width: thin;
-            scrollbar-color: #4a148c transparent;
-        }
-        .timeline-item {
-            min-width: 100%; /* 強制填滿容器寬度 */
-            scroll-snap-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
+        .timeline-container {
+        max-width: 600px;
+        margin: 0 auto;
+        /* 設定固定高度，大約是一個項目的大小 */
+        height: 250px; 
+        overflow-y: scroll; /* 強制上下滑動 */
+        scroll-snap-type: y mandatory; /* 垂直吸附效果 */
+        padding: 10px;
+        border: 1px solid rgba(74, 20, 140, 0.2); /* 淡淡的紫色邊框 */
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        scrollbar-width: none; /* 隱藏捲軸 (Firefox) */
+    }
+    
+    .timeline-container::-webkit-scrollbar {
+        display: none; /* 隱藏捲軸 (Chrome/Safari) */
+    }
 
+    .timeline-item {
+        height: 100%; /* 每個項目佔滿容器高度 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: center; /* 滑動時自動對齊中心 */
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+		#events h3 {
+        color: #4a148c !important; 
+        margin-bottom: 10px;
+    }
+		
         /* 4. SELECT 樣式美化 & CP 區塊間距 */
         .member-box select {
-            margin-top: 15px;
-            padding: 8px 15px;
-            border-radius: 20px;
-            border: 2px solid #4a148c;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            cursor: pointer;
-            outline: none;
-            transition: 0.3s;
-            font-weight: bold;
-        }
+        margin-top: 15px;
+        padding: 10px;
+        width: 160px;
+        border-radius: 20px;
+        border: 2px solid #4a148c;
+        background: white; /* 還原白色背景 */
+        color: #4a148c;   /* 文字還原紫色 */
+        cursor: pointer;
+        outline: none;
+        font-weight: bold;
+        
+        /* 文字置中關鍵 */
+        text-align: center;
+        text-align-last: center; /* 針對部分瀏覽器的下拉選單文字置中 */
+    }
         .member-box select:hover { background: #4a148c; }
         .member-box option { background: #1a1a1a; color: white; }
 
-        .cp-display {
-            margin-top: 40px !important;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        ..cp-display {
+        margin-top: 50px !important; /* 拉開與上方頭像的距離 */
+    }
+		#cp-name { color: #4a148c !important; }
+    #cp-desc { color: #333 !important; }
 		.description {
-    text-align: justify;
-    line-height: 1.8;
-    padding: 0 10px;
-    word-wrap: break-word;
-    word-break: break-all;
-    color: #ffffff;
-    font-size: 1rem;
-    max-width: 800px;
-    margin: 20px auto;
-}
+        text-align: center; /* 維持置中 */
+        line-height: 1.8;
+        padding: 0 20px;
+        white-space: normal; /* 允許自動換行 */
+        word-wrap: break-word;
+    }
     </style>
 </head>
 <body>
 
-<nav>
+<nav style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
         <div class="logo">CRAVITY</div>
-        <ul>
+        <ul style="display: flex; list-style: none; gap: 20px; flex-wrap: wrap;">
             <li><a href="index.html">團體介紹</a></li>
 	        <li><a href="members.html">成員介紹</a></li>
             <li><a href="discography.html">打歌活動</a></li>
@@ -139,7 +156,7 @@
 
    <section id="events" class="section">
     <h2 class="section-title">時間軸</h2>
-	<div class="timeline-scroll-wrapper">
+	<div class="timeline-container">
         <div class="timeline-item">
             <div class="timeline-content">
                 <h3>2020.04.14</h3>
@@ -331,6 +348,7 @@ function updateCP() {
 </body>
 
 </html>
+
 
 
 
