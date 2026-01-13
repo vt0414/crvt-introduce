@@ -30,53 +30,49 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
+    background: rgba(20, 0, 40, 0.9);
+    backdrop-filter: blur(15px);
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    width: 100%;
+    border-bottom: 2px solid var(--dark-purple);
 }
 
 nav .logo {
+    color: #ffffff;
     font-size: 1.2rem;
     font-weight: bold;
-    color: var(--dark-purple);
-    white-space: nowrap;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 15px;
-    margin: 0;
-    padding: 0;
 }
 
 nav ul li a {
-    color: var(--dark-purple);
+    color: #e2d1f9; 
     font-weight: 500;
-    font-size: 0.95rem;
     transition: 0.3s;
-    text-decoration: none;
 }
 
 nav ul li a:hover {
-    color: var(--main-purple);
+    color: #ffffff;
+    text-shadow: 0 0 8px var(--main-purple);
 }
-
 /* 核心區塊通用設定 */
 .section {
-    padding: 60px 5%;
+    padding: 30px 5%;
+    min-height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.section-title {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    color: var(--dark-purple);
+    letter-spacing: 2px;
+}
+
 section[id], 
 header[id] {
-    scroll-margin-top: 100px; 
+    scroll-margin-top: 80px; 
 }
 
 .glass-card {
@@ -84,7 +80,7 @@ header[id] {
     backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 30px;
-    padding: 40px;
+    padding: 30px;
     width: 100%;
     max-width: 800px;
     text-align: center;
@@ -118,6 +114,24 @@ header[id] {
     flex-wrap: nowrap; /* 確保不換行 */
 }
 
+cp-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.cp-display {
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    background: var(--glass);
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
 .member-box {
     display: flex;
     flex-direction: column;
@@ -140,7 +154,6 @@ header[id] {
     object-fit: cover;
 }
 
-/* 下拉選單樣式：無紫色背景 */
 .member-box select {
     background-color: #fff !important;
     color: var(--dark-purple);
@@ -157,7 +170,7 @@ header[id] {
 .timeline-container {
     width: 100%;
     max-width: 600px;
-    height: 220px; /* 限制高度一次顯示一個 */
+    height: 220px;
     overflow-y: auto;
     scroll-snap-type: y mandatory;
     background: rgba(255, 255, 255, 0.3);
@@ -175,6 +188,9 @@ header[id] {
     justify-content: center;
     align-items: center;
 }
+.quick-nav-buttons {
+    margin-bottom: 20px;
+}
 
 @media (max-width: 768px) {
     nav { flex-direction: column;padding: 10px 3%; }
@@ -182,7 +198,9 @@ header[id] {
     nav ul li a { font-size: 0.85rem; }
     
     .circle-frame { width: 90px; height: 90px; }
-    .cp-picker { gap: 10px; }
+    .cp-picker { gap: 15px;flex-wrap: nowrap; }
     .member-box select { width: 110px; font-size: 0.8rem; }
+    .circle-frame { width: 100px;height: 100px; }
 }
+
 
