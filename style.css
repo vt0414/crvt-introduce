@@ -74,6 +74,11 @@ nav ul li a:hover {
     align-items: center;
 }
 
+section[id], 
+header[id] {
+    scroll-margin-top: 100px; 
+}
+
 .glass-card {
     background: var(--glass);
     backdrop-filter: blur(15px);
@@ -108,7 +113,7 @@ nav ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 15px;
     width: 100%;
     flex-wrap: nowrap; /* 確保不換行 */
 }
@@ -157,7 +162,7 @@ nav ul li a:hover {
     scroll-snap-type: y mandatory;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 20px;
-    padding: 0 20px;
+    padding: 0 15px;
     scrollbar-width: none;
 }
 .timeline-container::-webkit-scrollbar { display: none; }
@@ -171,13 +176,13 @@ nav ul li a:hover {
     align-items: center;
 }
 
-/* --- RWD 響應式微調 --- */
 @media (max-width: 768px) {
-    nav { padding: 10px 3%; }
-    nav ul { gap: 8px; }
+    nav { flex-direction: column;padding: 10px 3%; }
+    nav ul { gap: 8px;justify-content: center; }
     nav ul li a { font-size: 0.85rem; }
     
     .circle-frame { width: 90px; height: 90px; }
     .cp-picker { gap: 10px; }
     .member-box select { width: 110px; font-size: 0.8rem; }
 }
+
