@@ -44,11 +44,15 @@
         }
 
         /* 2. 大合照區域 */
-  .group-photo-container {
-    max-width: 900px;
-    margin: 20px auto 40px auto;
-    padding: 0 20px;
-    text-align: center;
+.group-photo-container {
+    max-width: 850px;
+    width: 90%;     
+    margin: 30px auto;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    aspect-ratio: 16 / 9; 
+    background-color: #f0f0f0;
 }
         .group-photo-container img {
             width: 100%;
@@ -127,10 +131,10 @@
     }
 		#slideshow-img {
     width: 100%;
-    height: auto;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    transition: opacity 0.8s ease-in-out; /* 淡入淡出效果 */
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+    transition: opacity 0.8s ease-in-out;
 }
 	@media (max-width: 480px) {
     .cp-picker { gap: 10px; }
@@ -143,6 +147,10 @@
         font-size: 11px;
     }
     .plus-sign { font-size: 20px; color: #4a148c; }
+		.group-photo-container {
+        max-width: 100%;
+        aspect-ratio: auto; /* 手機版讓它根據圖片高度自動調整 */
+    }
 }
     </style>
 </head>
@@ -246,7 +254,7 @@ const members = [
     { id: "minhee", name: "珉熙 Minhee", img: "images/minhee.jpg" },
     { id: "hyeongjun", name: "刑準 Hyeongjun", img: "images/hyeongjun.jpg" },
     { id: "taeyoung", name: "太榮 Taeyoung", img: "images/taeyoung.jpg" },
-    { id: "sungmin", name: "性珉 Sungmin", img: "images/sungmin.jpg" }
+    { id: "sungmin", name: "性珉 Sungmin", img: "images/seongmin.jpg" }
 ];
 
 const cpData = {
@@ -367,12 +375,10 @@ function updateCP() {
         cpDesc.innerText = "這兩位成員正展現著獨特的化學反應！";
     }
 }
-	// --- 固定圖片資料清單 ---
-// 你可以在這裡自由增加或修改圖片檔名
+
 const slideImages = [
     "images/Cravity/1.jpg","images/Cravity/2.jpg","images/Cravity/3.jpg",
-    "images/Cravity/4.jpg","images/Cravity/5.jpg","images/Cravity/6.jpg",
-	"images/Cravity/7.jpg","images/Cravity/8.jpg","images/Cravity/9.jpg"
+    "images/Cravity/4.jpg","images/Cravity/5.jpg"
 ];
 
 let currentSlideIndex = 0;
@@ -407,6 +413,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
