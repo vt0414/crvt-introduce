@@ -6,194 +6,64 @@
     <title>CRAVITY | Home</title>
     <link rel="stylesheet" href="style.css">
 	<style>
-        #events {
+    /* 1. 團體介紹文字：你提供的這段建議留下，方便隨時調整首頁排版 */
+    .description {
         text-align: center;
-    }
-        body {
-            background-attachment: fixed !important;
-            background-size: cover !important;
-            margin: 0;
-            padding: 0;
-            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-        }
-
-        /* 1. 導覽列 RWD 優化 */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 5%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            flex-wrap: wrap; /* 讓手機版能自動換行 */
-        }
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 15px;
-            margin: 0;
-            padding: 0;
-        }
-        nav ul li a { color: white; text-decoration: none; font-size: 14px; }
-        @media (max-width: 600px) {
-            nav { justify-content: center; flex-direction: column; gap: 10px; }
-            nav ul { gap: 10px; flex-wrap: wrap; justify-content: center; }
-        }
-
-        /* 2. 大合照區域 */
-.group-photo-container {
-    max-width: 850px;
-    width: 90%;     
-    margin: 30px auto;
-    overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    aspect-ratio: 16 / 9; 
-    background-color: #f0f0f0;
-}
-        .group-photo-container img {
-            width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .timeline-container {
-    height: 220px; /* 固定高度 */
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    scrollbar-width: none; /* 隱藏捲軸 */
-    padding: 0 15px;
-}
-
-.timeline-container::-webkit-scrollbar { display: none; }
-
-    .timeline-item {
-    height: 100%;
-    scroll-snap-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-		.timeline-content h3 {
-    color: #4a148c !important; /* 確保紫色 */
-    margin: 0;
-}
-		#events h3 {
-        color: #4a148c !important; 
-        margin-bottom: 10px;
-    }
-		
-		.cp-picker {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    width: 100%;
-    flex-wrap: nowrap;
-}
-		.member-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* 確保選單跟圖片在同一垂直線上 */
-    gap: 15px;
-}
-		
-        .member-box select {
-    text-align: center;
-    text-align-last: center; /* 部分瀏覽器置中 */
-    color: #4a148c; /* 紫色文字 */
-    border: 2px solid #4a148c; /* 紫色邊框 */
-    background: white;
-    border-radius: 20px;
-    padding: 8px 15px;
-    font-weight: bold;
-    outline: none;
-    appearance: none; /* 去除原生箭頭避免干擾置中(選選) */
-    -webkit-appearance: none;
-}
-        .member-box option { background: #1a1a1a; color: white; }
-
-.cp-display {
-    margin-top: 60px !important; 
-    padding: 25px;
-}
-		#cp-name { color: #4a148c !important; }
-    #cp-desc { color: #333 !important; }
-		.description {
-        text-align: center; /* 維持置中 */
         line-height: 1.8;
         padding: 0 20px;
-        white-space: normal; /* 允許自動換行 */
+        white-space: normal;
         word-wrap: break-word;
+        max-width: 750px; /* 增加一個最大寬度，避免電腦版一行字太長難閱讀 */
+        margin: 0 auto;   /* 置中 */
+        color: var(--dark-purple); /* 確保繼承主題顏色 */
     }
-		#slideshow-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    display: block;
-    transition: opacity 0.8s ease-in-out;
-}
 
-.quick-nav-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: -20px;
-    margin-bottom: 40px;
-}
-
-.quick-nav-buttons button {
-    background-color: #ffffff;
-    color: #4a148c;
-    border: 2px solid #4a148c;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    outline: none;
-}
-
-.quick-nav-buttons button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(74, 20, 140, 0.2);
-    background-color: #ffffff;
-}
-		
-	@media (max-width: 480px) {
-    .cp-picker { gap: 10px; }
-    .circle-frame {
-        width: 85px !important; 
-        height: 85px !important;
-    }
-    .member-box select {
-        width: 105px;
-        font-size: 11px;
-    }
-    .plus-sign { font-size: 20px; color: #4a148c; }
-		.group-photo-container {
-        max-width: 100%;
-        aspect-ratio: auto; 
-    }
-	.quick-nav-buttons {
-        gap: 10px;
+    /* 2. 幻燈片下方快速跳轉按鈕 (Index 專屬) */
+    .quick-nav-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        margin-bottom: 30px;
     }
     .quick-nav-buttons button {
-        padding: 8px 15px;
-        font-size: 13px;
+        background: white;
+        color: var(--dark-purple);
+        border: 2px solid var(--dark-purple);
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s ease;
     }
-}
-		
-    </style>
+    .quick-nav-buttons button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(74, 20, 140, 0.1);
+        /* 確保 hover 不會變紫色背景 */
+        background: white !important; 
+    }
+
+    /* 3. 時間軸內的標題顏色微調 (Index 專屬) */
+    .timeline-content h3 {
+        color: var(--dark-purple) !important;
+        margin-bottom: 5px;
+    }
+
+    /* 4. CP 區塊文字顏色修正 */
+    #cp-name { color: var(--dark-purple) !important; margin-top: 10px; }
+    #cp-desc { color: #555; margin-top: 5px; }
+
+    /* 5. 修正捲動被導覽列遮住 (Index 專屬) */
+    section[id] {
+        scroll-margin-top: 100px;
+    }
+</style>
 </head>
 <body>
 
-<nav style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+<nav>
         <div class="logo">CRAVITY</div>
-        <ul style="display: flex; list-style: none; gap: 20px; flex-wrap: wrap;">
+        <ul>
             <li><a href="index.html">團體介紹</a></li>
 	        <li><a href="members.html">成員介紹</a></li>
             <li><a href="discography.html">打歌活動</a></li>
@@ -439,6 +309,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
