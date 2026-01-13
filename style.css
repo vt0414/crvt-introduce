@@ -211,7 +211,7 @@ header[id] {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;   
-        gap: 12px;                    
+        gap: 10px;                    
         justify-content: center;
         width: 100%;
     }
@@ -219,9 +219,16 @@ header[id] {
     
     .circle-frame { width: 90px; height: 90px; }
     .cp-picker { gap: 15px;flex-wrap: nowrap; }
+    .cp-container { gap: 25px !important;margin-top: 15px; }
+    .cp-display {
+        margin-top: 0 !important; 
+        padding: 20px;
+        width: 95%;
+    }
     .member-box select { width: 110px; font-size: 0.8rem; }
     .circle-frame { width: 100px;height: 100px; }
 }
+
 
 
 
