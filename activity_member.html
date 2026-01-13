@@ -50,54 +50,53 @@
         .slider-container {
             position: relative;
             width: 100%;
-            padding: 0 10px; 
+            padding: 0 50px; 
             box-sizing: border-box;
         }
 
         .cards-wrapper {
             display: flex;
-            gap: 20px; 
+            flex-wrap: nowrap;
+            gap: 20px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 20px 10px; 
+            padding: 20px 0;
             scrollbar-width: none;
             scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
         }
         .cards-wrapper::-webkit-scrollbar { display: none; }
 
-        .activity-card {
-            flex: 0 0 300px; 
-            scroll-snap-align: start; 
-            scroll-snap-stop: always;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-        .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 45px;
-            height: 45px;
-            background: white;
-            border: 2px solid var(--main-purple);
-            color: var(--main-purple);
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            transition: 0.3s;
-        }
-        .nav-arrow:hover { background: var(--main-purple); color: white; }
-        .nav-arrow.left { left: -5px; }
-        .nav-arrow.right { right: -5px; }
+.activity-card {
+    /* 使用 calc 讓寬度在不同螢幕下更彈性，同時維持最小 300px */
+    flex: 0 0 300px; 
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+/* 箭頭樣式修正：確保垂直置中且顯眼 */
+.nav-arrow {
+    position: absolute;
+    top: calc(50% - 20px); /* 精準垂直置中 */
+    width: 44px;
+    height: 44px;
+    background: white;
+    border: 2px solid var(--main-purple);
+    color: var(--main-purple);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.nav-arrow.left { left: 0; }
+.nav-arrow.right { right: 0; }
 
         .act-img { width: 100%; height: 160px; object-fit: cover; }
         .act-info { padding: 15px; display: flex; flex-direction: column; gap: 8px; }
@@ -262,14 +261,31 @@
     }
 
     function scrollSlider(btn, direction) {
-        const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-        const scrollDist = 300;
-        wrapper.scrollBy({ left: direction * scrollDist, behavior: 'smooth' });
-    }
+    const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+    
+    // 自動獲取目前第一張卡片的寬度與間距
+    const card = wrapper.querySelector('.activity-card');
+    if (!card) return;
+    
+    const cardWidth = card.offsetWidth;
+    const gap = 20; // 對應 CSS 的 gap: 20px
+    
+    // 計算容器寬度，決定一次要捲動幾張（通常捲動目前的「可視範圍」寬度）
+    const containerWidth = wrapper.offsetWidth;
+    
+    // 捲動距離建議設為：(卡片寬 + 間距) * 能完整容納的個數
+    const scrollAmount = Math.floor(containerWidth / (cardWidth + gap)) * (cardWidth + gap);
+
+    wrapper.scrollBy({ 
+        left: direction * (scrollAmount || (cardWidth + gap)), 
+        behavior: 'smooth' 
+    });
+}
 
     loadActivities();
 </script>
 
 </body>
 </html>
+
 
