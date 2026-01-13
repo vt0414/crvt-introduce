@@ -56,62 +56,67 @@
         }
 
         .timeline-container {
-        max-width: 600px;
-        margin: 0 auto;
-        /* 設定固定高度，大約是一個項目的大小 */
-        height: 250px; 
-        overflow-y: scroll; /* 強制上下滑動 */
-        scroll-snap-type: y mandatory; /* 垂直吸附效果 */
-        padding: 10px;
-        border: 1px solid rgba(74, 20, 140, 0.2); /* 淡淡的紫色邊框 */
-        border-radius: 15px;
-        background: rgba(255, 255, 255, 0.05);
-        scrollbar-width: none; /* 隱藏捲軸 (Firefox) */
-    }
-    
-    .timeline-container::-webkit-scrollbar {
-        display: none; /* 隱藏捲軸 (Chrome/Safari) */
-    }
+    height: 220px; /* 固定高度 */
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none; /* 隱藏捲軸 */
+    padding: 0 15px;
+}
+
+.timeline-container::-webkit-scrollbar { display: none; }
 
     .timeline-item {
-        height: 100%; /* 每個項目佔滿容器高度 */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        scroll-snap-align: center; /* 滑動時自動對齊中心 */
-        padding: 20px;
-        box-sizing: border-box;
-    }
-
+    height: 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+		.timeline-content h3 {
+    color: #4a148c !important; /* 確保紫色 */
+    margin: 0;
+}
 		#events h3 {
         color: #4a148c !important; 
         margin-bottom: 10px;
     }
 		
-        /* 4. SELECT 樣式美化 & CP 區塊間距 */
+		.cp-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* 關鍵：強制垂直對齊 */
+    gap: 30px;
+    width: 100%;
+    flex-wrap: nowrap; /* 強制不換行，讓左右成員並排 */
+}
+		.member-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 確保選單跟圖片在同一垂直線上 */
+    gap: 15px;
+}
+		
         .member-box select {
-        margin-top: 15px;
-        padding: 10px;
-        width: 160px;
-        border-radius: 20px;
-        border: 2px solid #4a148c;
-        background: white; /* 還原白色背景 */
-        color: #4a148c;   /* 文字還原紫色 */
-        cursor: pointer;
-        outline: none;
-        font-weight: bold;
-        
-        /* 文字置中關鍵 */
-        text-align: center;
-        text-align-last: center; /* 針對部分瀏覽器的下拉選單文字置中 */
-    }
+    text-align: center;
+    text-align-last: center; /* 部分瀏覽器置中 */
+    color: #4a148c; /* 紫色文字 */
+    border: 2px solid #4a148c; /* 紫色邊框 */
+    background: white;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-weight: bold;
+    outline: none;
+    appearance: none; /* 去除原生箭頭避免干擾置中(選選) */
+    -webkit-appearance: none;
+}
         .member-box select:hover { background: #4a148c; }
         .member-box option { background: #1a1a1a; color: white; }
 
-        ..cp-display {
-        margin-top: 50px !important; /* 拉開與上方頭像的距離 */
-    }
+.cp-display {
+    margin-top: 60px !important; /* 強制推開間距 */
+    padding: 25px;
+    /* 確保這部分的文字顏色不變 */
+}
 		#cp-name { color: #4a148c !important; }
     #cp-desc { color: #333 !important; }
 		.description {
@@ -121,6 +126,25 @@
         white-space: normal; /* 允許自動換行 */
         word-wrap: break-word;
     }
+		#slideshow-img {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    border-radius: 15px;
+    transition: opacity 0.8s ease-in-out;
+}
+	@media (max-width: 480px) {
+    .cp-picker { gap: 10px; }
+    .circle-frame {
+        width: 85px !important; 
+        height: 85px !important;
+    }
+    .member-box select {
+        width: 105px;
+        font-size: 11px;
+    }
+    .plus-sign { font-size: 20px; color: #4a148c; }
+}
     </style>
 </head>
 <body>
@@ -155,7 +179,7 @@
     </header>
 
    <section id="events" class="section">
-    <h2 class="section-title">時間軸</h2>
+    <h2 class="section-title">CRAVITY 時間軸</h2>
 	<div class="timeline-container">
         <div class="timeline-item">
             <div class="timeline-content">
@@ -186,7 +210,7 @@
         </div>
 </section>
     <section id="cp-zone" class="section cp-section">
-    <h2 class="section-title">GRAVITY ORBIT</h2>
+    <h2 class="section-title">CRAVITY CP</h2>
     <div class="cp-container">
         <div class="cp-picker">
             <div class="member-box">
@@ -219,7 +243,7 @@ const members = [
     { id: "allen", name: "蒔權 Allen", img: "images/allen.jpg" },
     { id: "jungmo", name: "廷謨 Jungmo", img: "images/jungmo.jpg" },
     { id: "woobin", name: "宇璸 Woobin", img: "images/woobin.jpg" },
-    { id: "wonjin", name: "元進 Wonjin", img: "images/wonjin.jpg" },
+    { id: "wonjin", name: "元進 Wonjin", img: "images/wonjinM.jpg" },
     { id: "minhee", name: "珉熙 Minhee", img: "images/minhee.jpg" },
     { id: "hyeongjun", name: "刑準 Hyeongjun", img: "images/hyeongjun.jpg" },
     { id: "taeyoung", name: "太榮 Taeyoung", img: "images/taeyoung.jpg" },
@@ -344,10 +368,67 @@ function updateCP() {
         cpDesc.innerText = "這兩位成員正展現著獨特的化學反應！";
     }
 }
+		let slideImages = [];
+let currentSlideIndex = 0;
+
+// 自動偵測 GitHub 資料夾內的圖片
+async function detectImages() {
+    let i = 1;
+    const folder = "images/Cravity/"; // 你的 GitHub 相對路徑
+    let foundAll = false;
+
+    // 嘗試抓取 1.jpg 到 10.jpg (數字可自行調高)
+    while (!foundAll && i <= 10) {
+        const imgUrl = `${folder}${i}.jpg`;
+        const exists = await checkImageExists(imgUrl);
+        if (exists) {
+            slideImages.push(imgUrl);
+            i++;
+        } else {
+            foundAll = true;
+        }
+    }
+
+    if (slideImages.length > 0) {
+        startSlideshow();
+    }
+}
+
+function checkImageExists(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+    });
+}
+
+function startSlideshow() {
+    const slideImg = document.getElementById('slideshow-img');
+    if (!slideImg) return;
+
+    setInterval(() => {
+        currentSlideIndex = (currentSlideIndex + 1) % slideImages.length;
+        slideImg.style.opacity = 0; // 先淡出
+        
+        setTimeout(() => {
+            slideImg.src = slideImages[currentSlideIndex];
+            slideImg.style.opacity = 1; // 再淡入
+        }, 600); 
+    }, 4000); // 4秒換一張
+}
+
+// 確保在 window.onload 啟動
+window.addEventListener('load', () => {
+    initLeftSelect();
+    handleLeftChange();
+    detectImages(); 
+});
 </script>
 </body>
 
 </html>
+
 
 
 
