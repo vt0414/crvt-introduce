@@ -6,31 +6,31 @@
     <title>CRAVITY | Home</title>
     <link rel="stylesheet" href="style.css">
 	<style>
-    /* 1. 團體介紹文字：你提供的這段建議留下，方便隨時調整首頁排版 */
+    /* 1. 團體介紹文字 */
     .description {
         text-align: center;
-        line-height: 1.8;
-        padding: 0 20px;
+        line-height: 1.6; /* 稍微縮小行高讓文字更緊湊 */
+        padding: 0 15px;
         white-space: normal;
         word-wrap: break-word;
-        max-width: 750px; /* 增加一個最大寬度，避免電腦版一行字太長難閱讀 */
-        margin: 0 auto;   /* 置中 */
-        color: var(--dark-purple); /* 確保繼承主題顏色 */
+        max-width: 750px;
+        margin: 0 auto;
+        color: var(--dark-purple);
     }
 
-    /* 2. 幻燈片下方快速跳轉按鈕 (Index 專屬) */
+    /* 2. 快速跳轉按鈕 */
     .quick-nav-buttons {
         display: flex;
         justify-content: center;
         gap: 15px;
-        margin-top: 20px;
-        margin-bottom: 30px;
+        margin-top: 15px; /* 縮小與幻燈片的距離 */
+        margin-bottom: 25px;
     }
     .quick-nav-buttons button {
-        background: white;
+        background: white !important; /* 強制白底 */
         color: var(--dark-purple);
         border: 2px solid var(--dark-purple);
-        padding: 10px 20px;
+        padding: 8px 20px;
         border-radius: 25px;
         font-weight: bold;
         cursor: pointer;
@@ -39,23 +39,34 @@
     .quick-nav-buttons button:hover {
         transform: translateY(-3px);
         box-shadow: 0 5px 15px rgba(74, 20, 140, 0.1);
-        /* 確保 hover 不會變紫色背景 */
         background: white !important; 
     }
 
-    /* 3. 時間軸內的標題顏色微調 (Index 專屬) */
+    /* 3. 時間軸與 CP 文字顏色 */
     .timeline-content h3 {
         color: var(--dark-purple) !important;
         margin-bottom: 5px;
     }
+    #cp-name { color: var(--dark-purple) !important; margin-top: 5px; }
+    #cp-desc { color: #555; margin-top: 5px; line-height: 1.5; }
 
-    /* 4. CP 區塊文字顏色修正 */
-    #cp-name { color: var(--dark-purple) !important; margin-top: 10px; }
-    #cp-desc { color: #555; margin-top: 5px; }
-
-    /* 5. 修正捲動被導覽列遮住 (Index 專屬) */
     section[id] {
-        scroll-margin-top: 100px;
+        scroll-margin-top: 85px;
+    }
+
+    @media (max-width: 700px) {
+        .cp-container {
+            gap: 25px !important; 
+        }
+        
+        .cp-display {
+            margin-top: 0 !important;
+            padding: 20px !important;
+        }
+
+        .section-title {
+            margin-bottom: 15px !important;
+        }
     }
 </style>
 </head>
@@ -309,6 +320,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
