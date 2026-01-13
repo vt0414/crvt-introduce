@@ -136,6 +136,33 @@
     display: block;
     transition: opacity 0.8s ease-in-out;
 }
+
+.quick-nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: -20px;
+    margin-bottom: 40px;
+}
+
+.quick-nav-buttons button {
+    background-color: #ffffff;
+    color: #4a148c;
+    border: 2px solid #4a148c;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.quick-nav-buttons button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(74, 20, 140, 0.2);
+    background-color: #ffffff;
+}
+		
 	@media (max-width: 480px) {
     .cp-picker { gap: 10px; }
     .circle-frame {
@@ -149,9 +176,17 @@
     .plus-sign { font-size: 20px; color: #4a148c; }
 		.group-photo-container {
         max-width: 100%;
-        aspect-ratio: auto; /* 手機版讓它根據圖片高度自動調整 */
+        aspect-ratio: auto; 
+    }
+	.quick-nav-buttons {
+        gap: 10px;
+    }
+    .quick-nav-buttons button {
+        padding: 8px 15px;
+        font-size: 13px;
     }
 }
+		
     </style>
 </head>
 <body>
@@ -169,7 +204,14 @@
 <div class="group-photo-container">
     <img id="slideshow-img" src="images/Cravity/1.jpg" alt="CRAVITY Group Photo">
 </div>
-
+<div class="quick-nav-buttons">
+    <button onclick="document.getElementById('events').scrollIntoView({behavior: 'smooth'})">
+        時間軸
+    </button>
+    <button onclick="document.getElementById('cp-zone').scrollIntoView({behavior: 'smooth'})">
+        cp介紹
+    </button>
+</div>
     <header id="intro" class="section hero">
         <div class="glass-card">
             <h1>CRAVITY</h1>
@@ -217,7 +259,7 @@
         </div>
 </section>
     <section id="cp-zone" class="section cp-section">
-    <h2 class="section-title">CRAVITY CP</h2>
+    <h2 class="section-title">CRAVITY CP介紹</h2>
     <div class="cp-container">
         <div class="cp-picker">
             <div class="member-box">
@@ -309,13 +351,6 @@ const cpData = {
     "wonjin-woobin": { name: "風倍清z/音倍清z", desc: "探索中。" }
 };
 
-// 初始化
-window.onload = () => {
-    initLeftSelect();
-    handleLeftChange(); // 初始化右邊選單
-};
-
-// 1. 生成左邊所有成員
 function initLeftSelect() {
     const leftSelect = document.getElementById('left-select');
     members.forEach(m => {
@@ -324,15 +359,12 @@ function initLeftSelect() {
     });
 }
 
-// 2. 當左邊改變：更新左圖，並重新生成「過濾後」的右邊選單
 function handleLeftChange() {
     const leftVal = document.getElementById('left-select').value;
     const rightSelect = document.getElementById('right-select');
     
-    // 更新左圖
     document.getElementById('left-img').src = members.find(m => m.id === leftVal).img;
 
-    // 清空並重新生成右邊（排除左邊選中的人）
     const currentRightVal = rightSelect.value; 
     rightSelect.innerHTML = "";
     
@@ -340,8 +372,6 @@ function handleLeftChange() {
         let opt = new Option(m.name, m.id);
         rightSelect.add(opt);
     });
-
-    // 盡量保留原本右邊選的人
     if (currentRightVal && currentRightVal !== leftVal) {
         rightSelect.value = currentRightVal;
     }
@@ -349,12 +379,9 @@ function handleLeftChange() {
     updateCP();
 }
 
-// 3. 更新右圖與 CP 文字
 function updateCP() {
     const left = document.getElementById('left-select').value;
     const right = document.getElementById('right-select').value;
-    
-    // 更新右邊頭像 (這部分維持原樣)
     const rightMember = members.find(m => m.id === right);
     if (rightMember) {
         document.getElementById('right-img').src = rightMember.img;
@@ -363,7 +390,6 @@ function updateCP() {
     const cpName = document.getElementById('cp-name');
     const cpDesc = document.getElementById('cp-desc');
 
-    // --- 排序 Key ---
     const key = [left, right].sort().join('-'); 
     console.log("當前組合 Key:", key); // 可以在控制台檢查組合名稱
 
@@ -413,6 +439,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
