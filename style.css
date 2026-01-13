@@ -16,20 +16,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+    /* 修正：背景固定且不斷層 */
     background: linear-gradient(135deg, #fdfcfb 0%, #e2d1f9 100%);
+    background-attachment: fixed;
+    background-size: cover;
     color: var(--dark-purple);
     overflow-x: hidden;
-}
-
-/* 導覽列 RWD */
-/* 移除所有連結的預設樣式 */
-a {
-    text-decoration: none;
-    color: inherit;
-}
-a, a:visited, a:hover, a:active {
-    text-decoration: none !important; /* 永遠不顯示底線 */
-    color: inherit; /* 繼承父元素的顏色，不要變藍色 */
 }
 
 /* 導覽列統一設計 */
@@ -40,24 +32,24 @@ nav {
     padding: 15px 5%;
     position: sticky;
     top: 0;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(15px);
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     width: 100%;
 }
 
 nav .logo {
-    font-size: 1.2rem; /* 稍微縮小一點避免手機版太擠 */
+    font-size: 1.2rem;
     font-weight: bold;
-    color: var(--main-purple);
-    white-space: nowrap; /* 強制不換行 */
+    color: var(--dark-purple);
+    white-space: nowrap;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 15px; /* 選單項目之間的距離 */
+    gap: 15px;
     margin: 0;
     padding: 0;
 }
@@ -65,19 +57,18 @@ nav ul {
 nav ul li a {
     color: var(--dark-purple);
     font-weight: 500;
-    font-size: 0.9rem; /* 手機版建議 0.9rem 比較剛好 */
+    font-size: 0.95rem;
     transition: 0.3s;
-    white-space: nowrap;
+    text-decoration: none;
 }
 
 nav ul li a:hover {
     color: var(--main-purple);
 }
 
-/* 核心區塊修正：解決距離太遠問題 */
+/* 核心區塊通用設定 */
 .section {
-    padding: 40px 5%; /* 減少上下內距，讓區塊靠攏 */
-    min-height: auto; /* 移除 80vh 的強制高度 */
+    padding: 60px 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,21 +85,47 @@ nav ul li a:hover {
     text-align: center;
 }
 
-/* CP 選擇器：這是首頁 RWD 的關鍵 */
+/* --- 幻燈片容器尺寸限制 --- */
+.group-photo-container {
+    max-width: 850px;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+#slideshow-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.8s ease;
+}
+
+/* --- CP 選擇器 RWD 修正 --- */
 .cp-picker {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 30px;
     width: 100%;
+    flex-wrap: nowrap; /* 確保不換行 */
+}
+
+.member-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 .circle-frame {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid white;
+    border: 4px solid white;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
@@ -118,53 +135,49 @@ nav ul li a:hover {
     object-fit: cover;
 }
 
-/* 時間軸容器 */
+/* 下拉選單樣式：無紫色背景 */
+.member-box select {
+    background-color: #fff !important;
+    color: var(--dark-purple);
+    border: 2px solid var(--dark-purple);
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-align: center;
+    text-align-last: center;
+    font-weight: bold;
+    outline: none;
+}
+
+/* --- 垂直滑動時間軸 --- */
 .timeline-container {
     width: 100%;
-    max-width: 700px;
-    max-height: 400px;
+    max-width: 600px;
+    height: 220px; /* 限制高度一次顯示一個 */
     overflow-y: auto;
-    padding: 30px 20px 30px 60px;
+    scroll-snap-type: y mandatory;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 20px;
+    padding: 0 20px;
+    scrollbar-width: none;
+}
+.timeline-container::-webkit-scrollbar { display: none; }
+
+.timeline-item {
+    height: 100%;
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-/* --- RWD 響應式設定 --- */
-
-/* 當螢幕寬度小於 992px (平板) */
-@media (max-width: 992px) {
-    .members-grid {
-        grid-template-columns: repeat(2, 1fr); /* 成員頁變 2 欄 */
-    }
-}
-
-/* 當螢幕寬度小於 768px (手機) */
+/* --- RWD 響應式微調 --- */
 @media (max-width: 768px) {
-    nav {
-        padding: 10px 3%; /* 縮小左右內距 */
-    }
+    nav { padding: 10px 3%; }
+    nav ul { gap: 8px; }
+    nav ul li a { font-size: 0.85rem; }
     
-    nav .logo {
-        font-size: 1rem; /* 手機版 Logo 再縮小一點點 */
-    }
-
-    nav ul {
-        gap: 8px; /* 項目間距縮小 */
-    }
-
-    nav ul li a {
-        font-size: 0.8rem; /* 字體縮小，確保四個選單能排在同一行 */
-    }
-
-    /* 首頁 CP 區圓框縮小，避免手機寬度不夠 */
-    .circle-frame {
-        width: 100px;
-        height: 100px;
-    }
-
-    .plus-sign {
-        font-size: 1.5rem;
-    }
+    .circle-frame { width: 90px; height: 90px; }
+    .cp-picker { gap: 10px; }
+    .member-box select { width: 110px; font-size: 0.8rem; }
 }
-
-
