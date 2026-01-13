@@ -44,11 +44,12 @@
         }
 
         /* 2. 大合照區域 */
-        .group-photo-container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
+  .group-photo-container {
+    max-width: 900px;
+    margin: 20px auto 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
         .group-photo-container img {
             width: 100%;
             border-radius: 15px;
@@ -84,10 +85,10 @@
 		.cp-picker {
     display: flex;
     justify-content: center;
-    align-items: center; /* 關鍵：強制垂直對齊 */
+    align-items: center;
     gap: 30px;
     width: 100%;
-    flex-wrap: nowrap; /* 強制不換行，讓左右成員並排 */
+    flex-wrap: nowrap;
 }
 		.member-box {
     display: flex;
@@ -109,13 +110,11 @@
     appearance: none; /* 去除原生箭頭避免干擾置中(選選) */
     -webkit-appearance: none;
 }
-        .member-box select:hover { background: #4a148c; }
         .member-box option { background: #1a1a1a; color: white; }
 
 .cp-display {
-    margin-top: 60px !important; /* 強制推開間距 */
+    margin-top: 60px !important; 
     padding: 25px;
-    /* 確保這部分的文字顏色不變 */
 }
 		#cp-name { color: #4a148c !important; }
     #cp-desc { color: #333 !important; }
@@ -128,10 +127,10 @@
     }
 		#slideshow-img {
     width: 100%;
-    max-width: 900px;
     height: auto;
     border-radius: 15px;
-    transition: opacity 0.8s ease-in-out;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: opacity 0.8s ease-in-out; /* 淡入淡出效果 */
 }
 	@media (max-width: 480px) {
     .cp-picker { gap: 10px; }
@@ -160,7 +159,7 @@
 </nav>
 
 <div class="group-photo-container">
-    <img src="images/Cravity.jpg" alt="CRAVITY Group Photo">
+    <img id="slideshow-img" src="images/Cravity/1.jpg" alt="CRAVITY Group Photo">
 </div>
 
     <header id="intro" class="section hero">
@@ -368,66 +367,47 @@ function updateCP() {
         cpDesc.innerText = "這兩位成員正展現著獨特的化學反應！";
     }
 }
-		let slideImages = [];
+	// --- 固定圖片資料清單 ---
+// 你可以在這裡自由增加或修改圖片檔名
+const slideImages = [
+    "images/Cravity/1.jpg","images/Cravity/2.jpg","images/Cravity/3.jpg",
+    "images/Cravity/4.jpg","images/Cravity/5.jpg","images/Cravity/6.jpg",
+	"images/Cravity/7.jpg","images/Cravity/8.jpg","images/Cravity/9.jpg"
+];
+
 let currentSlideIndex = 0;
-
-// 自動偵測 GitHub 資料夾內的圖片
-async function detectImages() {
-    let i = 1;
-    const folder = "images/Cravity/"; // 你的 GitHub 相對路徑
-    let foundAll = false;
-
-    // 嘗試抓取 1.jpg 到 10.jpg (數字可自行調高)
-    while (!foundAll && i <= 10) {
-        const imgUrl = `${folder}${i}.jpg`;
-        const exists = await checkImageExists(imgUrl);
-        if (exists) {
-            slideImages.push(imgUrl);
-            i++;
-        } else {
-            foundAll = true;
-        }
-    }
-
-    if (slideImages.length > 0) {
-        startSlideshow();
-    }
-}
-
-function checkImageExists(url) {
-    return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = url;
-    });
-}
 
 function startSlideshow() {
     const slideImg = document.getElementById('slideshow-img');
-    if (!slideImg) return;
+    if (!slideImg || slideImages.length === 0) return;
 
     setInterval(() => {
+        // 更新索引
         currentSlideIndex = (currentSlideIndex + 1) % slideImages.length;
-        slideImg.style.opacity = 0; // 先淡出
+        
+        // 淡出動畫
+        slideImg.style.opacity = 0;
         
         setTimeout(() => {
+            // 切換圖片路徑
             slideImg.src = slideImages[currentSlideIndex];
-            slideImg.style.opacity = 1; // 再淡入
-        }, 600); 
-    }, 4000); // 4秒換一張
+            // 淡入動畫
+            slideImg.style.opacity = 1;
+        }, 500); // 0.5秒後切換圖片並淡入
+    }, 4000); // 每 4 秒換一張
 }
 
-// 確保在 window.onload 啟動
-window.addEventListener('load', () => {
+// 整合到原本的 window.onload
+window.onload = () => {
     initLeftSelect();
-    handleLeftChange();
-    detectImages(); 
-});
+    handleLeftChange(); 
+    startSlideshow(); // 啟動幻燈片
+};
 </script>
 </body>
 
 </html>
+
 
 
 
