@@ -2,14 +2,18 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>CRAVITY Members & CCREW</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAVITY | Members</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* 核心網格佈局 */
         .members-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            padding: 50px 8%;
+            grid-template-columns: repeat(3, 1fr); /* 網頁端 3x3 */
+            gap: 25px;
+            padding: 40px 5%;
+            max-width: 1250px;
+            margin: 0 auto;
         }
 
         .member-card {
@@ -18,284 +22,197 @@
             border-radius: 25px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.4);
-            transition: 0.4s ease;
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease;
         }
 
-        .member-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(171, 71, 188, 0.2);
-        }
+        .member-card:hover { transform: translateY(-8px); }
 
-        /* 成員照片與基本資訊 */
-        .member-photo {
-            width: 100%;
-            aspect-ratio: 4/5;
-            object-fit: cover;
-        }
+        .member-photo { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
 
-        .info-content {
-            padding: 20px;
-            text-align: left;
-        }
+        .info-content { padding: 20px; text-align: left; flex-grow: 1; }
 
-        .info-content h3 {
-            margin: 0;
-            color: #4a148c;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .korean-name { font-size: 0.9rem; opacity: 0.7; }
-
+        .info-content h3 { margin: 0; color: var(--dark-purple); font-size: 1.15rem; }
+        .en-name { font-size: 0.85rem; color: #888; font-weight: normal; display: block; }
+		.korean-name { font-size: 0.8rem;color: #777;margin: 2px 0; }
         .details-list {
             list-style: none;
             padding: 0;
-            margin: 15px 0;
-            font-size: 0.85rem;
-            line-height: 1.8;
+            margin: 12px 0;
+            font-size: 0.8rem;
+            line-height: 1.6;
         }
-
-        .details-list li b { color: #ab47bc; }
+        .details-list li b { color: var(--main-purple);font-weight: 600; }
 
         /* CCREW 區塊 */
         .ccrew-box {
-            background: rgba(255, 255, 255, 0.4);
-            margin: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 0 15px 15px 15px;
             padding: 15px;
-            border-radius: 15px;
+            border-radius: 18px;
             display: flex;
-            align-items: center;
-            gap: 15px;
-            border-top: 1px dashed #ab47bc;
+            flex-direction: column;
+            gap: 10px;
+            border: 1px dashed var(--main-purple);
         }
 
-        .ccrew-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            background: white;
-        }
-
-        .ccrew-info h4 { margin: 0; font-size: 0.9rem; color: #4a148c; }
-        .ccrew-info p { margin: 0; font-size: 0.75rem; color: #666; }
+        .ccrew-header { display: flex; align-items: center; gap: 12px; }
+        .ccrew-img { width: 45px; height: 45px; border-radius: 8px; background: #fff; }
+        .ccrew-info h4 { margin: 0; font-size: 0.9rem; color: var(--dark-purple); }
+        .ccrew-desc {
+    		font-size: 0.75rem;
+    		color: #555;
+    		background: rgba(255, 255, 255, 0.4);
+    		padding: 8px;
+    		border-radius: 10px;
+    		margin-top: 5px;
+    		line-height: 1.4;
+		}
 
         .btn-activity {
             display: block;
             text-align: center;
             padding: 12px;
-            background: var(--main-purple);
-            color: white;
-            text-decoration: none;
+            background: var(--dark-purple);
+            color: white !important;
             font-weight: bold;
             transition: 0.3s;
         }
 
-        .btn-activity:hover { background: var(--dark-purple); }
+        /* RWD 設定 */
+        @media (max-width: 992px) { .members-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 650px) { 
+            .members-grid { grid-template-columns: 1fr; padding: 20px 5%; } 
+            header h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
 
 <nav>
-        <div class="logo">CRAVITY 成員介紹</div>
-        <ul>
-            <li><a href="index.html">團體介紹</a></li>
-	        <li><a href="members.html">成員介紹</a></li>
-            <li><a href="discography.html">打歌活動</a></li>
-            <li><a href="variety.html">綜藝活動</a></li>
-        </ul>
+    <div class="logo">CRAVITY</div>
+    <ul>
+        <li><a href="index.html">團體介紹</a></li>
+        <li><a href="members.html">成員介紹</a></li>
+        <li><a href="discography.html">打歌活動</a></li>
+        <li><a href="variety.html">綜藝活動</a></li>
+    </ul>
 </nav>
 
-<header style="text-align: center; padding: 60px 0;">
-    <h1 style="color: #4a148c; letter-spacing: 5px;">CRAVITY Member</h1>
+<header style="text-align: center; padding: 30px 0 0 0;">
+    <h1 style="color: var(--dark-purple); letter-spacing: 4px; margin: 0;">成員介紹</h1>
 </header>
 
-<main class="members-grid" id="members-list">
-    </main>
+<main class="members-grid" id="members-list"></main>
 
 <script>
   const members = [
-    {
-        id: "serim",
-        name: "朴世琳",
-        krName: "박세림 Park Se Rim",
-        birth: "1999.03.03",
-        pos: "隊長(前),主Rapper",
-        mbti: "ENFJ",
-        blood: "A",
-        nick: "朴豬豬",
-        memo: "",
-        emoji: "🐺、🐽",
-        color: "#FF8772 (珊瑚色)",
-        img: "images/serim.jpg",
-        ccrewName: "WOOLPI",
-        ccrewImg: "images/ccrew_woolpi.webp",
+    { 
+        id: "serim", name: "朴世琳", krName: "박세림",enName: "Park Se Rim", index: 7,
+        birth: "1999.03.03", pos: "隊長(前),主Rapper", mbti: "ENFJ", blood: "A",nickName:"", 
+        fmMember: "父母", emoji: "🐺、🐽", color: "#FF8772", img: "images/serim.jpg", 
+        ccrewName: "WOOLPI", ccrewImg: "images/ccrew_woolpi.webp",
+        ccrewDesc: "狼+豬的結合體，性格非常懶惰，容易餓，自認為很帥氣，但其實根本不帥，總是在節食但從未成功過。"
+    },
+    { 
+        id: "allen", name: "馬蒔權 Allen", krName: "마시권",enName: "Allen Ma", index: 8,
+        birth: "1999.4.26", pos: "主Rapper,主舞", mbti: "ISFJ", blood: "A",nickName:"",
+        fmMember: "父母、哥哥", emoji: "🐧", color: "#CC3D3D", img: "images/allen.jpg", 
+        ccrewName: "QUEENI", ccrewImg: "images/ccrew_queeni.webp",
+        ccrewDesc: "因為喜歡吃餃子，所以穿著餃子裝的企鵝。"
+    },
+    { 
+        id: "jungmo", name: "具廷謨", krName: "구정모",enName: "Koo Jung Mo", index: 5,
+        birth: "2000.2.5", pos: "領唱", mbti: "INTP", blood: "B",nickName:"", 
+        fmMember: "父母", emoji: "🐱", color: "#E00096", img: "images/jungmo.jpg", 
+        ccrewName: "RANGMO", ccrewImg: "images/ccrew_rangmo.webp",
+        ccrewDesc: "待補充。"
+    },
+     {
+		id: "woobin",name: "徐宇璸 Ruby",krName: "서우빈",enName: "Seo Woo Bin", index: 3,
+		birth: "2000.10.16",pos: "主唱", mbti: "ISTP",blood: "B",nickName:"",
+		fmMember: "父母",emoji: "🐻",color: "#FF5E00", img: "images/woobin.jpg",
+		ccrewName: "WOOKA",ccrewImg: "images/ccrew_wooka.webp",
+		ccrewDesc: "待補充。"
+    },
+    { 
+        id: "wonjin", name: "咸元進", krName: "함원진",enName: "Ham Won Jin", index: 2,
+        birth: "2001.3.22", pos: "隊長、領唱、領舞", mbti: "ENFP", blood: "O",nickName:"", 
+        fmMember: "父母、姊姊、弟弟", emoji: "🐥", color: "#A366FF", img: "images/wonjinM.jpg", 
+        ccrewName: "DAKONG", ccrewImg: "images/ccrew_dakong.webp",
+        ccrewDesc: "待補充。"
+    },
+	{
+		id: "minhee",name: "姜珉熙",krName: "강민희",enName: "Kang Min Hee", index: 1,
+		birth: "2002.9.17",pos: "領唱",mbti: "ISTP",blood: "AB",nickName:"馬爾濟斯、馬鈴薯",
+		fmMember: "父母、哥哥、姊姊",emoji: "🐶、🥔",color: "#050099",img: "images/minhee.jpg",
+		ccrewName: "KANGMONG",ccrewImg: "images/ccrew_kangmong.webp",
+		ccrewDesc: "待補充。"
     },
     {
-        id: "allen",
-        name: "馬蒔權 Allen",
-        krName: "마시권",
-        birth: "1999.4.26",
-        pos: "主Rapper,主舞",
-        mbti: "ISFJ",
-        blood: "A",
-        nick: "",
-        memo: "",
-        emoji: "🐧", // 修正：補上漏掉的引號
-        color: "#CC3D3D (紅色)",
-        img: "images/allen.jpg",
-        ccrewName: "QUEENI",
-        ccrewImg: "images/ccrew_queeni.webp",
+		id: "hyeongjun",name: "宋刑準",krName: "송형준",enName: "Song Hyeong Jun", index: 4,
+		birth: "2002.11.30",pos: "隊長、主舞、副唱、Center", mbti: "INFJ",blood: "A",nickName:"巧克力貴賓(巧貴)、統營蜂蜜麵包",
+		fmMember: "父母、大姊、二姊",emoji: "🐶、🍋",color: "#47C83E",img: "images/hyeongjun.jpg",
+		ccrewName: "TEORI",ccrewImg: "images/ccrew_teori.webp",
+		ccrewDesc: "待補充。"
     },
-    {
-        id: "jungmo",
-        name: "具廷謨",
-        krName: "구정모 Koo Jung Mo",
-        birth: "2000.2.5",
-        pos: "領唱",
-        mbti: "INTP",
-        blood: "B",
-        nick: "",
-        memo: "",
-        emoji: "🐱",
-        color: "#E00096 (洋紅色)",
-        img: "images/jungmo.jpg",
-        ccrewName: "RANGMO",
-        ccrewImg: "images/ccrew_rangmo.webp",
-    },
-    {
-        id: "woobin",
-        name: "徐宇璸 Ruby",
-        krName: "서우빈 Seo Woo Bin",
-        birth: "2000.10.16",
-        pos: "主唱",
-        mbti: "ISTP",
-        blood: "B",
-        nick: "",
-        memo: "",
-        emoji: "🐻",
-        color: "#FF5E00 (橘色)",
-        img: "images/woobin.jpg",
-        ccrewName: "WOOKA",
-        ccrewImg: "images/ccrew_wooka.webp",
-    },
-    {
-        id: "wonjin",
-        name: "咸元進",
-        krName: "함원진 Ham Won Jin",
-        birth: "2001.3.22",
-        pos: "隊長、領唱、領舞",
-        mbti: "ENFP",
-        blood: "O",
-        nick: "",
-        memo: "",
-        emoji: "🐥",
-        color: "#A366FF (紫色)",
-        img: "images/wonjinM.jpg",
-        ccrewName: "DAKONG",
-        ccrewImg: "images/ccrew_dakong.webp",
-    },
-    {
-        id: "minhee",
-        name: "姜珉熙",
-        krName: "강민희 Kang Min Hee",
-        birth: "2002.9.17",
-        pos: "領唱",
-        mbti: "ISTP",
-        blood: "AB",
-        nick: "馬爾濟斯、土豆",
-        memo: "",
-        emoji: "🐶、🥔",
-        color: "#050099 (藍色)",
-        img: "images/minhee.jpg",
-        ccrewName: "KANGMONG",
-        ccrewImg: "images/ccrew_kangmong.webp",
-    },
-    {
-        id: "hyeongjun",
-        name: "宋刑準",
-        krName: "송형준 Song Hyeong Jun",
-        birth: "2002.11.30",
-        pos: "隊長、主舞、副唱、Center",
-        mbti: "INFJ",
-        blood: "A",
-        nick: "巧克力貴賓(巧貴)、統營蜂蜜麵包",
-        memo: "",
-        emoji: "🐶、🍋",
-        color: "#47C83E (綠色)",
-        img: "images/hyeongjun.jpg",
-        ccrewName: "TEORI",
-        ccrewImg: "images/ccrew_teori.webp",
-    },
-    {
-        id: "taeyoung",
-        name: "金太榮",
-        krName: "김태영 Kim Tae Young",
-        birth: "2003.1.27",
-        pos: "領舞、副唱、忙內",
-        mbti: "ENFP",
-        blood: "AB",
-        nick: "",
-        memo: "",
-        emoji: "🦊",
-        color: "#0DB4A0 (藍綠色)",
-        img: "images/taeyoung.jpg",
-        ccrewName: "YONG-T",
-        ccrewImg: "images/ccrew_yongT.webp",
-    },
-    {
-        id: "seongmin",
-        name: "安性珉",
-        krName: "안성민 An Seong Min",
-        birth: "2003.8.1",
-        pos: "副唱、忙內",
-        mbti: "ISTP",
-        blood: "O",
-        nick: "咚",
-        memo: "",
-        emoji: "🐰", // 修正：改成字串
-        color: "#FFBB00 (黃色)",
-        img: "images/seongmin.jpg",
-        ccrewName: "TOMMY",
-        ccrewImg: "images/ccrew_tommy.webp",
-    },
-];
 
-const listContainer = document.getElementById('members-list');
+    {
+		id: "taeyoung",name: "金太榮",krName: "김태영",enName: "Kim Tae Young", index: 9,
+		birth: "2003.1.27",pos: "領舞、副唱、忙內", mbti: "ENFP",blood: "AB",nickName:"",
+		fmMember: "父母",emoji: "🦊",color: "#0DB4A0",img: "images/taeyoung.jpg",
+		ccrewName: "YONG-T",ccrewImg: "images/ccrew_yongT.webp",
+		ccrewDesc: "待補充。"
+    },
 
-members.forEach(m => {
+    {
+		id: "seongmin",name: "安性珉",krName: "안성민",enName: "An Seong Min", index: 6,
+		birth: "2003.8.1",pos: "副唱、忙內",mbti: "ISTP",blood: "O",nickName:"咚",
+		fmMember: "父母、弟弟",emoji: "🐰",color: "#FFBB00",img: "images/seongmin.jpg",
+		ccrewName: "TOMMY",ccrewImg: "images/ccrew_tommy.webp",
+		ccrewDesc: "待補充。"
+    },
+  ];
+
+  const listContainer = document.getElementById('members-list');
+
+  members.forEach(m => {
     const card = document.createElement('div');
     card.className = 'member-card';
     card.innerHTML = `
         <img src="${m.img}" class="member-photo" alt="${m.name}">
+        
         <div class="info-content">
-            <h3>${m.name} <br><span class="korean-name">${m.krName}</span></h3>
+            <h3>${m.name} <span class="en-name">${m.enName}</span></h3>
+            <p class="korean-name" style="margin-bottom: 10px;">${m.krName}</p>
+            
             <ul class="details-list">
+                <li><b>入社順序：</b>第 ${m.index} 位</li>
                 <li><b>生日：</b>${m.birth}</li>
                 <li><b>定位：</b>${m.pos}</li>
+                <li><b>家庭成員：</b>${m.fmMember}</li>
+                <li><b>暱稱：</b>${m.nickName || '待補充'}</li>
                 <li><b>MBTI：</b>${m.mbti}</li>
-                <li><b>血型：</b>${m.blood}型</li>
-                <li><b>代表emoji：</b>${m.emoji}</li>
                 <li><b>代表色：</b>${m.color}</li>
-                <li><b>稱呼：</b>${m.nick}</li>
+                <li><b>代表 Emoji：</b>${m.emoji}</li>
             </ul>
-            <p style="font-size: 0.8rem; color: #666; padding: 0 5px;">${m.memo}</p>
         </div>
-        <div class="ccrew-box" style="margin-top: auto;"> <img src="${m.ccrewImg}" class="ccrew-img" alt="${m.ccrewName}">
-            <div class="ccrew-info">
-                <h4>${m.ccrewName}</h4>
+
+        <div class="ccrew-box"> 
+            <div class="ccrew-header">
+                <img src="${m.ccrewImg}" class="ccrew-img" alt="${m.ccrewName}">
+                <div class="ccrew-info">
+                    <h4>CCREW: ${m.ccrewName}</h4>
+                </div>
             </div>
+            <p class="ccrew-desc">${m.ccrewDesc}</p>
         </div>
-        <a href="activity_member.html?member=${m.id}" class="btn-activity">查看個人活動</a>
+
+        <a href="activity_member.html?member=${m.id}" class="btn-activity">個人活動回顧</a>
     `;
     listContainer.appendChild(card);
 });
 </script>
 </body>
-
 </html>
-
-
-
