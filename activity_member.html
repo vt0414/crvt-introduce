@@ -259,26 +259,18 @@
         }
     }
 
-    function scrollSlider(btn, direction) {
+   function scrollSlider(btn, direction) {
     const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+    const firstCard = wrapper.querySelector('.activity-card');
     
-    // 自動獲取目前第一張卡片的寬度與間距
-    const card = wrapper.querySelector('.activity-card');
-    if (!card) return;
-    
-    const cardWidth = card.offsetWidth;
-    const gap = 20; // 對應 CSS 的 gap: 20px
-    
-    // 計算容器寬度，決定一次要捲動幾張（通常捲動目前的「可視範圍」寬度）
-    const containerWidth = wrapper.offsetWidth;
-    
-    // 捲動距離建議設為：(卡片寬 + 間距) * 能完整容納的個數
-    const scrollAmount = Math.floor(containerWidth / (cardWidth + gap)) * (cardWidth + gap);
-
-    wrapper.scrollBy({ 
-        left: direction * (scrollAmount || (cardWidth + gap)), 
-        behavior: 'smooth' 
-    });
+    if (firstCard) {
+        // 抓取一張卡片的寬度加上 gap
+        const moveDist = firstCard.offsetWidth + 25; 
+        wrapper.scrollBy({ 
+            left: direction * moveDist, 
+            behavior: 'smooth' 
+        });
+    }
 }
 
     loadActivities();
@@ -286,6 +278,7 @@
 
 </body>
 </html>
+
 
 
 
