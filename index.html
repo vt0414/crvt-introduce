@@ -5,11 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRAVITY | Home</title>
     <link rel="stylesheet" href="style.css">
+	<style>
+        /* --- 修正背景與全域設定 (解決斷層) --- */
+        body {
+            background-attachment: fixed !important;
+            background-size: cover !important;
+            margin: 0;
+            padding: 0;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+        }
+
+        /* 1. 導覽列 RWD 優化 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap; /* 讓手機版能自動換行 */
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li a { color: white; text-decoration: none; font-size: 14px; }
+        @media (max-width: 600px) {
+            nav { justify-content: center; flex-direction: column; gap: 10px; }
+            nav ul { gap: 10px; flex-wrap: wrap; justify-content: center; }
+        }
+
+        /* 2. 大合照區域 */
+        .group-photo-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .group-photo-container img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* 3. 時間軸：橫向滑動一次顯示一個 */
+        .timeline-scroll-wrapper {
+            max-width: 600px; /* 限制寬度使其一次顯示一個 */
+            margin: 0 auto;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            display: flex;
+            padding-bottom: 20px;
+            /* 隱藏滾動條 */
+            scrollbar-width: thin;
+            scrollbar-color: #4a148c transparent;
+        }
+        .timeline-item {
+            min-width: 100%; /* 強制填滿容器寬度 */
+            scroll-snap-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 4. SELECT 樣式美化 & CP 區塊間距 */
+        .member-box select {
+            margin-top: 15px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 2px solid #4a148c;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .member-box select:hover { background: #4a148c; }
+        .member-box option { background: #1a1a1a; color: white; }
+
+        .cp-display {
+            margin-top: 40px !important;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+		.description {
+    text-align: justify;
+    line-height: 1.8;
+    padding: 0 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+    color: #ffffff;
+    font-size: 1rem;
+    max-width: 800px;
+    margin: 20px auto;
+}
+    </style>
 </head>
 <body>
 
 <nav>
-        <div class="logo">CRAVITY 成員介紹</div>
+        <div class="logo">CRAVITY</div>
         <ul>
             <li><a href="index.html">團體介紹</a></li>
 	        <li><a href="members.html">成員介紹</a></li>
@@ -18,18 +118,18 @@
         </ul>
 </nav>
 
-<header style="text-align: center; padding: 60px 0;">
-    <h1 style="color: #4a148c; letter-spacing: 5px;">團體介紹</h1>
-</header>
+<div class="group-photo-container">
+    <img src="images/Cravity.jpg" alt="CRAVITY Group Photo">
+</div>
 
     <header id="intro" class="section hero">
         <div class="glass-card">
             <h1>CRAVITY</h1>
             <p class="description">
-                韓國 Starship 娛樂於 2020 年 4 月 14 日推出的九人男子團體。<br>
-                團名是由「Creativity」和「Gravity」組成，<br>
+                韓國 Starship 娛樂於 2020 年 4 月 14 日推出的九人男子團體。
+                團名是由「Creativity」和「Gravity」組成，
                 有將大眾吸引進我們的宇宙、平行世界的含意，擁有獨一無二的色彩。
-                同時也是「重力中心」(Center of Gravity）的縮寫，<br>
+                同時也是「重力中心」(Center of Gravity）的縮寫，
                 組合成員聚集一起形成完美平衡，就像大家合力完成完美舞台一樣。
                 2025年6月4日後，團名意義變更為「Crave」和「Gravity」組成。
             </p>
@@ -38,26 +138,21 @@
     </header>
 
    <section id="events" class="section">
-    <h2 class="section-title">MILESTONES</h2>
-    
-    <div class="timeline-container">
-        <div class="timeline">
-             <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <h3>2020.04.14</h3>
-                    <p>正式出道 - 迷你一輯《HIDEOUT: REMEMBER WHO WE ARE》</p>
-                </div>
+    <h2 class="section-title">時間軸</h2>
+	<div class="timeline-scroll-wrapper">
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <h3>2020.04.14</h3>
+                <p>正式出道 - 迷你一輯《HIDEOUT: REMEMBER WHO WE ARE》</p>
             </div>
+        </div>
             <div class="timeline-item">
-                <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <h3>2020.05.11</h3>
                     <p>粉絲名正式確認為「Luvity」，意為愛與引力的交集。</p>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <h3>2025.06.04</h3>
                     <p>1.隊長由世琳變更為元進&刑準雙隊長<br>
@@ -66,42 +161,40 @@
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-dot"></div>
                 <div class="timeline-content">
-                    <h3>2024.XX.XX</h3>
+                    <h3>2026.XX.XX</h3>
                     <p>未來更多重要的里程碑...</p>
                 </div>
             </div>
         </div>
-    </div>
 </section>
     <section id="cp-zone" class="section cp-section">
-        <h2 class="section-title">GRAVITY ORBIT</h2>
-        <div class="cp-container">
-            <div class="cp-picker">
-    <div class="member-box">
-        <div class="circle-frame">
-            <img id="left-img" src="" alt="Member Left">
-        </div>
-        <select id="left-select" onchange="handleLeftChange()"></select> 
-    </div>
+    <h2 class="section-title">GRAVITY ORBIT</h2>
+    <div class="cp-container">
+        <div class="cp-picker">
+            <div class="member-box">
+                <div class="circle-frame">
+                    <img id="left-img" src="" alt="Member Left">
+                </div>
+                <select id="left-select" onchange="handleLeftChange()"></select> 
+            </div>
 
-    <div class="plus-sign">💜</div>
+            <div class="plus-sign">💜</div>
 
-    <div class="member-box">
-        <div class="circle-frame">
-            <img id="right-img" src="" alt="Member Right">
-        </div>
-        <select id="right-select" onchange="updateCP()"></select>
-    </div>
-</div>
-
-            <div class="cp-display glass-card">
-                <h3 id="cp-name">選擇兩位成員</h3>
-                <p id="cp-desc">探索他們之間的化學反應...</p>
+            <div class="member-box">
+                <div class="circle-frame">
+                    <img id="right-img" src="" alt="Member Right">
+                </div>
+                <select id="right-select" onchange="updateCP()"></select>
             </div>
         </div>
-    </section>
+
+        <div class="cp-display glass-card">
+            <h3 id="cp-name">選擇兩位成員</h3>
+            <p id="cp-desc">探索他們之間的化學反應...</p>
+        </div>
+    </div>
+</section>
 
     <script>
 const members = [
@@ -238,5 +331,6 @@ function updateCP() {
 </body>
 
 </html>
+
 
 
