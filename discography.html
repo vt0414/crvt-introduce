@@ -144,6 +144,7 @@
         <li><a href="members.html">成員介紹</a></li>
         <li><a href="discography.html">打歌活動</a></li>
         <li><a href="variety.html">綜藝活動</a></li>
+        <li><a href="official.html">官方活動</a></li>
     </ul>
 </nav>
 
@@ -242,7 +243,7 @@
             // 建立卡片 HTML (使用字串拼接提高效能)
             const cardsHTML = group.stages.map(stage => {
                 const dateStr = stage.date ? new Date(stage.date).toISOString().split('T')[0] : "無日期";
-                const safeImg = stage.imageUrl || 'images/none.jpg';
+                const safeImg = `images/Discography/${stage.imageUrl}` || 'images/none.jpg';
                 
                 let fancams = '<div class="fancam-list">此舞台無成員直拍</div>';
                 if (stage.fancams && stage.fancams.trim() !== "") {
@@ -298,3 +299,4 @@
 </script>
 </body>
 </html>
+
