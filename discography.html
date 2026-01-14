@@ -19,7 +19,6 @@
         .song-title { font-size: 2rem; color: var(--dark-purple); margin: 0; }
         .album-name { font-size: 1.1rem; color: #888; font-weight: 500; }
 
-        /* 滑動容器 */
         .slider-container { position: relative; width: 100%; }
         .cards-wrapper {
             display: flex;
@@ -32,7 +31,6 @@
         }
         .cards-wrapper::-webkit-scrollbar { display: none; }
 
-        /* 打歌舞台卡片 - 統一寬度與高度 */
         .stage-card {
             flex: 0 0 320px;
             min-width: 320px;
@@ -47,7 +45,6 @@
             scroll-snap-align: start;
         }
 
-        /* 圖片容器 - 比照個人活動：不裁切照片，加上模糊背景 */
         .img-container {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -91,11 +88,9 @@
             text-decoration: none;
             margin-bottom: 15px;
             transition: 0.3s;
-            margin-top: auto; /* 推到最底部 */
+            margin-top: auto;
         }
-        .btn-main-stage:hover { background: #e91e63; transform: scale(1.02); }
 
-        /* 直拍區塊 */
         .fancam-section {
             border-top: 1px dashed rgba(0,0,0,0.1);
             padding-top: 15px;
@@ -111,36 +106,32 @@
             color: #ff4081;
             border-radius: 20px;
             text-decoration: none;
-            transition: 0.2s;
         }
-        .fancam-btn:hover { background: #ff4081; color: white !important; }
 
-        /* 導覽箭頭 */
         .nav-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 45px;
-            height: 45px;
-            background: white;
-            border: none;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer;
-            z-index: 10;
-            color: #ff4081;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 45px; height: 45px; background: white; border: none;
+            border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer; z-index: 10; color: #ff4081;
+            display: flex; align-items: center; justify-content: center;
         }
         .nav-arrow.left { left: -20px; }
         .nav-arrow.right { right: -20px; }
 
+        /* 搜尋區塊 */
+        .search-container {
+            max-width: 1100px; margin: 20px auto 40px; padding: 20px;
+            background: rgba(255, 255, 255, 0.8); border-radius: 20px;
+            display: flex; flex-wrap: wrap; gap: 15px;
+            justify-content: center; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .search-box { padding: 10px; border-radius: 10px; border: 1px solid #ddd; }
+
         @media (max-width: 768px) {
             .nav-arrow { display: none; }
             .stage-card { flex: 0 0 85%; min-width: 280px; }
-            .slider-container { padding: 0; }
-            .cards-wrapper { gap: 15px; }
+            .search-container { flex-direction: column; }
         }
     </style>
 </head>
@@ -156,128 +147,154 @@
     </ul>
 </nav>
 
-<div class="container" id="discography-content">
-    <p style="text-align: center; padding: 50px;">正在加載打歌資料...</p>
+<div class="container">
+    <div class="search-container">
+        <div style="display:flex; gap:5px; align-items:center;">
+            日期：<input type="date" id="startDate" class="search-box"> 至 <input type="date" id="endDate" class="search-box">
+        </div>
+        <select id="albumFilter" class="search-box">
+            <option value="">所有專輯</option>
+        </select>
+        <input type="text" id="keywordSearch" class="search-box" placeholder="搜尋歌曲、舞台、成員..." style="flex-grow: 1;">
+        <button onclick="applyFilters()" style="background:#ff4081; color:white; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">搜尋</button>
+        <button onclick="clearFilters()" style="background:#eee; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">清除</button>
+    </div>
+
+    <div id="discography-content">
+        <p style="text-align: center; padding: 50px;">正在加載打歌資料...</p>
+    </div>
 </div>
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
+    let allData = []; 
 
     async function loadDiscography() {
         try {
             const response = await fetch(`${SCRIPT_URL}?type=discography`);
-            const data = await response.json();
-
-            if (!data || data.length === 0) {
-                document.getElementById('discography-content').innerHTML = "<p style='text-align:center;'>目前尚無打歌資料。</p>";
+            allData = await response.json();
+            if (!allData || allData.length === 0) {
+                document.getElementById('discography-content').innerHTML = "目前尚無資料。";
                 return;
             }
-
-            const grouped = data.reduce((acc, item) => {
-                if (!acc[item.song]) {
-                    acc[item.song] = { album: item.album, stages: [] };
-                }
-                acc[item.song].stages.push(item);
-                return acc;
-            }, {});
-
-            renderUI(grouped);
+            populateAlbumFilter(allData);
+            applyFilters(); 
         } catch (err) {
-            console.error("加載失敗:", err);
-            document.getElementById('discography-content').innerHTML = "資料加載失敗。";
+            document.getElementById('discography-content').innerHTML = "加載失敗。";
         }
     }
 
-    function renderUI(grouped) {
+    function populateAlbumFilter(data) {
+        const albumSelect = document.getElementById('albumFilter');
+        const albumSet = new Set();
+        data.forEach(item => { if(item.album) albumSet.add(item.album.trim()); });
+        const sortedAlbums = Array.from(albumSet).sort();
+        
+        let options = '<option value="">所有專輯 (All Albums)</option>';
+        sortedAlbums.forEach(album => { options += `<option value="${album}">${album}</option>`; });
+        albumSelect.innerHTML = options;
+    }
+
+    function applyFilters() {
+        const start = document.getElementById('startDate').value;
+        const end = document.getElementById('endDate').value;
+        const album = document.getElementById('albumFilter').value;
+        const keyword = document.getElementById('keywordSearch').value.toLowerCase().trim();
+
+        const filtered = allData.filter(item => {
+            let itemDate = item.date ? new Date(item.date).toISOString().split('T')[0] : "";
+            if (start && itemDate < start) return false;
+            if (end && itemDate > end) return false;
+            if (album && item.album !== album) return false;
+            if (keyword) {
+                const searchStr = `${item.song} ${item.eventTitle} ${item.fancams}`.toLowerCase();
+                if (!searchStr.includes(keyword)) return false;
+            }
+            return true;
+        });
+
+        renderByGroup(filtered);
+    }
+
+    function renderByGroup(data) {
         const container = document.getElementById('discography-content');
-        container.innerHTML = "";
+        container.innerHTML = ""; 
+
+        if (data.length === 0) {
+            container.innerHTML = "<p style='text-align:center; padding: 50px;'>找不到結果。</p>";
+            return;
+        }
+
+        const grouped = data.reduce((acc, item) => {
+            if (!acc[item.song]) acc[item.song] = { album: item.album, stages: [] };
+            acc[item.song].stages.push(item);
+            return acc;
+        }, {});
+
+        // 使用 DocumentFragment 減少重繪次數
+        const fragment = document.createDocumentFragment();
 
         for (const songTitle in grouped) {
-            const songData = grouped[songTitle];
+            const group = grouped[songTitle];
             const section = document.createElement('div');
             section.className = 'song-group';
-
-            const stagesHTML = songData.stages.map(stage => {
-                let dateStr = "無日期";
-                if (stage.date) {
-                    const d = new Date(stage.date);
-                    if (!isNaN(d.getTime())) {
-                        dateStr = d.toISOString().split('T')[0];
-                    }
-                }
-
-                let fancamsHTML = "";
+            
+            // 建立卡片 HTML (使用字串拼接提高效能)
+            const cardsHTML = group.stages.map(stage => {
+                const dateStr = stage.date ? new Date(stage.date).toISOString().split('T')[0] : "無日期";
+                const safeImg = stage.imageUrl || 'images/none.jpg';
+                
+                let fancams = '<div class="fancam-list">此舞台無成員直拍</div>';
                 if (stage.fancams && stage.fancams.trim() !== "") {
-                    const fanLinks = stage.fancams.split(',').map(pair => {
+                    const links = stage.fancams.split(',').map(pair => {
                         const match = pair.trim().match(/^([^:]+):(.+)$/);
-                        if (match) {
-                            const name = match[1].trim();
-                            const url = match[2].trim();
-                            return `<a href="${url}" target="_blank" class="fancam-btn">${name}</a>`;
-                        }
-                        return '';
+                        return match ? `<a href="${match[2].trim()}" target="_blank" class="fancam-btn">${match[1].trim()}</a>` : '';
                     }).join('');
-                    
-                    if(fanLinks) {
-                        fancamsHTML = `
-                            <div class="fancam-section">
-                                <div class="fancam-label">成員直拍</div>
-                                <div class="fancam-list">${fanLinks}</div>
-                            </div>
-                        `;
-                    }
-                }else
-                {
-                    fancamsHTML = `
-                            <div class="fancam-section">
-                                <div class="fancam-label">成員直拍</div>
-                                <div class="fancam-list">此舞台無任何成員直拍</div>
-                            </div>
-                        `;
+                    fancams = `<div class="fancam-list">${links}</div>`;
                 }
-
-                const safeImgUrl = stage.imageUrl ? stage.imageUrl.trim() : '';
 
                 return `
                     <div class="stage-card">
                         <div class="img-container">
-                            <div class="img-blur-bg" style="background-image: url('${safeImgUrl}')"></div>
-                            <img src="${safeImgUrl}" class="stage-img" onerror="this.src='images/none.jpg'"">
+                            <div class="img-blur-bg" style="background-image: url('${safeImg}')"></div>
+                            <img src="${safeImg}" class="stage-img" onerror="this.src='images/none.jpg'">
                         </div>
                         <div class="stage-info">
                             <div class="stage-date">${dateStr}</div>
                             <div class="event-title">${stage.eventTitle}</div>
                             <div class="stage-cast">參與：${stage.cast}</div>
                             <a href="${stage.link}" target="_blank" class="btn-main-stage">觀看全體舞台</a>
-                            ${fancamsHTML}
+                            <div class="fancam-section"><div class="fancam-label">成員直拍</div>${fancams}</div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             }).join('');
 
             section.innerHTML = `
-                <div class="song-header">
-                    <h2 class="song-title">${songTitle}</h2>
-                    <span class="album-name">| ${songData.album}</span>
-                </div>
+                <div class="song-header"><h2 class="song-title">${songTitle}</h2><span class="album-name">| ${group.album}</span></div>
                 <div class="slider-container">
                     <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
-                    <div class="cards-wrapper">${stagesHTML}</div>
+                    <div class="cards-wrapper">${cardsHTML}</div>
                     <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
-                </div>
-            `;
-            container.appendChild(section);
+                </div>`;
+            fragment.appendChild(section);
         }
+        container.appendChild(fragment);
+    }
+
+    function clearFilters() {
+        document.getElementById('startDate').value = '';
+        document.getElementById('endDate').value = '';
+        document.getElementById('albumFilter').value = '';
+        document.getElementById('keywordSearch').value = '';
+        applyFilters();
     }
 
     function scrollSlider(btn, dir) {
         const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-        const scrollAmount = wrapper.offsetWidth * 0.8;
-        wrapper.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
+        wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
     }
 
     loadDiscography();
 </script>
 </body>
 </html>
-
