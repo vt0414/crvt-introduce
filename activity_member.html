@@ -59,7 +59,6 @@
         .group-header { border-left: 6px solid var(--main-purple); padding-left: 15px; margin-bottom: 20px; }
         .group-title { font-size: 1.4rem; color: var(--dark-purple); margin: 0; }
 
-        /* 滑動容器：電腦版與手機版通用對齊 */
         .slider-container {
             position: relative;
             width: 100%;
@@ -69,10 +68,11 @@
 
         .cards-wrapper {
             display: flex; /* 恢復為 flex，這才能讓箭頭移動 */
+            flex-direction: row;
             gap: 20px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 20px 5px; /* 增加一點點左右 padding，卡片陰影才不會被裁切 */
+            padding: 20px 5px;
             scrollbar-width: none;
             scroll-snap-type: x mandatory;
             width: 100%;
@@ -354,6 +354,7 @@
 </script>
 </body>
 </html>
+
 
 
 
