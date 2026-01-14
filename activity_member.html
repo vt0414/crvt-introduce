@@ -6,6 +6,10 @@
     <title>CRAVITY | 個人活動</title>
     <link rel="stylesheet" href="style.css">
     <style>
+        /* 基礎佈局 */
+        .container { padding: 20px 5%; max-width: 1400px; margin: 0 auto; }
+        
+        /* 搜尋區塊 */
         .search-container {
             max-width: 800px;
             margin: 20px auto 40px;
@@ -20,15 +24,12 @@
             gap: 15px;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
         .search-container input {
             padding: 8px 12px;
             border-radius: 10px;
             border: 1px solid var(--main-purple);
-            color: var(--dark-purple);
             outline: none;
         }
-
         .btn-search {
             padding: 8px 25px;
             background: var(--dark-purple);
@@ -40,79 +41,116 @@
             transition: 0.3s;
         }
 
-        .btn-search:hover { background: var(--main-purple); }
-
-        .container { padding: 20px 5%; max-width: 1400px; margin: 0 auto; }
+        /* 內容區塊 */
         .group-section { margin-bottom: 50px; position: relative; }
         .group-header { border-left: 6px solid var(--main-purple); padding-left: 15px; margin-bottom: 20px; }
         .group-title { font-size: 1.4rem; color: var(--dark-purple); margin: 0; }
 
+        /* 滑動容器：電腦版與手機版通用對齊 */
         .slider-container {
             position: relative;
             width: 100%;
-            padding: 0 60px; 
+            padding: 0 50px; /* 增加寬度給箭頭空間 */
             box-sizing: border-box;
         }
 
         .cards-wrapper {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            grid-auto-flow: column;
-            grid-auto-columns: minmax(280px, 1fr);
+            display: flex; /* 改回 flex，這是處理不露出邊緣最穩定的方法 */
             gap: 25px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 20px 5px;
+            padding: 20px 0;
             scrollbar-width: none;
-            scroll-snap-type: x mandatory;
+            scroll-snap-type: x mandatory; /* 強制對齊 */
         }
         .cards-wrapper::-webkit-scrollbar { display: none; }
 
-.activity-card {
-    width: 100%; /* 寬度由 Grid 控制 */
-    scroll-snap-align: start; /* 捲動停止時自動對齊左側 */
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(15px);
-    border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    display: flex;
-    flex-direction: column;
-}
-
-/* 3. 修正箭頭位置，確保它們出現在最兩側且不會卡住 */
-.nav-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    background: white;
-    border: 2px solid var(--main-purple);
-    color: var(--main-purple);
-    border-radius: 50%;
-    z-index: 20;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
-.nav-arrow.left { left: 5px; }
-.nav-arrow.right { right: 5px; }
-
-        .act-img { width: 100%; height: 160px; object-fit: cover; }
-        .act-info { padding: 15px; display: flex; flex-direction: column; gap: 8px; }
-        .act-date { font-size: 0.8rem; color: #888; }
-        .act-subtitle { font-weight: bold; font-size: 1rem; color: var(--dark-purple); min-height: 2.8em; }
-        .act-cast { font-size: 0.85rem; color: var(--main-purple); height: 2.5em; overflow: hidden; }
-        .btn-watch {
-            display: block; text-align: center; padding: 10px;
-            background: var(--main-purple); color: white !important;
-            border-radius: 12px; font-weight: bold; text-decoration: none;
+        .activity-card {
+            flex: 0 0 calc((100% - 50px) / 3); /* 電腦版預設顯示 3 張 */
+            min-width: 280px;
+            scroll-snap-align: start;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
+        /* 照片容器優化 */
+        .img-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .img-blur-bg {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(15px);
+            opacity: 0.4;
+            z-index: 1;
+        }
+        .act-img {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .act-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+        .act-date { font-size: 0.8rem; color: #888; }
+        .act-subtitle { font-weight: bold; color: var(--dark-purple); min-height: 2.8em; }
+        .act-cast { font-size: 0.85rem; color: var(--main-purple); height: 2.5em; overflow: hidden; }
+
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px; height: 44px;
+            background: white;
+            border: 2px solid var(--main-purple);
+            color: var(--main-purple);
+            border-radius: 50%;
+            z-index: 20;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .nav-arrow.left { left: 0; }
+        .nav-arrow.right { right: 0; }
+
+        /* 手機版 RWD 修正 */
         @media (max-width: 768px) {
+            /* 1. 修正選單：不垂直，改為橫向滑動 */
+            nav { flex-direction: column !important; padding: 10px 0; }
+            nav ul { 
+                flex-direction: row !important; 
+                overflow-x: auto; 
+                width: 100%; 
+                justify-content: flex-start; 
+                padding: 10px 20px;
+                gap: 15px;
+            }
+            nav ul li a { white-space: nowrap; font-size: 14px; }
+
+            /* 2. 修正卡片：手機版顯示 100% 寬度，不露出邊緣 */
             .slider-container { padding: 0; }
             .nav-arrow { display: none; }
-            .activity-card { flex: 0 0 240px; }
-            .search-container { flex-direction: column; gap: 10px; }
+            .activity-card {
+                flex: 0 0 100%; /* 填滿寬度 */
+                scroll-snap-align: start;
+            }
+            .cards-wrapper { gap: 0; } /* 手機版移除間距讓 100% 更準確 */
         }
     </style>
 </head>
@@ -137,7 +175,6 @@
         <button class="btn-search" onclick="filterByDate()">搜尋活動</button>
         <button class="btn-search" style="background:#888;" onclick="resetSearch()">清除</button>
     </div>
-
     <div id="activity-list">
         <p style="text-align: center; padding: 50px;">正在加載活動內容...</p>
     </div>
@@ -151,73 +188,56 @@
     let allActivities = [];
 
     async function loadActivities() {
-    if (!memberId) return;
-    try {
-        const response = await fetch(`${SCRIPT_URL}?type=activities&memberId=${memberId}`);
-        const data = await response.json();
-        
-        allActivities = data.map(act => {
-            let cleanDate = "";
-            if (act.date) {
-                const d = new Date(act.date);
-                if (!isNaN(d.getTime())) {
-                    const y = d.getFullYear();
-                    const m = String(d.getMonth() + 1).padStart(2, '0');
-                    const day = String(d.getDate()).padStart(2, '0');
-                    cleanDate = `${y}-${m}-${day}`;
+        if (!memberId) return;
+        try {
+            const response = await fetch(`${SCRIPT_URL}?type=activities&memberId=${memberId}`);
+            const data = await response.json();
+            
+            allActivities = data.map(act => {
+                let cleanDate = "";
+                if (act.date) {
+                    const d = new Date(act.date);
+                    if (!isNaN(d.getTime())) {
+                        const y = d.getFullYear();
+                        const m = String(d.getMonth() + 1).padStart(2, '0');
+                        const day = String(d.getDate()).padStart(2, '0');
+                        cleanDate = `${y}-${m}-${day}`;
+                    }
                 }
-            }
-            return {
-                ...act,
-                formattedDate: cleanDate, 
-                displayDate: cleanDate || "無日期" 
-            };
-        });
+                return { ...act, formattedDate: cleanDate, displayDate: cleanDate || "無日期" };
+            });
 
-        document.getElementById('member-name-title').innerText = memberId.toUpperCase() + " 活動紀錄";
-        displayData(allActivities);
-    } catch (err) {
-        console.error("解析失敗", err);
-        document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>資料格式解析失敗。</p>";
+            document.getElementById('member-name-title').innerText = memberId.toUpperCase() + " 活動紀錄";
+            displayData(allActivities);
+        } catch (err) {
+            document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>資料加載失敗。</p>";
+        }
     }
-}
 
     function displayData(data) {
         if (data.length === 0) {
-            document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>找不到相關日期的活動紀錄。</p>";
+            document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>找不到活動紀錄。</p>";
             return;
         }
-
         const grouped = data.reduce((acc, act) => {
             if (!acc[act.title]) acc[act.title] = [];
             acc[act.title].push(act);
             return acc;
         }, {});
-
         renderUI(grouped);
     }
 
     function filterByDate() {
-    const start = document.getElementById('startDate').value; 
-    const end = document.getElementById('endDate').value;
-
-    if (!start && !end) {
-        displayData(allActivities);
-        return;
+        const start = document.getElementById('startDate').value; 
+        const end = document.getElementById('endDate').value;
+        if (!start && !end) { displayData(allActivities); return; }
+        const filtered = allActivities.filter(act => {
+            if (!act.formattedDate) return false;
+            if (start && end) return act.formattedDate >= start && act.formattedDate <= end;
+            return act.formattedDate === (start || end);
+        });
+        displayData(filtered);
     }
-
-    const filtered = allActivities.filter(act => {
-        if (!act.formattedDate) return false;
-        
-        if (start && end) {
-            return act.formattedDate >= start && act.formattedDate <= end;
-        }
-        const target = start || end;
-        return act.formattedDate === target;
-    });
-
-    displayData(filtered);
-}
 
     function resetSearch() {
         document.getElementById('startDate').value = "";
@@ -228,23 +248,24 @@
     function renderUI(grouped) {
         const container = document.getElementById('activity-list');
         container.innerHTML = "";
-
         for (const title in grouped) {
             const section = document.createElement('div');
             section.className = 'group-section';
-
             const cardsHTML = grouped[title].map(act => {
+                const safeImgUrl = act.imageUrl ? act.imageUrl.trim() : 'images/none.jpg';
                 return `
                     <div class="activity-card">
-                        <img src="${act.imageUrl || 'images/none.jpg'}" class="act-img" onerror="this.src='images/none.jpg'">
+                        <div class="img-container">
+                            <div class="img-blur-bg" style="background-image: url('${safeImgUrl}')"></div>
+                            <img src="${safeImgUrl}" class="act-img" onerror="this.src='images/none.jpg';">
+                        </div>
                         <div class="act-info">
                             <div class="act-date">${act.displayDate}</div>
                             <div class="act-subtitle">${act.subTitle}</div>
                             <div class="act-cast">參與：${act.cast}</div>
                             <a href="${act.link}" target="_blank" class="btn-watch">觀看連結</a>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             }).join('');
 
             section.innerHTML = `
@@ -253,32 +274,21 @@
                     <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
                     <div class="cards-wrapper">${cardsHTML}</div>
                     <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
-                </div>
-            `;
+                </div>`;
             container.appendChild(section);
         }
     }
 
-   function scrollSlider(btn, direction) {
-    const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-    const firstCard = wrapper.querySelector('.activity-card');
-    
-    if (firstCard) {
-        // 抓取一張卡片的寬度加上 gap
-        const moveDist = firstCard.offsetWidth + 25; 
-        wrapper.scrollBy({ 
-            left: direction * moveDist, 
-            behavior: 'smooth' 
-        });
+    function scrollSlider(btn, direction) {
+        const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+        const firstCard = wrapper.querySelector('.activity-card');
+        if (firstCard) {
+            const moveDist = wrapper.offsetWidth; // 捲動一整個視窗的距離，確保對齊
+            wrapper.scrollBy({ left: direction * moveDist, behavior: 'smooth' });
+        }
     }
-}
 
     loadActivities();
 </script>
-
 </body>
 </html>
-
-
-
-
