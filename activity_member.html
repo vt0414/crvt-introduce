@@ -23,6 +23,7 @@
             align-items: center;
             gap: 10px;
         }
+
         .search-group {
             display: flex;
             align-items: center;
@@ -62,24 +63,24 @@
         .slider-container {
             position: relative;
             width: 100%;
-            padding: 0 20px; 
+            padding: 0 10px; 
             box-sizing: border-box;
         }
 
         .cards-wrapper {
-            flex: 0 0 calc((100% - 40px) / 3);
-            scroll-snap-align: start;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            display: flex; /* 恢復為 flex，這才能讓箭頭移動 */
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 20px 5px; /* 增加一點點左右 padding，卡片陰影才不會被裁切 */
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+            width: 100%;
         }
         .cards-wrapper::-webkit-scrollbar { display: none; }
 
         .activity-card {
-            flex: 0 0 calc((100% - 50px) / 3); /* 電腦版預設顯示 3 張 */
+            flex: 0 0 calc((100% - 40px) / 3); 
             min-width: 280px;
             scroll-snap-align: start;
             background: rgba(255, 255, 255, 0.6);
@@ -353,6 +354,7 @@
 </script>
 </body>
 </html>
+
 
 
 
