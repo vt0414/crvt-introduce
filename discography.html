@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRAVITY | 打歌活動紀錄</title>
+    <title>CRAVITY | 打歌活動</title>
     <link rel="stylesheet" href="style.css">
     <style>
         .container { padding: 30px 5%; max-width: 1400px; margin: 0 auto; }
-        
-        /* 歌曲大標題區塊 */
         .song-group { margin-bottom: 60px; }
         .song-header {
             display: flex;
             align-items: baseline;
             gap: 15px;
             margin-bottom: 20px;
-            border-left: 6px solid #ff4081; /* 打歌頁主題色 */
+            border-left: 6px solid #ff4081;
             padding-left: 15px;
         }
         .song-title { font-size: 2rem; color: var(--dark-purple); margin: 0; }
@@ -30,12 +28,14 @@
             scroll-behavior: smooth;
             padding: 15px 5px;
             scrollbar-width: none;
+            scroll-snap-type: x mandatory;
         }
         .cards-wrapper::-webkit-scrollbar { display: none; }
 
-        /* 打歌舞台卡片 */
+        /* 打歌舞台卡片 - 統一寬度與高度 */
         .stage-card {
             flex: 0 0 320px;
+            min-width: 320px;
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(15px);
             border-radius: 25px;
@@ -44,27 +44,54 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
+            scroll-snap-align: start;
         }
 
-        .stage-img { width: 100%; height: 180px; object-fit: cover; }
+        /* 圖片容器 - 比照個人活動：不裁切照片，加上模糊背景 */
+        .img-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .img-blur-bg {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(15px);
+            opacity: 0.4;
+            z-index: 1;
+        }
+        .stage-img {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain
+        }
+
         .stage-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        
         .stage-date { font-size: 0.85rem; color: #666; margin-bottom: 5px; }
-        .event-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 5px; color: var(--dark-purple); }
+        .event-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 5px; color: var(--dark-purple); min-height: 2.8em; }
         .stage-cast { font-size: 0.9rem; color: #ff4081; margin-bottom: 15px; }
 
-        /* 按鈕樣式 */
         .btn-main-stage {
             display: block;
             text-align: center;
             background: #ff4081;
-            color: white;
+            color: white !important;
             padding: 10px;
             border-radius: 12px;
             font-weight: bold;
             text-decoration: none;
             margin-bottom: 15px;
             transition: 0.3s;
+            margin-top: auto; /* 推到最底部 */
         }
         .btn-main-stage:hover { background: #e91e63; transform: scale(1.02); }
 
@@ -72,6 +99,7 @@
         .fancam-section {
             border-top: 1px dashed rgba(0,0,0,0.1);
             padding-top: 15px;
+            min-height: 80px;
         }
         .fancam-label { font-size: 0.8rem; font-weight: bold; color: #555; margin-bottom: 10px; }
         .fancam-list { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -85,12 +113,13 @@
             text-decoration: none;
             transition: 0.2s;
         }
-        .fancam-btn:hover { background: #ff4081; color: white; }
+        .fancam-btn:hover { background: #ff4081; color: white !important; }
 
         /* 導覽箭頭 */
         .nav-arrow {
             position: absolute;
-            top: 40%;
+            top: 50%;
+            transform: translateY(-50%);
             width: 45px;
             height: 45px;
             background: white;
@@ -100,17 +129,18 @@
             cursor: pointer;
             z-index: 10;
             color: #ff4081;
-            font-size: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .nav-arrow.left { left: -22px; }
-        .nav-arrow.right { right: -22px; }
+        .nav-arrow.left { left: -20px; }
+        .nav-arrow.right { right: -20px; }
 
         @media (max-width: 768px) {
             .nav-arrow { display: none; }
-            .stage-card { flex: 0 0 280px; }
+            .stage-card { flex: 0 0 85%; min-width: 280px; }
+            .slider-container { padding: 0; }
+            .cards-wrapper { gap: 15px; }
         }
     </style>
 </head>
@@ -135,22 +165,17 @@
 
     async function loadDiscography() {
         try {
-            // 使用 type=打歌活動 抓取資料
             const response = await fetch(`${SCRIPT_URL}?type=discography`);
             const data = await response.json();
 
-            if (data.length === 0) {
+            if (!data || data.length === 0) {
                 document.getElementById('discography-content').innerHTML = "<p style='text-align:center;'>目前尚無打歌資料。</p>";
                 return;
             }
 
-            // 1. 按歌曲 (song) 分組
             const grouped = data.reduce((acc, item) => {
                 if (!acc[item.song]) {
-                    acc[item.song] = {
-                        album: item.album,
-                        stages: []
-                    };
+                    acc[item.song] = { album: item.album, stages: [] };
                 }
                 acc[item.song].stages.push(item);
                 return acc;
@@ -159,7 +184,7 @@
             renderUI(grouped);
         } catch (err) {
             console.error("加載失敗:", err);
-            document.getElementById('discography-content').innerHTML = "資料加載失敗，請檢查網路連線。";
+            document.getElementById('discography-content').innerHTML = "資料加載失敗。";
         }
     }
 
@@ -173,32 +198,49 @@
             section.className = 'song-group';
 
             const stagesHTML = songData.stages.map(stage => {
+                let dateStr = "無日期";
+                if (stage.date) {
+                    const d = new Date(stage.date);
+                    if (!isNaN(d.getTime())) {
+                        dateStr = d.toISOString().split('T')[0];
+                    }
+                }
+
                 let fancamsHTML = "";
                 if (stage.fancams && stage.fancams.trim() !== "") {
                     const fanLinks = stage.fancams.split(',').map(pair => {
-                        const [name, url] = pair.split(':');
-                        if (name && url) {
-                            return `<a href="${url.trim()}" target="_blank" class="fancam-btn">${name.trim()}</a>`;
+                        const match = pair.trim().match(/^([^:]+):(.+)$/);
+                        if (match) {
+                            const name = match[1].trim();
+                            const url = match[2].trim();
+                            return `<a href="${url}" target="_blank" class="fancam-btn">${name}</a>`;
                         }
                         return '';
                     }).join('');
                     
-                    fancamsHTML = `
-                        <div class="fancam-section">
-                            <div class="fancam-label">成員直拍 (Fancams)</div>
-                            <div class="fancam-list">${fanLinks}</div>
-                        </div>
-                    `;
+                    if(fanLinks) {
+                        fancamsHTML = `
+                            <div class="fancam-section">
+                                <div class="fancam-label">成員直拍</div>
+                                <div class="fancam-list">${fanLinks}</div>
+                            </div>
+                        `;
+                    }
                 }
+
+                const safeImgUrl = stage.imageUrl ? stage.imageUrl.trim() : '';
 
                 return `
                     <div class="stage-card">
-                        <img src="${stage.imageUrl || 'images/default_stage.jpg'}" class="stage-img" onerror="this.src='https://via.placeholder.com/320x180?text=CRAVITY+STAGE'">
+                        <div class="img-container">
+                            <div class="img-blur-bg" style="background-image: url('${safeImgUrl}')"></div>
+                            <img src="${safeImgUrl}" class="stage-img" onerror="this.src='https://via.placeholder.com/320x180?text=CRAVITY+STAGE'">
+                        </div>
                         <div class="stage-info">
-                            <div class="stage-date">${String(stage.date).split('T')[0]}</div>
+                            <div class="stage-date">${dateStr}</div>
                             <div class="event-title">${stage.eventTitle}</div>
                             <div class="stage-cast">參與：${stage.cast}</div>
-                            <a href="${stage.stageUrl}" target="_blank" class="btn-main-stage">觀看全體舞台</a>
+                            <a href="${stage.link}" target="_blank" class="btn-main-stage">觀看全體舞台</a>
                             ${fancamsHTML}
                         </div>
                     </div>
@@ -222,12 +264,11 @@
 
     function scrollSlider(btn, dir) {
         const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-        wrapper.scrollBy({ left: dir * 345, behavior: 'smooth' });
+        const scrollAmount = wrapper.offsetWidth * 0.8;
+        wrapper.scrollBy({ left: dir * scrollAmount, behavior: 'smooth' });
     }
 
-    // 啟動
     loadDiscography();
 </script>
-
 </body>
 </html>
