@@ -226,6 +226,14 @@
                             </div>
                         `;
                     }
+                }else
+                {
+                    fancamsHTML = `
+                            <div class="fancam-section">
+                                <div class="fancam-label">成員直拍</div>
+                                <div class="fancam-list">此舞台無任何成員直拍</div>
+                            </div>
+                        `;
                 }
 
                 const safeImgUrl = stage.imageUrl ? stage.imageUrl.trim() : '';
@@ -234,7 +242,7 @@
                     <div class="stage-card">
                         <div class="img-container">
                             <div class="img-blur-bg" style="background-image: url('${safeImgUrl}')"></div>
-                            <img src="${safeImgUrl}" class="stage-img" onerror="this.src='https://via.placeholder.com/320x180?text=CRAVITY+STAGE'">
+                            <img src="${safeImgUrl}" class="stage-img" onerror="this.src='images/none.jpg'"">
                         </div>
                         <div class="stage-info">
                             <div class="stage-date">${dateStr}</div>
@@ -272,3 +280,4 @@
 </script>
 </body>
 </html>
+
