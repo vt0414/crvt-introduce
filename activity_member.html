@@ -11,18 +11,22 @@
         
         /* 搜尋區塊 */
         .search-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 20px auto 40px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .search-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .search-container input {
             padding: 8px 12px;
@@ -50,7 +54,7 @@
         .slider-container {
             position: relative;
             width: 100%;
-            padding: 0 50px; /* 增加寬度給箭頭空間 */
+            padding: 0 20px; 
             box-sizing: border-box;
         }
 
@@ -116,22 +120,64 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 44px; height: 44px;
+            width: 48px;
+            height: 48px;
             background: white;
             border: 2px solid var(--main-purple);
             color: var(--main-purple);
             border-radius: 50%;
-            z-index: 20;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 99; /* 提高層級 */
+              cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
-        .nav-arrow.left { left: 0; }
-        .nav-arrow.right { right: 0; }
+        .nav-arrow:hover { background: var(--main-purple); color: white; }
+        .nav-arrow.left { left: 5px; }
+        .nav-arrow.right { right: 5px; }
+        .btn-watch {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--main-purple) 0%, #6a1b9a 100%);
+    color: white !important;
+    border-radius: 50px; /* 圓角膠囊型 */
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(106, 27, 154, 0.2);
+}
+.btn-watch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(106, 27, 154, 0.4);
+    filter: brightness(1.1);
+}
 
         /* 手機版 RWD 修正 */
         @media (max-width: 768px) {
-            /* 1. 修正選單：不垂直，改為橫向滑動 */
+            search-container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 12px;
+    }
+    .search-group {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .search-group input {
+        flex: 1;
+    }
+    .btn-search {
+        width: 48%; /* 讓兩個按鈕排成一排 */
+    }
+    .search-buttons {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+        justify-content: center;
+    }
             nav { flex-direction: column !important; padding: 10px 0; }
             nav ul { 
                 flex-direction: row !important; 
@@ -147,10 +193,10 @@
             .slider-container { padding: 0; }
             .nav-arrow { display: none; }
             .activity-card {
-                flex: 0 0 100%; /* 填滿寬度 */
+                flex: 0 0 100%;
                 scroll-snap-align: start;
             }
-            .cards-wrapper { gap: 0; } /* 手機版移除間距讓 100% 更準確 */
+            .cards-wrapper { gap: 0; } 
         }
     </style>
 </head>
@@ -168,16 +214,18 @@
 
 <div class="container">
     <div class="search-container">
-        <label style="font-weight:bold;">日期搜索：</label>
-        <input type="date" id="startDate">
-        <span>至</span>
-        <input type="date" id="endDate">
-        <button class="btn-search" onclick="filterByDate()">搜尋活動</button>
-        <button class="btn-search" style="background:#888;" onclick="resetSearch()">清除</button>
+        <div class="search-group">
+            <input type="date" id="startDate">
+            <span>至</span>
+            <input type="date" id="endDate">
+        </div>
+        <div class="search-buttons">
+            <button class="btn-search" onclick="filterByDate()">搜尋</button>
+            <button class="btn-search" style="background:#bbb;" onclick="resetSearch()">清除</button>
+        </div>
     </div>
     <div id="activity-list">
-        <p style="text-align: center; padding: 50px;">正在加載活動內容...</p>
-    </div>
+        </div>
 </div>
 
 <script>
@@ -280,15 +328,16 @@
     }
 
     function scrollSlider(btn, direction) {
-        const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-        const firstCard = wrapper.querySelector('.activity-card');
-        if (firstCard) {
-            const moveDist = wrapper.offsetWidth; // 捲動一整個視窗的距離，確保對齊
-            wrapper.scrollBy({ left: direction * moveDist, behavior: 'smooth' });
-        }
-    }
+    const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+    const scrollAmount = wrapper.offsetWidth * 0.8;
+    wrapper.scrollBy({ 
+        left: direction * scrollAmount, 
+        behavior: 'smooth' 
+    });
+}
 
     loadActivities();
 </script>
 </body>
 </html>
+
