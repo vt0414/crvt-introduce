@@ -222,6 +222,7 @@
         <li><a href="members.html">成員介紹</a></li>
         <li><a href="discography.html">打歌活動</a></li>
         <li><a href="variety.html">綜藝活動</a></li>
+        <li><a href="official.html">官方活動</a></li>
     </ul>
 </nav>
 
@@ -314,7 +315,7 @@
             const section = document.createElement('div');
             section.className = 'group-section';
             const cardsHTML = grouped[title].map(act => {
-                const safeImgUrl = act.imageUrl ? act.imageUrl.trim() : 'images/none.jpg';
+                const safeImgUrl = act.imageUrl ? `images/activities/${act.imageUrl.trim()}` : 'images/none.jpg';
                 return `
                     <div class="activity-card">
                         <div class="img-container">
@@ -354,6 +355,7 @@
 </script>
 </body>
 </html>
+
 
 
 
