@@ -218,7 +218,7 @@
 
             const cardsHTML = catData.map(item => {
                 const dateStr = item.date ? item.date.split('T')[0] : "無日期";
-                const safeImg = item.imageUrl ? (item.imageUrl.startsWith('http') ? item.imageUrl : `images/${item.imageUrl}`) : 'images/none.jpg';
+                const safeImg = item.imageUrl ? (item.imageUrl.startsWith('http') ? item.imageUrl : `images/Variety/${item.imageUrl}`) : 'images/none.jpg';
 
                 return `
                     <div class="variety-card">
@@ -272,3 +272,4 @@
 </script>
 </body>
 </html>
+
