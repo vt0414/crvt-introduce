@@ -11,22 +11,30 @@
         
         /* 搜尋區塊 */
         .search-container {
-            max-width: 900px;
-            margin: 20px auto 40px;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(15px);
-            border-radius: 30px;
+            max-width: 880px;
+            margin: 20px auto;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            gap: 10px;
         }
         .search-group {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+        .search-group input[type="date"] {
+            width: 135px; 
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid var(--main-purple);
+            font-size: 14px;
         }
         .search-container input {
             padding: 8px 12px;
@@ -59,13 +67,14 @@
         }
 
         .cards-wrapper {
-            display: flex; /* 改回 flex，這是處理不露出邊緣最穩定的方法 */
-            gap: 25px;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 20px 0;
-            scrollbar-width: none;
-            scroll-snap-type: x mandatory; /* 強制對齊 */
+            flex: 0 0 calc((100% - 40px) / 3);
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
         .cards-wrapper::-webkit-scrollbar { display: none; }
 
@@ -158,10 +167,10 @@
 
         /* 手機版 RWD 修正 */
         @media (max-width: 768px) {
-            search-container {
+            .search-container {
                 flex-direction: column;
                 padding: 15px;
-                align-items: stretch;
+                gap: 12px;
             }
             .search-group {
                 display: flex;
@@ -170,12 +179,11 @@
                 gap: 5px;
             }
             .search-group input { flex: 1;font-size: 14px; }
+            .search-group input[type="date"] { width: 125px; }
             .btn-search { flex: 1;padding: 10px 0; }
             .search-buttons {
                 display: flex;
-                margin-top: 5px;
-                gap: 10px;
-                justify-content: center;
+                gap: 8px;
             }
             .nav { flex-direction: column !important; padding: 10px 0; }
             .nav ul { 
@@ -220,7 +228,7 @@
     <div class="search-container">
         <div class="search-group">
             <input type="date" id="startDate">
-            <span>至</span>
+            <span style="color:var(--dark-purple); font-weight:bold;">至</span>
             <input type="date" id="endDate">
         </div>
         <div class="search-buttons">
@@ -229,6 +237,7 @@
         </div>
     </div>
     <div id="activity-list">
+        正在加載個人活種資料...
         </div>
 </div>
 
@@ -344,5 +353,6 @@
 </script>
 </body>
 </html>
+
 
 
