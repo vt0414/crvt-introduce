@@ -99,56 +99,78 @@ nav {
     background-color: #fff;
     transition: 0.3s;
 }
-.filter-container {
-    display: flex;
-    flex-direction: column; /* 手機版一律改為垂直排列 */
-    gap: 15px;
-    padding: 20px;
+/* --- 搜尋容器 --- */
+.search-container {
     background: #fff;
+    padding: 25px;
     border-radius: 20px;
-    margin: 20px auto;
-    width: 90%;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-/* 日期選擇區塊容器 */
-.date-filter {
     display: flex;
-    flex-direction: column; /* 「日期：」與「輸入框」上下排 */
-    gap: 10px;
-    align-items: flex-start;
+    flex-direction: column; /* 手機版預設垂直 */
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
-/* 讓日期輸入框平分寬度 */
+/* --- 日期區塊 --- */
+.date-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .date-inputs {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
 }
 
 .date-inputs input {
-    flex: 1; /* 讓兩個日期框等寬 */
-    width: 100%;
+    flex: 1; /* 平分寬度 */
 }
 
-/* 搜尋框與下拉選單 100% 寬度 */
-.filter-container select, 
-.filter-container input[type="text"] {
-    width: 100% !important;
-    box-sizing: border-box;
+/* --- 通用輸入框樣式 --- */
+.search-box {
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+    width: 100%; /* 手機版撐滿 */
 }
 
-/* 按鈕區塊 */
+.search-box:focus {
+    border-color: #ff4081;
+}
+
+/* --- 按鈕群組 --- */
 .button-group {
     display: flex;
     gap: 10px;
-    width: 100%;
 }
 
-.button-group button {
-    flex: 1; /* 搜尋與清除按鈕平分寬度 */
+.btn-search, .btn-clear {
+    flex: 1; /* 手機版按鈕併排 */
     padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-search { background: #ff4081; color: white; }
+.btn-clear { background: #eee; color: #666; }
+
+.btn-search:active { transform: scale(0.95); }
+
+/* --- Loading 文字 --- */
+.loading-text {
+    text-align: center;
+    padding: 50px;
+    color: #999;
+    font-size: 1.1rem;
 }
 
 @media (max-width: 768px) {
@@ -174,22 +196,20 @@ nav {
     .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
     .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-135deg); }
-    .filter-container {
-        flex-direction: row; /* 恢復橫向 */
+    .search-container {
+        flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
         align-items: center;
     }
-    
-    .date-filter {
+    .date-group {
         flex-direction: row;
         align-items: center;
     }
-    
-    .filter-container select, 
-    .filter-container input[type="text"] {
-        width: auto !important;
-    }
+    .date-inputs { width: auto; } 
+    .search-box { width: auto; }   
+    #keywordSearch { flex-grow: 1; } 
+    .button-group { width: auto; }   
+    .btn-search, .btn-clear { flex: none; width: 100px; }
 }
 
 /* 通用標題樣式 */
@@ -199,4 +219,5 @@ nav {
     color: var(--dark-purple);
     margin: 40px 0 20px;
 }
+
 
