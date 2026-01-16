@@ -6,7 +6,16 @@
     --dark-purple: #4a148c;
     --glass: rgba(255, 255, 255, 0.5);
 }
+.container, 
+.variety-page-container, 
+.members-container {
+    padding-top: 100px !important; /* 70px(導覽列高) + 30px(預留空隙) */
+}
 
+/* 如果主頁 index.html 有不同的容器名稱也請一併加入 */
+.main-content {
+    padding-top: 100px;
+}
 * {
     box-sizing: border-box;
     scroll-behavior: smooth;
@@ -260,6 +269,7 @@ header[id] {
     .member-box select { width: 110px; font-size: 0.8rem; }
     .circle-frame { width: 100px;height: 100px; }
 }
+
 
 
 
