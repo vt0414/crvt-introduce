@@ -26,45 +26,49 @@ body {
 
 /* 導覽列統一設計 */
 nav {
-    display: flex !important;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
-    background: rgba(20, 0, 40, 0.9);
-    backdrop-filter: blur(15px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
     width: 100%;
-    border-bottom: 2px solid var(--dark-purple);
+    max-width: 1200px;
+    padding: 0 20px;
 }
 
-nav ul {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    list-style: none;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-}
-
-nav .logo {
-    color: #ffffff;
-    font-size: 1.2rem;
+.logo {
+    color: #fff;
+    font-size: 1.5rem;
     font-weight: bold;
-    flex-shrink: 0;
+    letter-spacing: 2px;
 }
 
-nav ul li a {
-    color: #e2d1f9;
+.nav-menu {
+    display: flex;
+    list-style: none;
+}
+
+.nav-menu li a {
+    color: #fff;
     text-decoration: none;
-    font-size: 0.9rem;
-    white-space: nowrap; 
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: 0.3s;
 }
 
-nav ul li a:hover {
-    color: #ffffff;
-    text-shadow: 0 0 8px var(--main-purple);
+.nav-menu li a:hover {
+    color: #ff4081;
 }
 /* 核心區塊通用設定 */
 .section {
@@ -205,17 +209,45 @@ header[id] {
 }
 
 @media (max-width: 700px) {
-    nav { flex-direction: column !important;padding: 10px 00;gap: 10px; }
-    nav .logo { font-size: 1rem; }
-    nav ul { 
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: nowrap !important;   
-        gap: 10px;                    
-        justify-content: center;
-        width: 100%;
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
     }
-    nav ul li a { font-size: 0.85rem;white-space: nowrap; }
+
+    .menu-toggle .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: #fff;
+        transition: 0.3s;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: -100%; /* 預設隱藏在右側 */
+        flex-direction: column;
+        background: rgba(20, 20, 20, 0.95);
+        width: 100%;
+        text-align: center;
+        transition: 0.4s;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        padding: 20px 0;
+    }
+
+    .nav-menu.active {
+        right: 0; /* 點擊後滑出 */
+    }
+
+    .nav-menu li {
+        margin: 15px 0;
+    }
+
+    /* 漢堡按鈕轉為 X 的動畫 */
+    .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-135deg); }
     
     .circle-frame { width: 90px; height: 90px; }
     .cp-picker { gap: 15px;flex-wrap: nowrap; }
@@ -228,6 +260,7 @@ header[id] {
     .member-box select { width: 110px; font-size: 0.8rem; }
     .circle-frame { width: 100px;height: 100px; }
 }
+
 
 
 
