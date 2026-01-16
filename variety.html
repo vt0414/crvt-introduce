@@ -128,14 +128,22 @@
 <body>
 
 <nav>
-    <div class="logo">CRAVITY 綜藝活動</div>
-    <ul>
-        <li><a href="index.html">團體介紹</a></li>
-        <li><a href="members.html">成員介紹</a></li>
-        <li><a href="discography.html">打歌活動</a></li>
-        <li><a href="variety.html">綜藝活動</a></li>
-        <li><a href="official.html">官方影片</a></li>
-    </ul>
+    <div class="nav-container">
+        <div class="logo">CRAVITY</div>
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html">團體介紹</a></li>
+            <li><a href="members.html">成員介紹</a></li>
+            <li><a href="ccrew.html">CCREW介紹</a></li>
+            <li><a href="discography.html">打歌活動</a></li>
+            <li><a href="variety.html">綜藝活動</a></li>
+            <li><a href="official.html">官方影片</a></li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container">
@@ -267,9 +275,21 @@
         document.getElementById('keywordSearch').value = "";
         applyFilters();
     }
+    const menu = document.querySelector('#mobile-menu');
+    const menuLinks = document.querySelector('.nav-menu');
 
+    menu.addEventListener('click', function() {
+        menu.classList.toggle('is-active');
+        menuLinks.classList.toggle('active');
+    });
+    
+    document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+        menu.classList.remove('is-active');
+        menuLinks.classList.remove('active');
+    }));
     window.onload = loadData;
 </script>
 </body>
 </html>
+
 
