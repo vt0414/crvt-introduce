@@ -99,6 +99,57 @@ nav {
     background-color: #fff;
     transition: 0.3s;
 }
+.filter-container {
+    display: flex;
+    flex-direction: column; /* 手機版一律改為垂直排列 */
+    gap: 15px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 20px;
+    margin: 20px auto;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* 日期選擇區塊容器 */
+.date-filter {
+    display: flex;
+    flex-direction: column; /* 「日期：」與「輸入框」上下排 */
+    gap: 10px;
+    align-items: flex-start;
+}
+
+/* 讓日期輸入框平分寬度 */
+.date-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.date-inputs input {
+    flex: 1; /* 讓兩個日期框等寬 */
+    width: 100%;
+}
+
+/* 搜尋框與下拉選單 100% 寬度 */
+.filter-container select, 
+.filter-container input[type="text"] {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* 按鈕區塊 */
+.button-group {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.button-group button {
+    flex: 1; /* 搜尋與清除按鈕平分寬度 */
+    padding: 12px;
+}
 
 @media (max-width: 768px) {
     .menu-toggle { display: block; }
@@ -123,6 +174,22 @@ nav {
     .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
     .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-135deg); }
+    .filter-container {
+        flex-direction: row; /* 恢復橫向 */
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .date-filter {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .filter-container select, 
+    .filter-container input[type="text"] {
+        width: auto !important;
+    }
 }
 
 /* 通用標題樣式 */
@@ -132,3 +199,4 @@ nav {
     color: var(--dark-purple);
     margin: 40px 0 20px;
 }
+
