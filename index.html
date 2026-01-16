@@ -6,67 +6,158 @@
     <title>CRAVITY | Home</title>
     <link rel="stylesheet" href="style.css">
 	<style>
-    /* 1. 團體介紹文字 */
-    .description {
-        text-align: center;
-        line-height: 1.6; /* 稍微縮小行高讓文字更緊湊 */
+    
+    .group-photo-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 20px auto;
         padding: 0 15px;
-        white-space: normal;
-        word-wrap: break-word;
-        max-width: 750px;
-        margin: 0 auto;
-        color: var(--dark-purple);
     }
 
-    /* 2. 快速跳轉按鈕 */
+    #slideshow-img {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    .description {
+        text-align: center;
+        line-height: 1.8;
+        padding: 0 20px;
+        max-width: 800px;
+        margin: 0 auto;
+        color: var(--dark-purple);
+        font-size: var(--p-size);
+    }
+
+    .fandom {
+        text-align: center;
+        font-weight: bold;
+        color: var(--main-pink);
+        margin-top: 15px;
+    }
+
     .quick-nav-buttons {
         display: flex;
         justify-content: center;
-        gap: 15px;
-        margin-top: 15px; /* 縮小與幻燈片的距離 */
-        margin-bottom: 25px;
+        gap: 12px;
+        margin: 25px 0;
+        flex-wrap: wrap;
     }
+
     .quick-nav-buttons button {
-        background: white !important; /* 強制白底 */
+        background: white !important;
         color: var(--dark-purple);
         border: 2px solid var(--dark-purple);
         padding: 8px 20px;
         border-radius: 25px;
         font-weight: bold;
         cursor: pointer;
-        transition: 0.3s ease;
-    }
-    .quick-nav-buttons button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(74, 20, 140, 0.1);
-        background: white !important; 
+        transition: 0.3s;
+        font-size: 0.9rem;
     }
 
-    /* 3. 時間軸與 CP 文字顏色 */
-    .timeline-content h3 {
-        color: var(--dark-purple) !important;
-        margin-bottom: 5px;
+    .quick-nav-buttons button:hover {
+        background: var(--dark-purple) !important;
+        color: white;
+        transform: translateY(-3px);
     }
-    #cp-name { color: var(--dark-purple) !important; margin-top: 5px; }
-    #cp-desc { color: #555; margin-top: 5px; line-height: 1.5; }
+
+    .timeline-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .timeline-item {
+        border-left: 3px solid var(--main-pink);
+        margin-left: 20px;
+        padding: 10px 20px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .timeline-content h3 {
+        color: var(--dark-purple);
+        font-size: 1.2rem;
+    }
+
+    .cp-picker {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .circle-frame {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid var(--main-pink);
+        background: #eee;
+    }
+    .circle-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+    .member-box select {
+        margin-top: 10px;
+        padding: 5px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        width: 100%;
+    }
+
+    .cp-display {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 25px;
+        text-align: center;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+	
+	.slogan-container {
+  	  display: flex;
+ 	   justify-content: center;
+ 	   align-items: center;
+ 	   margin-bottom: 5px;
+	}
+
+	.audio-btn {
+ 	   background: none;
+	    border: none;
+ 	   cursor: pointer;
+ 	   font-size: 1.2rem;
+	    margin-left: 8px;
+ 	   transition: transform 0.2s;
+ 	   vertical-align: middle;
+ 	   padding: 5px;
+	}
+
+	.audio-btn:hover {
+ 	   transform: scale(1.2);
+ 	   filter: drop-shadow(0 0 5px var(--main-pink));
+	}
+
+	.audio-btn:active {
+	    transform: scale(0.9);
+	}
+    @media (max-width: 768px) {
+		.audio-btn {
+     	   font-size: 1.4rem; 
+   	 	}
+        .circle-frame {
+            width: 70px;
+            height: 70px;
+        }
+        .plus-sign { font-size: 1.2rem; }
+        .member-box select { font-size: 0.8rem; }
+    }
 
     section[id] {
-        scroll-margin-top: 85px;
-    }
-
-    @media (max-width: 700px) {
-        .cp-container {
-            gap: 25px !important; 
-        }
-        
-        .cp-display {
-            margin-top: 0 !important;
-            padding: 20px !important;
-        }
-
-        .section-title {
-            margin-bottom: 15px !important;
-        }
+        scroll-margin-top: calc(var(--nav-height) + 20px);
     }
 </style>
 </head>
@@ -105,6 +196,18 @@
     <header id="intro" class="section hero">
         <div class="glass-card">
             <h1>CRAVITY</h1>
+			<div class="slogan-container">
+            <p class="description">口號 : Get Closer 
+                <button class="audio-btn" onclick="playAudio('slogan-audio')">🔊</button>
+            </p>
+            <audio id="slogan-audio" src="audio/slogan.mp3"></audio>
+        	</div>
+			<div class="slogan-container">
+            <p class="description">標語 : 記住我們的時間 
+                <button class="audio-btn" onclick="playAudio('motto-audio')">🔊</button>
+            </p>
+            <audio id="motto-audio" src="audio/motto.mp3"></audio>
+        	</div>
             <p class="description">
                 韓國 Starship 娛樂於 2020 年 4 月 14 日推出的九人男子團體。
                 團名是由「Creativity」和「Gravity」組成，
@@ -332,6 +435,14 @@ document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click'
     menuLinks.classList.remove('active');
 }));
 
+function playAudio(id) {
+    const audio = document.getElementById(id);
+    if (audio) {
+        audio.currentTime = 0; 
+        audio.play();
+    }
+}
+
 // 整合到原本的 window.onload
 window.onload = () => {
     initLeftSelect();
@@ -342,6 +453,7 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
 
