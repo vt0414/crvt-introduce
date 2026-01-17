@@ -506,6 +506,22 @@
         function scrollGrid(gridId, distance) {
             document.getElementById(gridId).scrollBy({ left: distance, behavior: 'smooth' });
         }
+        function scrollSlider(btn, dir) {
+            const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+            wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
+        }
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-menu');
+
+        menu.addEventListener('click', function () {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+            menu.classList.remove('is-active');
+            menuLinks.classList.remove('active');
+        }));
     </script>
 </body>
 
