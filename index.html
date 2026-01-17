@@ -1,271 +1,364 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRAVITY | Home</title>
     <link rel="stylesheet" href="style.css">
-	<style>
-    :root {
-        --dark-purple: #4a148c;
-        --main-pink: #ff4081;
-        --nav-height: 70px;
-    }
+    <style>
+        :root {
+            --dark-purple: #4a148c;
+            --main-pink: #ff4081;
+            --nav-height: 70px;
+        }
 
-    .group-photo-container {
-        width: 100%;
-        max-width: 900px;
-        margin: 20px auto;
-        padding: 0 15px;
-    }
-    #slideshow-img {
-        width: 100%;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        transition: opacity 0.5s ease;
-    }
+        .group-photo-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
 
-    .hero.section {
-        padding: 60px 20px;
-    }
-    .glass-card {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 30px;
-        padding: 50px 30px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-        text-align: center;
-        max-width: 900px;
-        margin: 0 auto;
-        border: 1px solid #f0f0f0;
-    }
-    .hero h1 { color: var(--dark-purple); font-size: 3.2rem; margin-bottom: 20px; }
-    .hero .description { color: #555; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.8; }
-    
-    .fandom { font-weight: bold; color: var(--main-pink); margin-top: 20px; font-size: 1.2rem; }
+        #slideshow-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            transition: opacity 0.5s ease;
+        }
+
+        .hero.section {
+            padding: 60px 20px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid #f0f0f0;
+        }
+
+        .hero h1 {
+            color: var(--dark-purple);
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+        }
+
+        .hero .description {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+
+        .fandom {
+            font-weight: bold;
+            color: var(--main-pink);
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
 
 
-    .timeline-container {
-        max-width: 750px;
-        margin: 40px auto;
-        padding: 30px;
-        background: #fff;
-        border-radius: 20px;
-        height: 450px; /* 電腦版固定高度 */
-        overflow-y: auto;
-        position: relative;
-        border: 1px solid #eee;
-        scrollbar-width: thin;
-        scrollbar-color: var(--main-pink) #f0f0f0;
-    }
-    /* Webkit 滾輪樣式 */
-    .timeline-container::-webkit-scrollbar { width: 6px; }
-    .timeline-container::-webkit-scrollbar-thumb { background: var(--main-pink); border-radius: 10px; }
+        .timeline-container {
+            max-width: 750px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 20px;
+            height: 450px;
+            /* 電腦版固定高度 */
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #eee;
+            scrollbar-width: thin;
+            scrollbar-color: var(--main-pink) #f0f0f0;
+        }
 
-    .timeline-item {
-        position: relative;
-        margin-bottom: 30px;
-        padding-left: 40px;
-        border-left: 3px solid var(--main-pink);
-    }
-    .timeline-content h3 { color: var(--dark-purple) !important; font-size: 1.3rem; }
+        /* Webkit 滾輪樣式 */
+        .timeline-container::-webkit-scrollbar {
+            width: 6px;
+        }
 
-    /* --- 4. CP 介紹區塊 (精確對齊) --- */
-    .cp-section { 
-    padding-bottom: 120px; /* 增加底部緩衝空間 */
-}
+        .timeline-container::-webkit-scrollbar-thumb {
+            background: var(--main-pink);
+            border-radius: 10px;
+        }
 
-.cp-container { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    gap: 40px; 
-}
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 40px;
+            border-left: 3px solid var(--main-pink);
+        }
 
-.cp-picker {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 30px;
-    width: 100%;
-}
+        .timeline-content h3 {
+            color: var(--dark-purple) !important;
+            font-size: 1.3rem;
+        }
 
-.member-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 160px;
-}
+        /* --- 4. CP 介紹區塊 (精確對齊) --- */
+        .cp-section {
+            padding-bottom: 120px;
+            /* 增加底部緩衝空間 */
+        }
 
-.circle-frame {
-    width: 130px; 
-    height: 130px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 4px solid var(--main-pink);
-    margin-bottom: 18px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-    .circle-frame img { width: 100%; height: 100%; object-fit: cover; }
-    
-    select {
-	appearance: none;
-    -webkit-appearance: none;
-    background: rgba(255, 255, 255, 0.9) url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234a148c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E") no-repeat right 12px center;
-    background-size: 10px; /* 增加一個優雅的小箭頭 */
-    padding-right: 30px; /* 為箭頭預留空間 */
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 10px 15px;
-    width: 100%;
-    color: var(--dark-purple);
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.3s ease;
-    outline: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
+        .cp-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
 
-select:hover {
-    border-color: var(--main-pink);
-    box-shadow: 0 4px 12px rgba(255, 64, 129, 0.1);
-}
+        .cp-picker {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+        }
 
-select:focus {
-    border-color: var(--main-pink);
-    background: #fff;
-}
+        .member-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 160px;
+        }
 
-.plus-sign { 
-    font-size: 2.5rem; 
-    margin-top: 45px; /* 配合頭像位置微調愛心高度 */
-    color: var(--main-pink);
-    filter: drop-shadow(0 0 5px rgba(255, 64, 129, 0.3));
-}
+        .circle-frame {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--main-pink);
+            margin-bottom: 18px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    .cp-display {
-    width: 95%;
-    max-width: 650px;
-    padding: 40px;
-    background: white;
-    border-radius: 25px;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-    text-align: center;
-}
+        .circle-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-#cp-name { 
-    color: var(--dark-purple) !important; 
-    font-size: 1.8rem; 
-    margin-bottom: 15px; 
-}
-
-    /* --- 5. 快速跳轉按鈕 --- */
-    .quick-nav-buttons { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap;transform: scale(0.95); }
-    .quick-nav-buttons button {
-        background: #fff !important; color: var(--dark-purple);
-        border: 2px solid var(--dark-purple); padding: 8px 18px;
-        border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s;
-    }
-
-    /* --- 6. 手機版專屬優化 (重點在此) --- */
-    @media (max-width: 768px) {
-        :root { --nav-height: 60px; }
-        .hero.section { padding: 30px 10px; }
-        .glass-card { padding: 30px 15px; border-radius: 20px; }
-        .hero h1 { font-size: 2.2rem; }
-        .hero .description { font-size: 1rem; }
-
-        /* 時間軸在手機版不強制高度，方便單指滑動整個頁面 */
-        .timeline-container { height: auto; max-height: 500px; padding: 20px 15px; }
-
-        /* CP 區塊縮小頭像，防止橫向爆版 */
-        .cp-picker { gap: 10px; }
-    	.member-box { width: 110px; } /* 手機版選單寬度縮小 */
-    	.circle-frame { width: 85px; height: 85px; }
         select {
-        	background-position: right 8px center;
-        	padding-right: 20px;
-        	font-size: 0.85rem;
-        	border-radius: 10px;
-   		 }
-        .plus-sign { font-size: 1.5rem; margin-top: 35px; }
-        
-        .cp-display { padding: 20px; }
-    }
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.9) url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%234a148c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22/%3E%3C/svg%3E") no-repeat right 12px center;
+            background-size: 10px;
+            /* 增加一個優雅的小箭頭 */
+            padding-right: 30px;
+            /* 為箭頭預留空間 */
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 10px 15px;
+            width: 100%;
+            color: var(--dark-purple);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
 
-    section[id] { scroll-margin-top: 90px; }
-</style>
+        select:hover {
+            border-color: var(--main-pink);
+            box-shadow: 0 4px 12px rgba(255, 64, 129, 0.1);
+        }
+
+        select:focus {
+            border-color: var(--main-pink);
+            background: #fff;
+        }
+
+        .plus-sign {
+            font-size: 2.5rem;
+            margin-top: 45px;
+            /* 配合頭像位置微調愛心高度 */
+            color: var(--main-pink);
+            filter: drop-shadow(0 0 5px rgba(255, 64, 129, 0.3));
+        }
+
+        .cp-display {
+            width: 95%;
+            max-width: 650px;
+            padding: 40px;
+            background: white;
+            border-radius: 25px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+
+        #cp-name {
+            color: var(--dark-purple) !important;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- 5. 快速跳轉按鈕 --- */
+        .quick-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            transform: scale(0.95);
+        }
+
+        .quick-nav-buttons button {
+            background: #fff !important;
+            color: var(--dark-purple);
+            border: 2px solid var(--dark-purple);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* --- 6. 手機版專屬優化 (重點在此) --- */
+        @media (max-width: 768px) {
+            :root {
+                --nav-height: 60px;
+            }
+
+            .hero.section {
+                padding: 30px 10px;
+            }
+
+            .glass-card {
+                padding: 30px 15px;
+                border-radius: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero .description {
+                font-size: 1rem;
+            }
+
+            /* 時間軸在手機版不強制高度，方便單指滑動整個頁面 */
+            .timeline-container {
+                height: auto;
+                max-height: 500px;
+                padding: 20px 15px;
+            }
+
+            /* CP 區塊縮小頭像，防止橫向爆版 */
+            .cp-picker {
+                gap: 10px;
+            }
+
+            .member-box {
+                width: 110px;
+            }
+
+            /* 手機版選單寬度縮小 */
+            .circle-frame {
+                width: 85px;
+                height: 85px;
+            }
+
+            select {
+                background-position: right 8px center;
+                padding-right: 20px;
+                font-size: 0.85rem;
+                border-radius: 10px;
+            }
+
+            .plus-sign {
+                font-size: 1.5rem;
+                margin-top: 35px;
+            }
+
+            .cp-display {
+                padding: 20px;
+            }
+        }
+
+        section[id] {
+            scroll-margin-top: 90px;
+        }
+    </style>
 </head>
+
 <body>
 
-<nav>
-    <div class="nav-container">
-        <div class="logo">CRAVITY</div>    
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CRAVITY</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">團體介紹</a></li>
+                <li><a href="members.html">成員介紹</a></li>
+                <li><a href="ccrew.html">CCREW介紹</a></li>
+                <li><a href="discography.html">打歌活動</a></li>
+                <li><a href="variety.html">綜藝活動</a></li>
+                <li><a href="official.html">官方影片</a></li>
+            </ul>
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html">團體介紹</a></li>
-            <li><a href="members.html">成員介紹</a></li>
-			<li><a href="ccrew.html">CCREW介紹</a></li>
-            <li><a href="discography.html">打歌活動</a></li>
-            <li><a href="variety.html">綜藝活動</a></li>
-            <li><a href="official.html">官方影片</a></li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
-<div class="group-photo-container">
-    <img id="slideshow-img" src="images/Cravity/1.jpg" alt="CRAVITY Group Photo">
-</div>
-<div class="quick-nav-buttons">
-    <button onclick="document.getElementById('events').scrollIntoView({behavior: 'smooth'})">
-        時間軸
-    </button>
-    <button onclick="document.getElementById('cp-zone').scrollIntoView({behavior: 'smooth'})">
-        cp介紹
-    </button>
-</div>
+    <div class="group-photo-container">
+        <img id="slideshow-img" src="images/Cravity/1.jpg" alt="CRAVITY Group Photo">
+    </div>
+    <div class="quick-nav-buttons">
+        <button onclick="document.getElementById('events').scrollIntoView({behavior: 'smooth'})">
+            時間軸
+        </button>
+        <button onclick="document.getElementById('cp-zone').scrollIntoView({behavior: 'smooth'})">
+            cp介紹
+        </button>
+    </div>
     <header id="intro" class="section hero">
         <div class="glass-card">
             <h1>CRAVITY</h1>
-			<div class="slogan-container">
-            <p class="description">口號 : Get Closer 
-                <button class="audio-btn" onclick="playAudio('slogan-audio')">🔊</button>
-            </p>
-            <audio id="slogan-audio" src="audio/slogan.mp3"></audio>
-        	</div>
-			<div class="slogan-container">
-            <p class="description">標語 : 記住我們的時間 
-                <button class="audio-btn" onclick="playAudio('motto-audio')">🔊</button>
-            </p>
-            <audio id="motto-audio" src="audio/motto.mp3"></audio>
-        	</div>
+            <div class="slogan-container">
+                <p class="description">口號 : Get Closer
+                    <button class="audio-btn" onclick="playAudio('slogan-audio')">🔊</button>
+                </p>
+                <audio id="slogan-audio" src="audio/slogan.mp3"></audio>
+            </div>
+            <div class="slogan-container">
+                <p class="description">標語 : 記住我們的時間
+                    <button class="audio-btn" onclick="playAudio('motto-audio')">🔊</button>
+                </p>
+                <audio id="motto-audio" src="audio/motto.mp3"></audio>
+            </div>
             <p class="description">
                 韓國 Starship 娛樂於 2020 年 4 月 14 日推出的九人男子團體。
-                團名是由「Creativity」和「Gravity」組成，
+                <br /> 團名是由「Creativity」和「Gravity」組成，<br />
                 有將大眾吸引進我們的宇宙、平行世界的含意，擁有獨一無二的色彩。
-                同時也是「重力中心」(Center of Gravity）的縮寫，
-                組合成員聚集一起形成完美平衡，就像大家合力完成完美舞台一樣。
+                <br />
+                同時也是「重力中心」(Center of Gravity）的縮寫，<br />
+                組合成員聚集一起形成完美平衡，就像大家合力完成完美舞台一樣。<br />
                 2025年6月4日後，團名意義變更為「Crave」和「Gravity」組成。
             </p>
             <div class="fandom">LUVITY : 愛與引力的交集</div>
         </div>
     </header>
 
-   <section id="events" class="section">
-    <h2 class="section-title">CRAVITY 時間軸</h2>
-	<div class="timeline-container">
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <h3>2020.04.14</h3>
-                <p>正式出道 - 迷你一輯《HIDEOUT: REMEMBER WHO WE ARE》</p>
+    <section id="events" class="section">
+        <h2 class="section-title">CRAVITY 時間軸</h2>
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2020.04.14</h3>
+                    <p>正式出道 - 迷你一輯《HIDEOUT: REMEMBER WHO WE ARE》</p>
+                </div>
             </div>
-        </div>
             <div class="timeline-item">
                 <div class="timeline-content">
                     <h3>2020.05.11</h3>
@@ -276,8 +369,8 @@ select:focus {
                 <div class="timeline-content">
                     <h3>2025.06.04</h3>
                     <p>1.隊長由世琳變更為元進&刑準雙隊長<br>
-                    2.團名意義變更為「Crave」和「Gravity」<br>
-                    3.Logo變更</p>
+                        2.團名意義變更為「Crave」和「Gravity」<br>
+                        3.Logo變更</p>
                 </div>
             </div>
             <div class="timeline-item">
@@ -287,223 +380,206 @@ select:focus {
                 </div>
             </div>
         </div>
-</section>
+    </section>
     <section id="cp-zone" class="section cp-section">
-    <h2 class="section-title">CRAVITY CP介紹</h2>
-    <div class="cp-container">
-        <div class="cp-picker">
-            <div class="member-box">
-                <div class="circle-frame">
-                    <img id="left-img" src="" alt="Member Left">
+        <h2 class="section-title">CRAVITY CP介紹</h2>
+        <div class="cp-container">
+            <div class="cp-picker">
+                <div class="member-box">
+                    <div class="circle-frame">
+                        <img id="left-img" src="" alt="Member Left">
+                    </div>
+                    <select id="left-select" onchange="handleLeftChange()"></select>
                 </div>
-                <select id="left-select" onchange="handleLeftChange()"></select> 
+
+                <div class="plus-sign">💜</div>
+
+                <div class="member-box">
+                    <div class="circle-frame">
+                        <img id="right-img" src="" alt="Member Right">
+                    </div>
+                    <select id="right-select" onchange="updateCP()"></select>
+                </div>
             </div>
 
-            <div class="plus-sign">💜</div>
-
-            <div class="member-box">
-                <div class="circle-frame">
-                    <img id="right-img" src="" alt="Member Right">
-                </div>
-                <select id="right-select" onchange="updateCP()"></select>
+            <div class="cp-display glass-card">
+                <h3 id="cp-name">選擇兩位成員</h3>
+                <p id="cp-desc">探索他們之間的化學反應...</p>
             </div>
         </div>
-
-        <div class="cp-display glass-card">
-            <h3 id="cp-name">選擇兩位成員</h3>
-            <p id="cp-desc">探索他們之間的化學反應...</p>
-        </div>
-    </div>
-</section>
+    </section>
 
     <script>
-const members = [
-    { id: "serim", name: "世琳 Serim", img: "images/serim.jpg" },
-    { id: "allen", name: "蒔權 Allen", img: "images/allen.jpg" },
-    { id: "jungmo", name: "廷謨 Jungmo", img: "images/jungmo.jpg" },
-    { id: "woobin", name: "宇璸 Woobin", img: "images/woobin.jpg" },
-    { id: "wonjin", name: "元進 Wonjin", img: "images/wonjinM.jpg" },
-    { id: "minhee", name: "珉熙 Minhee", img: "images/minhee.jpg" },
-    { id: "hyeongjun", name: "刑準 Hyeongjun", img: "images/hyeongjun.jpg" },
-    { id: "taeyoung", name: "太榮 Taeyoung", img: "images/taeyoung.jpg" },
-    { id: "sungmin", name: "性珉 Sungmin", img: "images/seongmin.jpg" }
-];
+        const members = [
+            { id: "serim", name: "世琳 Serim", img: "images/serim.jpg" },
+            { id: "allen", name: "蒔權 Allen", img: "images/allen.jpg" },
+            { id: "jungmo", name: "廷謨 Jungmo", img: "images/jungmo.jpg" },
+            { id: "woobin", name: "宇璸 Woobin", img: "images/woobin.jpg" },
+            { id: "wonjin", name: "元進 Wonjin", img: "images/wonjinM.jpg" },
+            { id: "minhee", name: "珉熙 Minhee", img: "images/minhee.jpg" },
+            { id: "hyeongjun", name: "刑準 Hyeongjun", img: "images/hyeongjun.jpg" },
+            { id: "taeyoung", name: "太榮 Taeyoung", img: "images/taeyoung.jpg" },
+            { id: "sungmin", name: "性珉 Sungmin", img: "images/seongmin.jpg" }
+        ];
 
-const cpData = {
-    // A 字頭
-    "allen-hyeongjun": { name: "艾刑/Alhyung", desc: "名字組合。" },
-    "allen-jungmo": { name: "艾謨/Almo", desc: "名字組合，VITY PARK第一集使用的隊名。" },
-    "allen-minhee": { name: "積極z、尷尬z", desc: "在節目曾被成員戲稱是尷尬的關係。" },
-    "allen-serim": { name: "99z、Rapper line", desc: "同為 1999 年生、Rapper line則因定位同為Rap。" },
-    "allen-sungmin": { name: "Healingz/治癒z", desc: "溫暖人心的組合。" },
-    "allen-taeyoung": { name: "倫太", desc: "名字組合。" },
-    "allen-wonjin": { name: "明太魚z", desc: "同為厚嘴唇，像明太魚一樣。" },
-    "allen-woobin": { name: "Rupeng", desc: "Ruby與企鵝(Penguin)。" },
+        const cpData = {
+            // A 字頭
+            "allen-hyeongjun": { name: "艾刑/Alhyung", desc: "名字組合。" },
+            "allen-jungmo": { name: "艾謨/Almo", desc: "名字組合，VITY PARK第一集使用的隊名。" },
+            "allen-minhee": { name: "積極z、尷尬z", desc: "在節目曾被成員戲稱是尷尬的關係。" },
+            "allen-serim": { name: "99z、Rapper line", desc: "同為 1999 年生、Rapper line則因定位同為Rap。" },
+            "allen-sungmin": { name: "Healingz/治癒z", desc: "溫暖人心的組合。" },
+            "allen-taeyoung": { name: "倫太", desc: "名字組合。" },
+            "allen-wonjin": { name: "明太魚z", desc: "同為厚嘴唇，像明太魚一樣。" },
+            "allen-woobin": { name: "Rupeng", desc: "Ruby與企鵝(Penguin)。" },
 
-    // H 字頭
-    "hyeongjun-jungmo": { name: "嘟囔z", desc: "因講話都會嘟嘟囔囔的說不清楚。" },
-    "hyeongjun-minhee": { name: "狗狗z、02z", desc: "同為狗塑，珉熙為馬爾濟斯，刑準為巧克力貴賓，02z則因同為2002年生。" },
-    "hyeongjun-serim": { name: "世宋世宋", desc: "名字組合。" },
-    "hyeongjun-sungmin": { name: "枕頭z", desc: "曾在CRAVITY PARK中出現了關於丟枕頭的對話而誕生的組合名。" },
-    "hyeongjun-taeyoung": { name: "大眼z", desc: "眼睛都很大。" },
-    "hyeongjun-wonjin": { name: "乒乓z", desc: "曾在節目中說彼此有如乒乓球一般你來我往的默契。" },
-    "hyeongjun-woobin": { name: "Honeyz", desc: "宇璸是甜美蜜嗓，刑準是統營蜂蜜麵包。" },
+            // H 字頭
+            "hyeongjun-jungmo": { name: "嘟囔z", desc: "因講話都會嘟嘟囔囔的說不清楚。" },
+            "hyeongjun-minhee": { name: "狗狗z、02z", desc: "同為狗塑，珉熙為馬爾濟斯，刑準為巧克力貴賓，02z則因同為2002年生。" },
+            "hyeongjun-serim": { name: "世宋世宋", desc: "名字組合。" },
+            "hyeongjun-sungmin": { name: "枕頭z", desc: "曾在CRAVITY PARK中出現了關於丟枕頭的對話而誕生的組合名。" },
+            "hyeongjun-taeyoung": { name: "大眼z", desc: "眼睛都很大。" },
+            "hyeongjun-wonjin": { name: "乒乓z", desc: "曾在節目中說彼此有如乒乓球一般你來我往的默契。" },
+            "hyeongjun-woobin": { name: "Honeyz", desc: "宇璸是甜美蜜嗓，刑準是統營蜂蜜麵包。" },
 
-    // J 字頭
-    "jungmo-minhee": { name: "米尼謨/Minimo", desc: "名字組合。" },
-    "jungmo-serim": { name: "炸豬排z", desc: "因世琳曾連續一周陪廷謨吃炸豬排。" },
-    "jungmo-sungmin": { name: "咚具z", desc: "性珉的愛稱「咚」與廷謨名字的組合。" },
-    "jungmo-taeyoung": { name: "永久z/榮具z、貓貓z", desc: "韓文中榮具與永久同音，取自兩人名字，貓貓z則因同為貓塑組合。" },
-    "jungmo-wonjin": { name: "Tomatoz/番茄z", desc: "元進不喜歡吃番茄，廷謨說會幫他吃掉。" },
-    "jungmo-woobin": { name: "00z、B型z", desc: "同為 2000 年生，B型z則因同為 B 型血。" },
+            // J 字頭
+            "jungmo-minhee": { name: "米尼謨/Minimo", desc: "名字組合。" },
+            "jungmo-serim": { name: "炸豬排z", desc: "因世琳曾連續一周陪廷謨吃炸豬排。" },
+            "jungmo-sungmin": { name: "咚具z", desc: "性珉的愛稱「咚」與廷謨名字的組合。" },
+            "jungmo-taeyoung": { name: "永久z/榮具z、貓貓z", desc: "韓文中榮具與永久同音，取自兩人名字，貓貓z則因同為貓塑組合。" },
+            "jungmo-wonjin": { name: "Tomatoz/番茄z", desc: "元進不喜歡吃番茄，廷謨說會幫他吃掉。" },
+            "jungmo-woobin": { name: "00z、B型z", desc: "同為 2000 年生，B型z則因同為 B 型血。" },
 
-    // M 字頭
-    "minhee-serim": { name: "啾啾z", desc: "源自韓文的狗狗主人견주與瑪爾濟斯말티쥬，指在活潑好動的瑪爾濟斯狀態的珉熙與像主人一樣制服他的世琳。" },
-    "minhee-sungmin": { name: "Miniz", desc: "名字組合。" },
-    "minhee-taeyoung": { name: "ABz", desc: "同為 AB 型血。" },
-    "minhee-wonjin": { name: "棒球z、Minionz/小小兵z", desc: "都喜歡打棒球，Minionz/小小兵z則為名字組合。" },
-    "minhee-woobin": { name: "冬季z", desc: "一起翻唱EXO的〈12月的奇蹟〉。" },
+            // M 字頭
+            "minhee-serim": { name: "啾啾z", desc: "源自韓文的狗狗主人견주與瑪爾濟斯말티쥬，指在活潑好動的瑪爾濟斯狀態的珉熙與像主人一樣制服他的世琳。" },
+            "minhee-sungmin": { name: "Miniz", desc: "名字組合。" },
+            "minhee-taeyoung": { name: "ABz", desc: "同為 AB 型血。" },
+            "minhee-wonjin": { name: "棒球z、Minionz/小小兵z", desc: "都喜歡打棒球，Minionz/小小兵z則為名字組合。" },
+            "minhee-woobin": { name: "冬季z", desc: "一起翻唱EXO的〈12月的奇蹟〉。" },
 
-    // S 字頭
-    "serim-sungmin": { name: "大忙z", desc: "團內年紀最大與最小的組合。" },
-    "serim-taeyoung": { name: "玫瑰z", desc: "兩人都非常喜歡玫瑰。" },
-    "serim-wonjin": { name: "大王泡泡糖z", desc: "대지즈原意為「大王口香糖」之縮寫，指兩人都喜歡黏著成員們。" },
-    "serim-woobin": { name: "熱帶雨林z/雨林z", desc: "名字組合。" },
-    "sungmin-taeyoung": { name: "忙內z、03z", desc: "同為 2003 年生，隊內最小。" },
-    "sungmin-wonjin": { name: "O型z", desc: "同為 O 型血。" },
-    "sungmin-woobin": { name: "米其林z", desc: "大廚宇璸與美食家性珉，在直播中由粉絲決定的名字。" },
+            // S 字頭
+            "serim-sungmin": { name: "大忙z", desc: "團內年紀最大與最小的組合。" },
+            "serim-taeyoung": { name: "玫瑰z", desc: "兩人都非常喜歡玫瑰。" },
+            "serim-wonjin": { name: "大王泡泡糖z", desc: "대지즈原意為「大王口香糖」之縮寫，指兩人都喜歡黏著成員們。" },
+            "serim-woobin": { name: "熱帶雨林z/雨林z", desc: "名字組合。" },
+            "sungmin-taeyoung": { name: "忙內z、03z", desc: "同為 2003 年生，隊內最小。" },
+            "sungmin-wonjin": { name: "O型z", desc: "同為 O 型血。" },
+            "sungmin-woobin": { name: "米其林z", desc: "大廚宇璸與美食家性珉，在直播中由粉絲決定的名字。" },
 
-    // T 字頭
-    "taeyoung-wonjin": { name: "淘氣鬼z", desc: "隊內最調皮的組合。" },
-    "taeyoung-woobin": { name: "波永/補染", desc: "CRAVITY PARK EP.1所抽到的單詞。" },
+            // T 字頭
+            "taeyoung-wonjin": { name: "淘氣鬼z", desc: "隊內最調皮的組合。" },
+            "taeyoung-woobin": { name: "波永/補染", desc: "CRAVITY PARK EP.1所抽到的單詞。" },
 
-    // W 字頭
-    "wonjin-woobin": { name: "風倍清z/音倍清z", desc: "探索中。" }
-};
+            // W 字頭
+            "wonjin-woobin": { name: "風倍清z/音倍清z", desc: "探索中。" }
+        };
 
-function initLeftSelect() {
-    const leftSelect = document.getElementById('left-select');
-    members.forEach(m => {
-        let opt = new Option(m.name, m.id);
-        leftSelect.add(opt);
-    });
-}
+        function initLeftSelect() {
+            const leftSelect = document.getElementById('left-select');
+            members.forEach(m => {
+                let opt = new Option(m.name, m.id);
+                leftSelect.add(opt);
+            });
+        }
 
-function handleLeftChange() {
-    const leftVal = document.getElementById('left-select').value;
-    const rightSelect = document.getElementById('right-select');
-    
-    document.getElementById('left-img').src = members.find(m => m.id === leftVal).img;
+        function handleLeftChange() {
+            const leftVal = document.getElementById('left-select').value;
+            const rightSelect = document.getElementById('right-select');
 
-    const currentRightVal = rightSelect.value; 
-    rightSelect.innerHTML = "";
-    
-    members.filter(m => m.id !== leftVal).forEach(m => {
-        let opt = new Option(m.name, m.id);
-        rightSelect.add(opt);
-    });
-    if (currentRightVal && currentRightVal !== leftVal) {
-        rightSelect.value = currentRightVal;
-    }
+            document.getElementById('left-img').src = members.find(m => m.id === leftVal).img;
 
-    updateCP();
-}
+            const currentRightVal = rightSelect.value;
+            rightSelect.innerHTML = "";
 
-function updateCP() {
-    const left = document.getElementById('left-select').value;
-    const right = document.getElementById('right-select').value;
-    const rightMember = members.find(m => m.id === right);
-    if (rightMember) {
-        document.getElementById('right-img').src = rightMember.img;
-    }
+            members.filter(m => m.id !== leftVal).forEach(m => {
+                let opt = new Option(m.name, m.id);
+                rightSelect.add(opt);
+            });
+            if (currentRightVal && currentRightVal !== leftVal) {
+                rightSelect.value = currentRightVal;
+            }
 
-    const cpName = document.getElementById('cp-name');
-    const cpDesc = document.getElementById('cp-desc');
+            updateCP();
+        }
 
-    const key = [left, right].sort().join('-'); 
-    console.log("當前組合 Key:", key); // 可以在控制台檢查組合名稱
+        function updateCP() {
+            const left = document.getElementById('left-select').value;
+            const right = document.getElementById('right-select').value;
+            const rightMember = members.find(m => m.id === right);
+            if (rightMember) {
+                document.getElementById('right-img').src = rightMember.img;
+            }
 
-    if (cpData[key]) {
-        cpName.innerText = cpData[key].name;
-        cpDesc.innerText = cpData[key].desc;
-    } else {
-        cpName.innerText = "探索中";
-        cpDesc.innerText = "這兩位成員正展現著獨特的化學反應！";
-    }
-}
+            const cpName = document.getElementById('cp-name');
+            const cpDesc = document.getElementById('cp-desc');
 
-const slideImages = [
-    "images/Cravity/1.jpg","images/Cravity/2.jpg","images/Cravity/3.jpg",
-    "images/Cravity/4.jpg","images/Cravity/5.jpg"
-];
+            const key = [left, right].sort().join('-');
+            console.log("當前組合 Key:", key); // 可以在控制台檢查組合名稱
 
-let currentSlideIndex = 0;
+            if (cpData[key]) {
+                cpName.innerText = cpData[key].name;
+                cpDesc.innerText = cpData[key].desc;
+            } else {
+                cpName.innerText = "探索中";
+                cpDesc.innerText = "這兩位成員正展現著獨特的化學反應！";
+            }
+        }
 
-function startSlideshow() {
-    const slideImg = document.getElementById('slideshow-img');
-    if (!slideImg || slideImages.length === 0) return;
+        const slideImages = [
+            "images/Cravity/1.jpg", "images/Cravity/2.jpg", "images/Cravity/3.jpg",
+            "images/Cravity/4.jpg", "images/Cravity/5.jpg"
+        ];
 
-    setInterval(() => {
-        // 更新索引
-        currentSlideIndex = (currentSlideIndex + 1) % slideImages.length;
-        
-        // 淡出動畫
-        slideImg.style.opacity = 0;
-        
-        setTimeout(() => {
-            // 切換圖片路徑
-            slideImg.src = slideImages[currentSlideIndex];
-            // 淡入動畫
-            slideImg.style.opacity = 1;
-        }, 500); // 0.5秒後切換圖片並淡入
-    }, 4000); // 每 4 秒換一張
-}
+        let currentSlideIndex = 0;
 
-const menu = document.querySelector('#mobile-menu');
-const menuLinks = document.querySelector('.nav-menu');
+        function startSlideshow() {
+            const slideImg = document.getElementById('slideshow-img');
+            if (!slideImg || slideImages.length === 0) return;
 
-menu.addEventListener('click', function() {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.toggle('active');
-});
+            setInterval(() => {
+                // 更新索引
+                currentSlideIndex = (currentSlideIndex + 1) % slideImages.length;
 
-document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-    menu.classList.remove('is-active');
-    menuLinks.classList.remove('active');
-}));
+                // 淡出動畫
+                slideImg.style.opacity = 0;
 
-function playAudio(id) {
-    const audio = document.getElementById(id);
-    if (audio) {
-        audio.currentTime = 0; 
-        audio.play();
-    }
-}
+                setTimeout(() => {
+                    // 切換圖片路徑
+                    slideImg.src = slideImages[currentSlideIndex];
+                    // 淡入動畫
+                    slideImg.style.opacity = 1;
+                }, 500); // 0.5秒後切換圖片並淡入
+            }, 4000); // 每 4 秒換一張
+        }
 
-// 整合到原本的 window.onload
-window.onload = () => {
-    initLeftSelect();
-    handleLeftChange(); 
-    startSlideshow(); // 啟動幻燈片
-};
-</script>
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-menu');
+
+        menu.addEventListener('click', function () {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+            menu.classList.remove('is-active');
+            menuLinks.classList.remove('active');
+        }));
+
+        function playAudio(id) {
+            const audio = document.getElementById(id);
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play();
+            }
+        }
+
+        // 整合到原本的 window.onload
+        window.onload = () => {
+            initLeftSelect();
+            handleLeftChange();
+            startSlideshow(); // 啟動幻燈片
+        };
+    </script>
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

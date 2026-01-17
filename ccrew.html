@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRAVITY | CCREW 介紹</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --dark-purple: #4a148c;
+            --main-pink: #ff4081;
+            --nav-height: 50px;
+        }
+
+        body {
+            margin: 0;
+            background: #f8f9fa;
+            font-family: "Microsoft JhengHei", sans-serif;
+            color: #333;
+        }
+
+        .main-content {
+            padding-top: calc(var(--nav-height));
+        }
+
+        .section {
+            max-width: 900px;
+            margin: 0 auto 40px;
+            padding: 0 5px;
+            position: relative;
+        }
+
+        /* 第一區塊樣式修正 */
+        .intro-card {
+            background: #fff;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .ccrew-title-group h1 {
+            color: var(--dark-purple);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .ccrew-title-group .korean {
+            color: #888;
+            font-size: 1rem;
+            margin: 10px 0 25px;
+        }
+
+        .main-img-container img {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        /* 通用滑動容器 */
+        .slider-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin: 0 -10px;
+        }
+
+        .card-grid {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            padding: 10px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            width: 100%;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .card-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 影片卡片樣式 (針對第一區塊) */
+        .video-card {
+            flex: 0 0 220px;
+            background: #fdfdfd;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid #eee;
+            scroll-snap-align: start;
+            text-align: center;
+        }
+
+        .video-card .ep-name {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--dark-purple);
+        }
+
+        /* 一般資料卡片樣式 */
+        .ccrew-card {
+            flex: 0 0 280px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            transition: 0.3s;
+            border: 1px solid #f0f0f0;
+            scroll-snap-align: start;
+        }
+
+        .ccrew-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 15px;
+            text-align: left;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: row;
+            /* 確保是水平 */
+            justify-content: center;
+            /* 居中對齊 */
+            gap: 10px;
+            /* 按鈕之間的間距 */
+            margin-top: 15px;
+        }
+
+        .btn-video {
+            text-decoration: none;
+            padding: 8px 15px;
+            /* 稍微縮小左右內距，確保在小卡片裡塞得下 */
+            border-radius: 10px;
+            font-size: 0.85rem;
+            /* 字體微調 */
+            font-weight: bold;
+            color: white;
+            transition: 0.3s;
+            white-space: nowrap;
+            /* 確保文字不會自動換行 */
+            flex: 1;
+            /* 讓兩個按鈕平分寬度，看起來會很整齊 */
+            text-align: center;
+        }
+
+        .btn-official {
+            background: var(--dark-purple);
+        }
+
+        .btn-sub {
+            background: var(--main-pink);
+        }
+
+        .arrow-btn {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            position: absolute;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arrow-btn.left {
+            left: -10px;
+        }
+
+        .arrow-btn.right {
+            right: -10px;
+        }
+
+        .custom-header {
+            color: var(--dark-purple);
+            border-left: 5px solid var(--main-pink);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .styled-select {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid #eee;
+            font-weight: bold;
+            color: var(--dark-purple);
+        }
+
+        /* 幻燈片容器 */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            /* 稍微縮小一點讓視覺更集中 */
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 30px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide-item {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        /* 下方的分頁點點 */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: var(--main-pink);
+            width: 25px;
+            /* 啟動時變長，更有設計感 */
+            border-radius: 5px;
+        }
+
+        /* 幻燈片專用大箭頭 */
+        .hero-arrow {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 5;
+            transition: 0.3s;
+        }
+
+        .hero-arrow:hover {
+            background: var(--main-pink);
+            color: white;
+        }
+
+        .hero-arrow.prev {
+            left: 10px;
+        }
+
+        .hero-arrow.next {
+            right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .arrow-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CRAVITY</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">團體介紹</a></li>
+                <li><a href="members.html">成員介紹</a></li>
+                <li><a href="ccrew.html">CCREW介紹</a></li>
+                <li><a href="discography.html">打歌活動</a></li>
+                <li><a href="variety.html">綜藝活動</a></li>
+                <li><a href="official.html">官方影片</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main-content">
+        <section class="section">
+            <div class="intro-card" id="intro-target"></div>
+        </section>
+
+        <section class="section">
+            <h2 class="custom-header">CCREW 專區</h2>
+            <div class="slider-wrapper">
+                <button class="arrow-btn left" onclick="scrollGrid('category-grid', -300)">❮</button>
+                <div id="category-grid" class="card-grid"></div>
+                <button class="arrow-btn right" onclick="scrollGrid('category-grid', 300)">❯</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="custom-header">
+                <select id="from-picker" class="styled-select" onchange="handleFromFilter()"></select>
+            </h2>
+            <div class="slider-wrapper">
+                <button class="arrow-btn left" onclick="scrollGrid('filter-grid', -300)">❮</button>
+                <div id="filter-grid" class="card-grid"></div>
+                <button class="arrow-btn right" onclick="scrollGrid('filter-grid', 300)">❯</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const ccrewData = [
+            { enName: "CCREW", krName: "크크루", photo: "images/ccrew_main.webp" },
+            { enName: "Woolpi", krName: "울피", photo: "images/ccrew_woolpi.webp" },
+            { enName: "Queeni", krName: "귄이", photo: "images/ccrew_queeni.webp" },
+            { enName: "Rangmo", krName: "랑모", photo: "images/ccrew_rangmo.webp" },
+            { enName: "Wookka", krName: "우카", photo: "images/ccrew_wooka.webp" },
+            { enName: "Dakong", krName: "다콩", photo: "images/ccrew_dakong.webp" },
+            { enName: "Kangmong", krName: "강몽이", photo: "images/ccrew_kangmong.webp" },
+            { enName: "Teori", krName: "터리", photo: "images/ccrew_teori.webp" },
+            { enName: "Yong-T", krName: "용티", photo: "images/ccrew_yongT.webp" },
+            { enName: "Tommy", krName: "토미", photo: "images/ccrew_tommy.webp" },
+        ];
+        const introduceData = [
+            { name: "CRAVITY CHARACTER EP.1 開始的一半kk", official: "https://youtu.be/K5bzgNl9I8M?si=9BhXEGdlHVED-9Y3", sub: "https://www.bilibili.com/video/BV1Mv4y1Q7B9/?share_source=copy_web" },
+            { name: "CRAVITY CHARACTER EP.2 CRAVITY想做的都做吧kk", official: "https://youtu.be/pScPaGtksW8?si=RHKJONeljaRQsT35", sub: "https://www.bilibili.com/video/BV14A411X7TQ/?share_source=copy_web" },
+            { name: "CRAVITY CHARACTER EP.3 花花綠綠的塗色學習kk", official: "https://youtu.be/R73igpTiZb8?si=DuosE7GY3cM_8950", sub: "https://www.bilibili.com/video/BV1HR4y1r7ct/?share_source=copy_web" },
+            { name: "CRAVITY CHARACTER EP.4 恐怖的發表時間kk", official: "https://youtu.be/iewfZbd3lyY?si=X6-9lYiPf0e0hd5N", sub: "https://www.bilibili.com/video/BV1q3411e738/?share_source=copy_web" },
+            { name: "CRAVITY CHARACTER EP.5 見到你很開心CCREW kk", official: "https://youtu.be/jBhMxsiD_SE?si=isrHA3C5BSGxvD-C", sub: "https://www.bilibili.com/video/BV1k14y137nv/?share_source=copy_web" }
+        ];
+
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
+        let rawSheetData = [];
+
+        window.onload = async function () {
+            renderIntroSection();
+            await fetchAllData();
+        };
+
+        let currentSlide = 0;
+        let slideInterval;
+
+        // 初始化渲染
+        function renderIntroSection() {
+            const target = document.getElementById('intro-target');
+
+            // 生成幻燈片 HTML
+            const slidesHtml = ccrewData.map(item => `
+        <div class="slide-item">
+            <div class="ccrew-title-group">
+                <h1>${item.krName}</h1>
+                <p class="korean">${item.enName}</p>
+            </div>
+            <div class="main-img-container">
+                <img src="${item.photo}" style="width:100%; max-height:400px; object-fit:contain;" onerror="this.src='images/none.jpg'">
+            </div>
+        </div>
+    `).join('');
+
+            // 生成點點 HTML
+            const dotsHtml = ccrewData.map((_, i) => `
+        <span class="dot ${i === 0 ? 'active' : ''}" onclick="goToSlide(${i})"></span>
+    `).join('');
+
+            target.innerHTML = `
+        <div class="slider-container">
+            <button class="hero-arrow prev" onclick="moveSlide(-1)">❮</button>
+            <div class="slides" id="main-slides">${slidesHtml}</div>
+            <button class="hero-arrow next" onclick="moveSlide(1)">❯</button>
+        </div>
+        <div class="slider-dots">${dotsHtml}</div>
+        
+        <h3 style="color:var(--dark-purple); text-align:left; margin: 40px 0 15px;">製作系列影片</h3>
+        <div class="slider-wrapper">
+            <button class="arrow-btn left" onclick="scrollGrid('intro-video-grid', -250)">❮</button>
+            <div id="intro-video-grid" class="card-grid">${renderVideoCards()}</div>
+            <button class="arrow-btn right" onclick="scrollGrid('intro-video-grid', 250)">❯</button>
+        </div>
+    `;
+
+            startAutoPlay();
+        }
+
+        // 渲染影片卡片的輔助函式 (保持你原本好的邏輯)
+        function renderVideoCards() {
+            return introduceData.map(v => `
+        <div class="ccrew-card" style="flex: 0 0 280px; padding: 20px;"> <div class="card-body" style="padding:0;">
+                <h4 style="margin-bottom:15px; text-align:center;">${v.name}<br>${v.ep}</h4>
+                <div class="btn-group">
+                    <a href="${v.official}" target="_blank" class="btn-video btn-official">官方影片</a>
+                    <a href="${v.sub}" target="_blank" class="btn-video btn-sub">中文字幕</a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+        }
+
+        // 幻燈片控制邏輯
+        function updateSlidePosition() {
+            const slides = document.getElementById('main-slides');
+            const dots = document.querySelectorAll('.dot');
+
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function moveSlide(step) {
+            currentSlide = (currentSlide + step + ccrewData.length) % ccrewData.length;
+            updateSlidePosition();
+            resetTimer();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlidePosition();
+            resetTimer();
+        }
+
+        function startAutoPlay() {
+            slideInterval = setInterval(() => moveSlide(1), 5000); // 5秒換一張
+        }
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            startAutoPlay();
+        }
+
+        async function fetchAllData() {
+            try {
+                const res = await fetch(`${SCRIPT_URL}?type=ccrew`);
+                rawSheetData = await res.json();
+                renderCategoryItems();
+                setupFromDropdown();
+            } catch (e) { console.error("失敗", e); }
+        }
+
+        function renderCategoryItems() {
+            const grid = document.getElementById('category-grid');
+            const filtered = rawSheetData.filter(item => item.Category === 'CCREW');
+            grid.innerHTML = filtered.map(item => createCardTemplate(item)).join('');
+        }
+
+        function setupFromDropdown() {
+            const select = document.getElementById('from-picker');
+            const fromList = [...new Set(rawSheetData.map(item => item.From))].filter(f => f);
+
+            fromList.forEach(from => {
+                const opt = document.createElement('option');
+                opt.value = from; opt.textContent = from;
+                select.appendChild(opt);
+            });
+
+            // 解決問題 2：預設顯示第一筆活動資料
+            if (fromList.length > 0) {
+                select.value = fromList[0];
+                handleFromFilter();
+            }
+        }
+
+        function handleFromFilter() {
+            const selectedFrom = document.getElementById('from-picker').value;
+            const grid = document.getElementById('filter-grid'); // 解決問題 1：使用正確的 ID
+            if (!selectedFrom) { grid.innerHTML = ""; return; }
+            const filtered = rawSheetData.filter(item => item.From === selectedFrom);
+            grid.innerHTML = filtered.map(item => createCardTemplate(item)).join('');
+        }
+
+        function createCardTemplate(item) {
+            return `
+                <div class="ccrew-card">
+                    <img src="images/${item.imageUrl}" onerror="this.src='images/none.jpg'">
+                    <div class="card-body">
+                        <h4>${item.Name}</h4>
+                        <div class="card-meta">📅 ${item.date}</div>
+                        <div class="card-meta">📍 ${item.From}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function scrollGrid(gridId, distance) {
+            document.getElementById(gridId).scrollBy({ left: distance, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>

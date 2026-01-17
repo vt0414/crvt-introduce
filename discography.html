@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRAVITY | 打歌活動</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .container { padding: 30px 5%; max-width: 1400px; margin: 0 auto; }
-        .song-group { margin-bottom: 60px; }
+        .container {
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .song-group {
+            margin-bottom: 60px;
+        }
+
         .song-header {
             display: flex;
             align-items: baseline;
@@ -16,10 +25,24 @@
             border-left: 6px solid #ff4081;
             padding-left: 15px;
         }
-        .song-title { font-size: 2rem; color: var(--dark-purple); margin: 0; }
-        .album-name { font-size: 1.1rem; color: #888; font-weight: 500; }
 
-        .slider-container { position: relative; width: 100%; }
+        .song-title {
+            font-size: 2rem;
+            color: var(--dark-purple);
+            margin: 0;
+        }
+
+        .album-name {
+            font-size: 1.1rem;
+            color: #888;
+            font-weight: 500;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+        }
+
         .cards-wrapper {
             display: flex;
             gap: 25px;
@@ -29,7 +52,10 @@
             scrollbar-width: none;
             scroll-snap-type: x mandatory;
         }
-        .cards-wrapper::-webkit-scrollbar { display: none; }
+
+        .cards-wrapper::-webkit-scrollbar {
+            display: none;
+        }
 
         .stage-card {
             flex: 0 0 320px;
@@ -39,7 +65,7 @@
             border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.4);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             scroll-snap-align: start;
@@ -55,15 +81,18 @@
             position: relative;
             overflow: hidden;
         }
+
         .img-blur-bg {
             position: absolute;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             filter: blur(15px);
             opacity: 0.4;
             z-index: 1;
         }
+
         .stage-img {
             position: relative;
             z-index: 2;
@@ -72,10 +101,32 @@
             object-fit: contain
         }
 
-        .stage-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .stage-date { font-size: 0.85rem; color: #666; margin-bottom: 5px; }
-        .event-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 5px; color: var(--dark-purple); min-height: 2.8em; }
-        .stage-cast { font-size: 0.9rem; color: #ff4081; margin-bottom: 15px; }
+        .stage-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stage-date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .event-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark-purple);
+            min-height: 2.8em;
+        }
+
+        .stage-cast {
+            font-size: 0.9rem;
+            color: #ff4081;
+            margin-bottom: 15px;
+        }
 
         .btn-main-stage {
             display: block;
@@ -92,12 +143,24 @@
         }
 
         .fancam-section {
-            border-top: 1px dashed rgba(0,0,0,0.1);
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
             padding-top: 15px;
             min-height: 80px;
         }
-        .fancam-label { font-size: 0.8rem; font-weight: bold; color: #555; margin-bottom: 10px; }
-        .fancam-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .fancam-label {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .fancam-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
         .fancam-btn {
             font-size: 0.75rem;
             padding: 5px 12px;
@@ -109,160 +172,221 @@
         }
 
         .nav-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 45px; height: 45px; background: white; border: none;
-            border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer; z-index: 10; color: #ff4081;
-            display: flex; align-items: center; justify-content: center;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 10;
+            color: #ff4081;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .nav-arrow.left { left: -20px; }
-        .nav-arrow.right { right: -20px; }
 
+        .nav-arrow.left {
+            left: -20px;
+        }
+
+        .nav-arrow.right {
+            right: -20px;
+        }
+
+        .btn-search {
+            padding: 8px 25px;
+            background: var(--dark-purple);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .search-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-container {
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            flex-wrap: nowrap;
+        }
+
+        .search-group input {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .search-group input[type="date"] {
+            width: 135px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid var(--main-purple);
+            font-size: 14px;
+        }
+
+        .searchStr {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--main-purple);
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
 
         @media (max-width: 768px) {
-            .nav-arrow { display: none; }
-            .stage-card { flex: 0 0 85%; min-width: 280px; }
+            .nav-arrow {
+                display: none;
+            }
+
+            .stage-card {
+                flex: 0 0 85%;
+                min-width: 280px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<nav>
-    <div class="nav-container">
-        <div class="logo">CRAVITY</div>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CRAVITY</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">團體介紹</a></li>
+                <li><a href="members.html">成員介紹</a></li>
+                <li><a href="ccrew.html">CCREW介紹</a></li>
+                <li><a href="discography.html">打歌活動</a></li>
+                <li><a href="variety.html">綜藝活動</a></li>
+                <li><a href="official.html">官方影片</a></li>
+            </ul>
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html">團體介紹</a></li>
-            <li><a href="members.html">成員介紹</a></li>
-            <li><a href="ccrew.html">CCREW介紹</a></li>
-            <li><a href="discography.html">打歌活動</a></li>
-            <li><a href="variety.html">綜藝活動</a></li>
-            <li><a href="official.html">官方影片</a></li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
-<div class="container">
-    <div class="search-container">
-        <div class="date-group">
-            <span class="label">日期：</span>
-            <div class="date-inputs">
-                <input type="date" id="startDate" class="search-box">
-                <span class="to-text">至</span>
-                <input type="date" id="endDate" class="search-box">
+    <div class="container">
+        <div class="search-container">
+            <div class="search-group">
+                <input type="date" id="startDate">
+                <span style="color:var(--dark-purple); font-weight:bold;">至</span>
+                <input type="date" id="endDate">
+            </div>
+            <input type="text" id="keywordSearch" class="searchStr" placeholder="搜尋歌曲、舞台、成員、專輯...">
+
+            <div class="search-buttons">
+                <button onclick="applyFilters()" class="btn-search">搜尋</button>
+                <button onclick="clearFilters()" class="btn-search">清除</button>
             </div>
         </div>
 
-        <select id="albumFilter" class="search-box">
-            <option value="">所有專輯</option>
-        </select>
-
-        <input type="text" id="keywordSearch" class="search-box" placeholder="搜尋歌曲、舞台、成員...">
-
-        <div class="button-group">
-            <button onclick="applyFilters()" class="btn-search">搜尋</button>
-            <button onclick="clearFilters()" class="btn-clear">清除</button>
+        <div id="discography-content">
+            <p class="loading-text">正在加載打歌資料...</p>
         </div>
     </div>
 
-    <div id="discography-content">
-        <p class="loading-text">正在加載打歌資料...</p>
-    </div>
-</div>
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
+        let allData = [];
 
-<script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
-    let allData = []; 
+        async function loadDiscography() {
+            try {
+                const response = await fetch(`${SCRIPT_URL}?type=discography`);
+                allData = await response.json();
+                if (!allData || allData.length === 0) {
+                    document.getElementById('discography-content').innerHTML = "目前尚無資料。";
+                    return;
+                }
+                // populateAlbumFilter(allData);
+                applyFilters();
+            } catch (err) {
+                document.getElementById('discography-content').innerHTML = "加載失敗。";
+            }
+        }
 
-    async function loadDiscography() {
-        try {
-            const response = await fetch(`${SCRIPT_URL}?type=discography`);
-            allData = await response.json();
-            if (!allData || allData.length === 0) {
-                document.getElementById('discography-content').innerHTML = "目前尚無資料。";
+        function applyFilters() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            const keyword = document.getElementById('keywordSearch').value.toLowerCase().trim();
+
+            const filtered = allData.filter(item => {
+                let itemDate = item.date ? new Date(item.date).toISOString().split('T')[0] : "";
+                if (start && itemDate < start) return false;
+                if (end && itemDate > end) return false;
+                if (keyword) {
+                    const searchStr = `${item.song} ${item.eventTitle} ${item.fancams}${item.album}`.toLowerCase();
+                    if (!searchStr.includes(keyword)) return false;
+                }
+                return true;
+            });
+
+            renderByGroup(filtered);
+        }
+
+        function renderByGroup(data) {
+            const container = document.getElementById('discography-content');
+            container.innerHTML = "";
+
+            if (data.length === 0) {
+                container.innerHTML = "<p style='text-align:center; padding: 50px;'>找不到結果。</p>";
                 return;
             }
-            populateAlbumFilter(allData);
-            applyFilters(); 
-        } catch (err) {
-            document.getElementById('discography-content').innerHTML = "加載失敗。";
-        }
-    }
 
-    function populateAlbumFilter(data) {
-        const albumSelect = document.getElementById('albumFilter');
-        const albumSet = new Set();
-        data.forEach(item => { if(item.album) albumSet.add(item.album.trim()); });
-        const sortedAlbums = Array.from(albumSet).sort();
-        
-        let options = '<option value="">所有專輯 (All Albums)</option>';
-        sortedAlbums.forEach(album => { options += `<option value="${album}">${album}</option>`; });
-        albumSelect.innerHTML = options;
-    }
+            const grouped = data.reduce((acc, item) => {
+                if (!acc[item.song]) acc[item.song] = { album: item.album, stages: [] };
+                acc[item.song].stages.push(item);
+                return acc;
+            }, {});
 
-    function applyFilters() {
-        const start = document.getElementById('startDate').value;
-        const end = document.getElementById('endDate').value;
-        const album = document.getElementById('albumFilter').value;
-        const keyword = document.getElementById('keywordSearch').value.toLowerCase().trim();
+            const fragment = document.createDocumentFragment();
 
-        const filtered = allData.filter(item => {
-            let itemDate = item.date ? new Date(item.date).toISOString().split('T')[0] : "";
-            if (start && itemDate < start) return false;
-            if (end && itemDate > end) return false;
-            if (album && item.album !== album) return false;
-            if (keyword) {
-                const searchStr = `${item.song} ${item.eventTitle} ${item.fancams}`.toLowerCase();
-                if (!searchStr.includes(keyword)) return false;
-            }
-            return true;
-        });
+            for (const songTitle in grouped) {
+                const group = grouped[songTitle];
+                const section = document.createElement('div');
+                section.className = 'song-group';
 
-        renderByGroup(filtered);
-    }
+                const cardsHTML = group.stages.map(stage => {
+                    const dateStr = stage.date ? new Date(stage.date).toISOString().split('T')[0] : "無日期";
+                    const safeImg = `images/Discography/${stage.imageUrl}` || 'images/none.jpg';
 
-    function renderByGroup(data) {
-        const container = document.getElementById('discography-content');
-        container.innerHTML = ""; 
+                    let fancams = '<div class="fancam-list">此舞台無成員直拍</div>';
+                    if (stage.fancams && stage.fancams.trim() !== "") {
+                        const links = stage.fancams.split(',').map(pair => {
+                            const match = pair.trim().match(/^([^:]+):(.+)$/);
+                            return match ? `<a href="${match[2].trim()}" target="_blank" class="fancam-btn">${match[1].trim()}</a>` : '';
+                        }).join('');
+                        fancams = `<div class="fancam-list">${links}</div>`;
+                    }
 
-        if (data.length === 0) {
-            container.innerHTML = "<p style='text-align:center; padding: 50px;'>找不到結果。</p>";
-            return;
-        }
-
-        const grouped = data.reduce((acc, item) => {
-            if (!acc[item.song]) acc[item.song] = { album: item.album, stages: [] };
-            acc[item.song].stages.push(item);
-            return acc;
-        }, {});
-
-        // 使用 DocumentFragment 減少重繪次數
-        const fragment = document.createDocumentFragment();
-
-        for (const songTitle in grouped) {
-            const group = grouped[songTitle];
-            const section = document.createElement('div');
-            section.className = 'song-group';
-            
-            // 建立卡片 HTML (使用字串拼接提高效能)
-            const cardsHTML = group.stages.map(stage => {
-                const dateStr = stage.date ? new Date(stage.date).toISOString().split('T')[0] : "無日期";
-                const safeImg = `images/Discography/${stage.imageUrl}` || 'images/none.jpg';
-                
-                let fancams = '<div class="fancam-list">此舞台無成員直拍</div>';
-                if (stage.fancams && stage.fancams.trim() !== "") {
-                    const links = stage.fancams.split(',').map(pair => {
-                        const match = pair.trim().match(/^([^:]+):(.+)$/);
-                        return match ? `<a href="${match[2].trim()}" target="_blank" class="fancam-btn">${match[1].trim()}</a>` : '';
-                    }).join('');
-                    fancams = `<div class="fancam-list">${links}</div>`;
-                }
-
-                return `
+                    return `
                     <div class="stage-card">
                         <div class="img-container">
                             <div class="img-blur-bg" style="background-image: url('${safeImg}')"></div>
@@ -276,48 +400,46 @@
                             <div class="fancam-section"><div class="fancam-label">成員直拍</div>${fancams}</div>
                         </div>
                     </div>`;
-            }).join('');
+                }).join('');
 
-            section.innerHTML = `
+                section.innerHTML = `
                 <div class="song-header"><h2 class="song-title">${songTitle}</h2><span class="album-name">| ${group.album}</span></div>
                 <div class="slider-container">
                     <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
                     <div class="cards-wrapper">${cardsHTML}</div>
                     <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
                 </div>`;
-            fragment.appendChild(section);
+                fragment.appendChild(section);
+            }
+            container.appendChild(fragment);
         }
-        container.appendChild(fragment);
-    }
 
-    function clearFilters() {
-        document.getElementById('startDate').value = '';
-        document.getElementById('endDate').value = '';
-        document.getElementById('albumFilter').value = '';
-        document.getElementById('keywordSearch').value = '';
-        applyFilters();
-    }
+        function clearFilters() {
+            document.getElementById('startDate').value = '';
+            document.getElementById('endDate').value = '';
+            // document.getElementById('albumFilter').value = '';
+            document.getElementById('keywordSearch').value = '';
+            applyFilters();
+        }
 
-    function scrollSlider(btn, dir) {
-        const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-        wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
-    }
-const menu = document.querySelector('#mobile-menu');
-const menuLinks = document.querySelector('.nav-menu');
+        function scrollSlider(btn, dir) {
+            const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+            wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
+        }
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-menu');
 
-menu.addEventListener('click', function() {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.toggle('active');
-});
+        menu.addEventListener('click', function () {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.toggle('active');
+        });
 
-document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-    menu.classList.remove('is-active');
-    menuLinks.classList.remove('active');
-}));
-    loadDiscography();
-</script>
+        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+            menu.classList.remove('is-active');
+            menuLinks.classList.remove('active');
+        }));
+        loadDiscography();
+    </script>
 </body>
+
 </html>
-
-
-

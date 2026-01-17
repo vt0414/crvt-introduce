@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,16 @@
     <link rel="stylesheet" href="style.css">
     <style>
         /* 保持視覺統一性 */
-        .container { padding: 30px 5%; max-width: 1400px; margin: 0 auto; }
-        .group-section { margin-bottom: 60px; }
+        .container {
+            padding: 30px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .group-section {
+            margin-bottom: 60px;
+        }
+
         .group-header {
             font-size: 2rem;
             color: #333;
@@ -21,7 +30,11 @@
         }
 
         /* 滑動容器 */
-        .slider-container { position: relative; width: 100%; }
+        .slider-container {
+            position: relative;
+            width: 100%;
+        }
+
         .cards-wrapper {
             display: flex;
             gap: 25px;
@@ -31,7 +44,10 @@
             scrollbar-width: none;
             scroll-snap-type: x mandatory;
         }
-        .cards-wrapper::-webkit-scrollbar { display: none; }
+
+        .cards-wrapper::-webkit-scrollbar {
+            display: none;
+        }
 
         /* 官方影片卡片樣式 */
         .official-card {
@@ -42,7 +58,7 @@
             border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.4);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             scroll-snap-align: start;
@@ -58,15 +74,18 @@
             position: relative;
             overflow: hidden;
         }
+
         .img-blur-bg {
             position: absolute;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             filter: blur(15px);
             opacity: 0.4;
             z-index: 1;
         }
+
         .card-img {
             position: relative;
             z-index: 2;
@@ -75,11 +94,41 @@
             object-fit: contain;
         }
 
-        .card-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; color: #333; }
-        .info-date { font-size: 0.85rem; color: #666; margin-bottom: 5px; }
-        .info-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; min-height: 2.8em; line-height: 1.4; color: #000; }
-        .info-cast { font-size: 0.9rem; color: #ff4081; margin-bottom: 5px; }
-        .info-note { font-size: 0.85rem; color: #888; font-style: italic; margin-bottom: 15px; }
+        .card-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+        }
+
+        .info-date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .info-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            min-height: 2.8em;
+            line-height: 1.4;
+            color: #000;
+        }
+
+        .info-cast {
+            font-size: 0.9rem;
+            color: #ff4081;
+            margin-bottom: 5px;
+        }
+
+        .info-note {
+            font-size: 0.85rem;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
 
         .btn-watch {
             display: block;
@@ -93,160 +142,246 @@
             margin-top: auto;
             transition: 0.3s;
         }
-        .btn-watch:hover { background: #e91e63; transform: scale(1.02); }
+
+        .btn-watch:hover {
+            background: #e91e63;
+            transform: scale(1.02);
+        }
 
         .nav-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 45px; height: 45px; background: white; border: none;
-            border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer; z-index: 10; color: #ff4081;
-            display: flex; align-items: center; justify-content: center;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 10;
+            color: #ff4081;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .nav-arrow.left { left: -20px; }
-        .nav-arrow.right { right: -20px; }
+
+        .nav-arrow.left {
+            left: -20px;
+        }
+
+        .nav-arrow.right {
+            right: -20px;
+        }
 
         /* 搜尋區塊 */
-        .search-container {
-            max-width: 1100px; margin: 20px auto 40px; padding: 25px;
-            background: rgba(255, 255, 255, 0.9); border-radius: 20px;
-            display: flex; flex-wrap: wrap; gap: 15px;
-            justify-content: center; align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .btn-search {
+            padding: 8px 25px;
+            background: var(--dark-purple);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
         }
-        .search-box { padding: 10px; border-radius: 10px; border: 1px solid #ddd; outline: none; }
+
+        .search-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-container {
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            flex-wrap: nowrap;
+        }
+
+        .search-group input {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .search-group input[type="date"] {
+            width: 135px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid var(--main-purple);
+            font-size: 14px;
+        }
+
+        .searchStr {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--main-purple);
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
 
         @media (max-width: 768px) {
-            .nav-arrow { display: none; }
-            .official-card { flex: 0 0 85%; min-width: 280px; }
-            .search-container { flex-direction: column; align-items: stretch; }
+            .nav-arrow {
+                display: none;
+            }
+
+            .official-card {
+                flex: 0 0 85%;
+                min-width: 280px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<nav>
-    <div class="nav-container">
-        <div class="logo">CRAVITY</div>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CRAVITY</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">團體介紹</a></li>
+                <li><a href="members.html">成員介紹</a></li>
+                <li><a href="ccrew.html">CCREW介紹</a></li>
+                <li><a href="discography.html">打歌活動</a></li>
+                <li><a href="variety.html">綜藝活動</a></li>
+                <li><a href="official.html">官方影片</a></li>
+            </ul>
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html">團體介紹</a></li>
-            <li><a href="members.html">成員介紹</a></li>
-            <li><a href="ccrew.html">CCREW介紹</a></li>
-            <li><a href="discography.html">打歌活動</a></li>
-            <li><a href="variety.html">綜藝活動</a></li>
-            <li><a href="official.html">官方影片</a></li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
-<div class="container">
-    <div class="search-container">
-        <div style="display:flex; gap:5px; align-items:center;">
-            日期：<input type="date" id="startDate" class="search-box"> 至 <input type="date" id="endDate" class="search-box">
+    <div class="container">
+        <div class="search-container">
+            <div class="search-group">
+                <input type="date" id="startDate">
+                <span style="color:var(--dark-purple); font-weight:bold;">至</span>
+                <input type="date" id="endDate">
+            </div>
+            <select id="categoryFilter" class="search-box">
+                <option value="">所有系列 (All Series)</option>
+            </select>
+
+            <input type="text" id="keywordSearch" class="searchStr" placeholder="搜尋影片標題、參與成員、備註...">
+            <div class="search-buttons">
+                <button onclick="applyFilters()" class="btn-search">搜尋</button>
+                <button onclick="clearFilters()" class="btn-search">清除</button>
+            </div>
         </div>
-        
-        <select id="categoryFilter" class="search-box">
-            <option value="">所有系列 (All Series)</option>
-        </select>
 
-        <input type="text" id="keywordSearch" class="search-box" placeholder="搜尋影片標題、參與成員、備註..." style="flex-grow: 1;">
-        
-        <button onclick="applyFilters()" style="background:#ff4081; color:white; border:none; padding:10px 25px; border-radius:10px; cursor:pointer; font-weight:bold;">搜尋</button>
-        <button onclick="clearFilters()" style="background:#eee; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;">清除</button>
+        <div id="officialDisplay">
+            <p style="text-align: center; padding: 50px;">正在加載影片資料...</p>
+        </div>
     </div>
 
-    <div id="officialDisplay">
-        <p style="text-align: center; padding: 50px;">正在加載影片資料...</p>
-    </div>
-</div>
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
+        let allOfficialData = [];
 
-<script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
-    let allOfficialData = [];
+        async function loadOfficialData() {
+            try {
+                const response = await fetch(`${SCRIPT_URL}?type=official`);
+                allOfficialData = await response.json();
 
-    async function loadOfficialData() {
-        try {
-            const response = await fetch(`${SCRIPT_URL}?type=official`);
-            allOfficialData = await response.json();
-            
-            if (!allOfficialData || allOfficialData.length === 0) {
-                document.getElementById('officialDisplay').innerHTML = "目前尚無影片資料。";
-                return;
+                if (!allOfficialData || allOfficialData.length === 0) {
+                    document.getElementById('officialDisplay').innerHTML = "目前尚無影片資料。";
+                    return;
+                }
+
+                // 動態生成類別選單
+                populateCategories(allOfficialData);
+                applyFilters();
+            } catch (e) {
+                document.getElementById('officialDisplay').innerHTML = "加載失敗，請檢查資料來源。";
             }
-
-            // 動態生成類別選單
-            populateCategories(allOfficialData);
-            applyFilters();
-        } catch (e) {
-            document.getElementById('officialDisplay').innerHTML = "加載失敗，請檢查資料來源。";
         }
-    }
 
-    function populateCategories(data) {
-        const select = document.getElementById('categoryFilter');
-        const categories = [...new Set(data.map(item => item.category).filter(c => c))].sort();
-        
-        categories.forEach(cat => {
-            const opt = document.createElement('option');
-            opt.value = cat;
-            opt.textContent = cat;
-            select.appendChild(opt);
-        });
-    }
+        function populateCategories(data) {
+            const select = document.getElementById('categoryFilter');
+            const categories = [...new Set(data.map(item => item.category).filter(c => c))].sort();
 
-    function applyFilters() {
-    const start = document.getElementById('startDate').value;
-    const end = document.getElementById('endDate').value;
-    const cat = document.getElementById('categoryFilter').value;
-    const keyword = document.getElementById('keywordSearch').value.toLowerCase().trim();
-
-    const filtered = allOfficialData.filter(item => {
-        let itemDate = item.date ? new Date(item.date).toISOString().split('T')[0] : "";
-        if (start && itemDate < start) return false;
-        if (end && itemDate > end) return false;
-
-        if (cat && item.category !== cat) return false;
-        if (keyword) {
-            const titleMatch = item.title.toLowerCase().includes(keyword);
-            const isAllMember = item.cast.includes("全體") || item.cast.includes("全員");
-            const castMatch = item.cast.toLowerCase().includes(keyword);
-
-            // 只要標題中、備註中、成員中符合，或是該影片是「全體」影片，就顯示
-            if (!(titleMatch || noteMatch || castMatch || isAllMember)) return false;
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                select.appendChild(opt);
+            });
         }
-        
-        return true;
-    });
 
-    renderSections(filtered);
-}
+        function applyFilters() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            const cat = document.getElementById('categoryFilter').value;
+            const keyword = document.getElementById('keywordSearch').value.toLowerCase().trim();
 
-    function renderSections(data) {
-        const container = document.getElementById('officialDisplay');
-        container.innerHTML = "";
-        
-        // 按 Category 分組
-        const grouped = data.reduce((acc, item) => {
-            if (!acc[item.category]) acc[item.category] = [];
-            acc[item.category].push(item);
-            return acc;
-        }, {});
+            const filtered = allOfficialData.filter(item => {
+                let itemDate = item.date ? new Date(item.date).toISOString().split('T')[0] : "";
+                if (start && itemDate < start) return false;
+                if (end && itemDate > end) return false;
 
-        const fragment = document.createDocumentFragment();
+                if (cat && item.category !== cat) return false;
+                if (keyword) {
+                    const titleMatch = item.title.toLowerCase().includes(keyword);
+                    const isAllMember = item.cast.includes("全體") || item.cast.includes("全員");
+                    const castMatch = item.cast.toLowerCase().includes(keyword);
 
-        for (const catName in grouped) {
-            const section = document.createElement('div');
-            section.className = 'group-section';
+                    // 只要標題中、備註中、成員中符合，或是該影片是「全體」影片，就顯示
+                    if (!(titleMatch || noteMatch || castMatch || isAllMember)) return false;
+                }
 
-            const cardsHTML = grouped[catName].map(item => {
-                const dateStr = item.date ? new Date(item.date).toISOString().split('T')[0] : "無日期";
-                const safeImg = item.imageUrl || 'images/none.jpg';
+                return true;
+            });
 
-                return `
+            renderSections(filtered);
+        }
+
+        function renderSections(data) {
+            const container = document.getElementById('officialDisplay');
+            container.innerHTML = "";
+
+            // 按 Category 分組
+            const grouped = data.reduce((acc, item) => {
+                if (!acc[item.category]) acc[item.category] = [];
+                acc[item.category].push(item);
+                return acc;
+            }, {});
+
+            const fragment = document.createDocumentFragment();
+
+            for (const catName in grouped) {
+                const section = document.createElement('div');
+                section.className = 'group-section';
+
+                const cardsHTML = grouped[catName].map(item => {
+                    const dateStr = item.date ? new Date(item.date).toISOString().split('T')[0] : "無日期";
+                    const safeImg = item.imageUrl || 'images/none.jpg';
+
+                    return `
                     <div class="official-card">
                         <div class="img-container">
                             <div class="img-blur-bg" style="background-image: url('${safeImg}')"></div>
@@ -261,9 +396,9 @@
                         </div>
                     </div>
                 `;
-            }).join('');
+                }).join('');
 
-            section.innerHTML = `
+                section.innerHTML = `
                 <h2 class="group-header">${catName} <span style="font-size:1rem; color:#999; font-weight:normal;">(${grouped[catName].length})</span></h2>
                 <div class="slider-container">
                     <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
@@ -271,44 +406,44 @@
                     <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
                 </div>
             `;
-            fragment.appendChild(section);
+                fragment.appendChild(section);
+            }
+
+            if (fragment.childNodes.length === 0) {
+                container.innerHTML = "<p style='text-align:center; padding:50px;'>找不到符合條件的影片。</p>";
+            } else {
+                container.appendChild(fragment);
+            }
         }
 
-        if (fragment.childNodes.length === 0) {
-            container.innerHTML = "<p style='text-align:center; padding:50px;'>找不到符合條件的影片。</p>";
-        } else {
-            container.appendChild(fragment);
+        function scrollSlider(btn, dir) {
+            const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+            wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
         }
-    }
 
-    function scrollSlider(btn, dir) {
-        const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-        wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
-    }
+        function clearFilters() {
+            document.getElementById('startDate').value = "";
+            document.getElementById('endDate').value = "";
+            document.getElementById('categoryFilter').value = "";
+            document.getElementById('keywordSearch').value = "";
+            applyFilters();
+        }
 
-    function clearFilters() {
-        document.getElementById('startDate').value = "";
-        document.getElementById('endDate').value = "";
-        document.getElementById('categoryFilter').value = "";
-        document.getElementById('keywordSearch').value = "";
-        applyFilters();
-    }
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-menu');
 
-    const menu = document.querySelector('#mobile-menu');
-const menuLinks = document.querySelector('.nav-menu');
+        menu.addEventListener('click', function () {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.toggle('active');
+        });
 
-menu.addEventListener('click', function() {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.toggle('active');
-});
+        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+            menu.classList.remove('is-active');
+            menuLinks.classList.remove('active');
+        }));
 
-document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-    menu.classList.remove('is-active');
-    menuLinks.classList.remove('active');
-}));
-
-    window.onload = loadOfficialData;
-</script>
+        window.onload = loadOfficialData;
+    </script>
 </body>
 
 </html>

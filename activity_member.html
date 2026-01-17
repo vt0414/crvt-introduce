@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRAVITY | 個人活動</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 基礎佈局 */
-        .container { padding: 20px 5%; max-width: 1400px; margin: 0 auto; }
-        
+        .container {
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
         /* 搜尋區塊 */
         .search-container {
-            max-width: 880px;
+            max-width: 650px;
             margin: 20px auto;
             padding: 15px 25px;
             background: rgba(255, 255, 255, 0.8);
@@ -24,25 +28,13 @@
             gap: 10px;
         }
 
-        .search-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: nowrap;
-        }
-        .search-group input[type="date"] {
-            width: 135px; 
-            padding: 8px;
-            border-radius: 10px;
-            border: 1px solid var(--main-purple);
-            font-size: 14px;
-        }
         .search-container input {
             padding: 8px 12px;
             border-radius: 10px;
             border: 1px solid var(--main-purple);
             outline: none;
         }
+
         .btn-search {
             padding: 8px 25px;
             background: var(--dark-purple);
@@ -55,19 +47,33 @@
         }
 
         /* 內容區塊 */
-        .group-section { margin-bottom: 50px; position: relative; }
-        .group-header { border-left: 6px solid var(--main-purple); padding-left: 15px; margin-bottom: 20px; }
-        .group-title { font-size: 1.4rem; color: var(--dark-purple); margin: 0; }
+        .group-section {
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .group-header {
+            border-left: 6px solid var(--main-purple);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        .group-title {
+            font-size: 1.4rem;
+            color: var(--dark-purple);
+            margin: 0;
+        }
 
         .slider-container {
             position: relative;
             width: 100%;
-            padding: 0 10px; 
+            padding: 0 10px;
             box-sizing: border-box;
         }
 
         .cards-wrapper {
-            display: flex; /* 恢復為 flex，這才能讓箭頭移動 */
+            display: flex;
+            /* 恢復為 flex，這才能讓箭頭移動 */
             flex-direction: row;
             gap: 20px;
             overflow-x: auto;
@@ -77,10 +83,13 @@
             scroll-snap-type: x mandatory;
             width: 100%;
         }
-        .cards-wrapper::-webkit-scrollbar { display: none; }
+
+        .cards-wrapper::-webkit-scrollbar {
+            display: none;
+        }
 
         .activity-card {
-            flex: 0 0 calc((100% - 40px) / 3); 
+            flex: 0 0 calc((100% - 40px) / 3);
             min-width: 280px;
             scroll-snap-align: start;
             background: rgba(255, 255, 255, 0.6);
@@ -104,15 +113,18 @@
             overflow: hidden;
             position: relative;
         }
+
         .img-blur-bg {
             position: absolute;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             filter: blur(15px);
             opacity: 0.4;
             z-index: 1;
         }
+
         .act-img {
             position: relative;
             z-index: 2;
@@ -121,10 +133,31 @@
             object-fit: contain;
         }
 
-        .act-info { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
-        .act-date { font-size: 0.8rem; color: #888; }
-        .act-subtitle { font-weight: bold; color: var(--dark-purple); min-height: 2.8em; }
-        .act-cast { font-size: 0.85rem; color: var(--main-purple); height: 2.5em; overflow: hidden; }
+        .act-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .act-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .act-subtitle {
+            font-weight: bold;
+            color: var(--dark-purple);
+            min-height: 2.8em;
+        }
+
+        .act-cast {
+            font-size: 0.85rem;
+            color: var(--main-purple);
+            height: 2.5em;
+            overflow: hidden;
+        }
 
         .nav-arrow {
             position: absolute;
@@ -136,30 +169,43 @@
             border: 2px solid var(--main-purple);
             color: var(--main-purple);
             border-radius: 50%;
-            z-index: 99; /* 提高層級 */
-              cursor: pointer;
+            z-index: 99;
+            /* 提高層級 */
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: 0.3s;
         }
-        .nav-arrow:hover { background: var(--main-purple); color: white; }
-        .nav-arrow.left { left: 5px; }
-        .nav-arrow.right { right: 5px; }
+
+        .nav-arrow:hover {
+            background: var(--main-purple);
+            color: white;
+        }
+
+        .nav-arrow.left {
+            left: 5px;
+        }
+
+        .nav-arrow.right {
+            right: 5px;
+        }
+
         .btn-watch {
             display: block;
             text-align: center;
             padding: 12px;
             background: linear-gradient(135deg, #a29bfe, var(--main-purple));
-            color: white !important;
-            border-radius: 50px; 
+            color: rgb(5, 5, 5) !important;
+            border-radius: 50px;
             font-weight: bold;
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(108, 92, 231, 0.2);
             margin-top: auto;
         }
+
         .btn-watch:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
@@ -173,157 +219,201 @@
                 padding: 15px;
                 gap: 12px;
             }
+
             .search-group {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 gap: 5px;
+                flex-wrap: nowrap;
             }
-            .search-group input { flex: 1;font-size: 14px; }
-            .search-group input[type="date"] { width: 125px; }
-            .btn-search { flex: 1;padding: 10px 0; }
+
+            .search-group input {
+                flex: 1;
+                font-size: 14px;
+            }
+
+            .search-group input[type="date"] {
+                width: 135px;
+                padding: 8px;
+                border-radius: 10px;
+                border: 1px solid var(--main-purple);
+                font-size: 14px;
+            }
+
             .search-buttons {
                 display: flex;
                 gap: 8px;
             }
-            .nav { flex-direction: column !important; padding: 10px 0; }
-            .nav ul { 
-                flex-direction: row !important; 
-                overflow-x: auto; 
-                width: 100%; 
-                justify-content: flex-start; 
+
+            .nav {
+                flex-direction: column !important;
+                padding: 10px 0;
+            }
+
+            .nav ul {
+                flex-direction: row !important;
+                overflow-x: auto;
+                width: 100%;
+                justify-content: flex-start;
                 padding: 10px 20px;
                 gap: 15px;
             }
-            .nav ul li a { white-space: nowrap; font-size: 14px; }
-            .slider-container { padding: 0 10px; }
-            .nav-arrow { 
-                display: flex; 
+
+            .nav ul li a {
+                white-space: nowrap;
+                font-size: 14px;
+            }
+
+            .slider-container {
+                padding: 0 10px;
+            }
+
+            .nav-arrow {
+                display: flex;
                 width: 35px;
                 height: 35px;
                 z-index: 100;
             }
-            .nav-arrow.left { left: 2px; }
-            .nav-arrow.right { right: 2px; }
+
+            .nav-arrow.left {
+                left: 2px;
+            }
+
+            .nav-arrow.right {
+                right: 2px;
+            }
+
             .activity-card {
                 flex: 0 0 100%;
                 scroll-snap-align: start;
             }
-            .cards-wrapper { gap: 0; } 
+
+            .cards-wrapper {
+                gap: 0;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<nav>
-    <div class="nav-container">
-        <div class="logo">CRAVITY</div>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CRAVITY</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">團體介紹</a></li>
+                <li><a href="members.html">成員介紹</a></li>
+                <li><a href="ccrew.html">CCREW介紹</a></li>
+                <li><a href="discography.html">打歌活動</a></li>
+                <li><a href="variety.html">綜藝活動</a></li>
+                <li><a href="official.html">官方影片</a></li>
+            </ul>
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html">團體介紹</a></li>
-            <li><a href="members.html">成員介紹</a></li>
-            <li><a href="ccrew.html">CCREW介紹</a></li>
-            <li><a href="discography.html">打歌活動</a></li>
-            <li><a href="variety.html">綜藝活動</a></li>
-            <li><a href="official.html">官方影片</a></li>
-        </ul>
-    </div>
-</nav>
-<div class="container">
-    <div class="search-container">
-        <div class="search-group">
-            <input type="date" id="startDate">
-            <span style="color:var(--dark-purple); font-weight:bold;">至</span>
-            <input type="date" id="endDate">
+    </nav>
+    <div class="container">
+        <div class="search-container">
+            <div class="search-group">
+                <input type="date" id="startDate">
+                <span style="color:var(--dark-purple); font-weight:bold;">至</span>
+                <input type="date" id="endDate">
+            </div>
+            <div class="search-buttons">
+                <button class="btn-search" onclick="filterByDate()">搜尋</button>
+                <button class="btn-search" style="background:#bbb;" onclick="resetSearch()">清除</button>
+            </div>
         </div>
-        <div class="search-buttons">
-            <button class="btn-search" onclick="filterByDate()">搜尋</button>
-            <button class="btn-search" style="background:#bbb;" onclick="resetSearch()">清除</button>
-        </div>
-    </div>
-    <div id="activity-list">
-        正在加載個人活種資料...
-        </div>
-</div>
+        <h1 id="member-name-title" style="text-align:center; color:var(--dark-purple); margin-bottom:30px;"></h1>
 
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const memberId = urlParams.get('member');
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
-    
-    let allActivities = [];
+        <div id="activity-list">
+            <p style='text-align:center;'>正在加載個人活動資料...</p>
+        </div>
+    </div>
 
-    async function loadActivities() {
-        if (!memberId) return;
-        try {
-            const response = await fetch(`${SCRIPT_URL}?type=activities&memberId=${memberId}`);
-            const data = await response.json();
-            
-            allActivities = data.map(act => {
-                let cleanDate = "";
-                if (act.date) {
-                    const d = new Date(act.date);
-                    if (!isNaN(d.getTime())) {
-                        const y = d.getFullYear();
-                        const m = String(d.getMonth() + 1).padStart(2, '0');
-                        const day = String(d.getDate()).padStart(2, '0');
-                        cleanDate = `${y}-${m}-${day}`;
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const memberId = urlParams.get('member');
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
+
+        let allActivities = [];
+
+        async function loadActivities() {
+            if (!memberId) return;
+            try {
+                const response = await fetch(`${SCRIPT_URL}?type=activities&memberId=${memberId}`);
+                const data = await response.json();
+
+                allActivities = data.map(act => {
+                    let cleanDate = "";
+                    if (act.date) {
+                        const d = new Date(act.date);
+                        if (!isNaN(d.getTime())) {
+                            const y = d.getFullYear();
+                            const m = String(d.getMonth() + 1).padStart(2, '0');
+                            const day = String(d.getDate()).padStart(2, '0');
+                            cleanDate = `${y}-${m}-${day}`;
+                        }
                     }
+                    return { ...act, formattedDate: cleanDate, displayDate: cleanDate || "無日期" };
+                });
+
+                const titleEl = document.getElementById('member-name-title');
+                if (titleEl) {
+                    titleEl.innerText = memberId.toUpperCase() + " 活動紀錄";
                 }
-                return { ...act, formattedDate: cleanDate, displayDate: cleanDate || "無日期" };
+
+                displayData(allActivities);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>資料加載失敗。</p>";
+            }
+        }
+
+        function displayData(data) {
+            if (data.length === 0) {
+                document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>找不到活動紀錄。</p>";
+                return;
+            }
+            const grouped = data.reduce((acc, act) => {
+                if (!acc[act.title]) acc[act.title] = [];
+                acc[act.title].push(act);
+                return acc;
+            }, {});
+            renderUI(grouped);
+        }
+
+        function filterByDate() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            if (!start && !end) { displayData(allActivities); return; }
+            const filtered = allActivities.filter(act => {
+                if (!act.formattedDate) return false;
+                if (start && end) return act.formattedDate >= start && act.formattedDate <= end;
+                return act.formattedDate === (start || end);
             });
+            displayData(filtered);
+        }
 
-            document.getElementById('member-name-title').innerText = memberId.toUpperCase() + " 活動紀錄";
+        function resetSearch() {
+            document.getElementById('startDate').value = "";
+            document.getElementById('endDate').value = "";
             displayData(allActivities);
-        } catch (err) {
-            document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>資料加載失敗。</p>";
         }
-    }
 
-    function displayData(data) {
-        if (data.length === 0) {
-            document.getElementById('activity-list').innerHTML = "<p style='text-align:center;'>找不到活動紀錄。</p>";
-            return;
-        }
-        const grouped = data.reduce((acc, act) => {
-            if (!acc[act.title]) acc[act.title] = [];
-            acc[act.title].push(act);
-            return acc;
-        }, {});
-        renderUI(grouped);
-    }
-
-    function filterByDate() {
-        const start = document.getElementById('startDate').value; 
-        const end = document.getElementById('endDate').value;
-        if (!start && !end) { displayData(allActivities); return; }
-        const filtered = allActivities.filter(act => {
-            if (!act.formattedDate) return false;
-            if (start && end) return act.formattedDate >= start && act.formattedDate <= end;
-            return act.formattedDate === (start || end);
-        });
-        displayData(filtered);
-    }
-
-    function resetSearch() {
-        document.getElementById('startDate').value = "";
-        document.getElementById('endDate').value = "";
-        displayData(allActivities);
-    }
-
-    function renderUI(grouped) {
-        const container = document.getElementById('activity-list');
-        container.innerHTML = "";
-        for (const title in grouped) {
-            const section = document.createElement('div');
-            section.className = 'group-section';
-            const cardsHTML = grouped[title].map(act => {
-                const safeImgUrl = act.imageUrl ? `images/activities/${act.imageUrl.trim()}` : 'images/none.jpg';
-                return `
+        function renderUI(grouped) {
+            const container = document.getElementById('activity-list');
+            container.innerHTML = "";
+            for (const title in grouped) {
+                const section = document.createElement('div');
+                section.className = 'group-section';
+                const cardsHTML = grouped[title].map(act => {
+                    const safeImgUrl = act.imageUrl ? `images/activities/${act.imageUrl.trim()}` : 'images/none.jpg';
+                    return `
                     <div class="activity-card">
                         <div class="img-container">
                             <div class="img-blur-bg" style="background-image: url('${safeImgUrl}')"></div>
@@ -336,47 +426,41 @@
                             <a href="${act.link}" target="_blank" class="btn-watch">觀看連結</a>
                         </div>
                     </div>`;
-            }).join('');
+                }).join('');
 
-            section.innerHTML = `
+                section.innerHTML = `
                 <div class="group-header"><h2 class="group-title">${title}</h2></div>
                 <div class="slider-container">
                     <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
                     <div class="cards-wrapper">${cardsHTML}</div>
                     <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
                 </div>`;
-            container.appendChild(section);
+                container.appendChild(section);
+            }
         }
-    }
 
-    function scrollSlider(btn, direction) {
-    const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-    const scrollAmount = wrapper.offsetWidth * 0.8;
-    wrapper.scrollBy({ 
-        left: direction * scrollAmount, 
-        behavior: 'smooth' 
-    });
-}
-const menu = document.querySelector('#mobile-menu');
-const menuLinks = document.querySelector('.nav-menu');
+        function scrollSlider(btn, direction) {
+            const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+            const scrollAmount = wrapper.offsetWidth * 0.8;
+            wrapper.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-menu');
 
-menu.addEventListener('click', function() {
-    menu.classList.toggle('is-active');
-    menuLinks.classList.toggle('active');
-});
+        menu.addEventListener('click', function () {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.toggle('active');
+        });
 
-document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-    menu.classList.remove('is-active');
-    menuLinks.classList.remove('active');
-}));
-    loadActivities();
-</script>
+        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+            menu.classList.remove('is-active');
+            menuLinks.classList.remove('active');
+        }));
+        loadActivities();
+    </script>
 </body>
+
 </html>
-
-
-
-
-
-
-

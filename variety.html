@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRAVITY | 綜藝活動</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* 基礎樣式 */
-        .container { padding: 30px 5%; max-width: 1400px; margin: 0 auto; }
-        .category-group { margin-bottom: 60px; }
+        .container {
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .category-group {
+            margin-bottom: 60px;
+        }
+
         .category-header {
             font-size: 2rem;
             color: var(--dark-purple, #333);
@@ -21,7 +29,11 @@
         }
 
         /* 滑動容器樣式 */
-        .slider-container { position: relative; width: 100%; }
+        .slider-container {
+            position: relative;
+            width: 100%;
+        }
+
         .cards-wrapper {
             display: flex;
             gap: 25px;
@@ -31,7 +43,10 @@
             scrollbar-width: none;
             scroll-snap-type: x mandatory;
         }
-        .cards-wrapper::-webkit-scrollbar { display: none; }
+
+        .cards-wrapper::-webkit-scrollbar {
+            display: none;
+        }
 
         /* 綜藝卡片樣式 */
         .variety-card {
@@ -42,7 +57,7 @@
             border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.4);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
             scroll-snap-align: start;
@@ -59,15 +74,18 @@
             position: relative;
             overflow: hidden;
         }
+
         .img-blur-bg {
             position: absolute;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             filter: blur(15px);
             opacity: 0.4;
             z-index: 1;
         }
+
         .variety-img {
             position: relative;
             z-index: 2;
@@ -76,11 +94,40 @@
             object-fit: contain;
         }
 
-        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; color: #333; }
-        .v-date { font-size: 0.85rem; color: #666; margin-bottom: 5px; }
-        .v-sub { font-size: 0.9rem; color: #ff4081; font-weight: bold; margin-bottom: 5px; }
-        .v-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; min-height: 2.8em; line-height: 1.4; }
-        .v-cast { font-size: 0.9rem; color: #555; margin-bottom: 15px; }
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+        }
+
+        .v-date {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .v-sub {
+            font-size: 0.9rem;
+            color: #ff4081;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .v-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            min-height: 2.8em;
+            line-height: 1.4;
+        }
+
+        .v-cast {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
 
         .watch-link {
             display: block;
@@ -94,202 +141,288 @@
             margin-top: auto;
             transition: 0.3s;
         }
-        .watch-link:hover { background: #e91e63; transform: scale(1.02); }
+
+        .watch-link:hover {
+            background: #e91e63;
+            transform: scale(1.02);
+        }
 
         /* 導覽箭頭 */
         .nav-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 45px; height: 45px; background: white; border: none;
-            border-radius: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            cursor: pointer; z-index: 10; color: #ff4081;
-            display: flex; align-items: center; justify-content: center;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 10;
+            color: #ff4081;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .nav-arrow.left { left: -20px; }
-        .nav-arrow.right { right: -20px; }
+
+        .nav-arrow.left {
+            left: -20px;
+        }
+
+        .nav-arrow.right {
+            right: -20px;
+        }
 
         /* 搜尋區塊 */
-        .search-container {
-            max-width: 1100px; margin: 20px auto 40px; padding: 25px;
-            background: rgba(255, 255, 255, 0.9); border-radius: 20px;
-            display: flex; flex-wrap: wrap; gap: 15px;
-            justify-content: center; align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .search-buttons {
+            display: flex;
+            gap: 8px;
         }
-        .search-box { padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd; font-size: 14px; }
-        .btn-search { background: #ff4081; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+
+        .search-container {
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 15px 25px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        .search-box {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .btn-search {
+            padding: 8px 25px;
+            background: var(--dark-purple);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .search-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5px;
+            flex-wrap: nowrap;
+        }
+
+        .search-group input {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .search-group input[type="date"] {
+            width: 135px;
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid var(--main-purple);
+            font-size: 14px;
+        }
+
+        .searchStr {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--main-purple);
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
 
         @media (max-width: 768px) {
-            .nav-arrow { display: none; }
-            .variety-card { flex: 0 0 85%; min-width: 280px; }
-            .search-container { flex-direction: column; align-items: stretch; }
+            .nav-arrow {
+                display: none;
+            }
+
+            .variety-card {
+                flex: 0 0 85%;
+                min-width: 280px;
+            }
+
+            .search-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<nav>
-    <div class="nav-container">
-        <div class="logo">CRAVITY</div>
-        <div class="menu-toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">CRAVITY</div>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">團體介紹</a></li>
+                <li><a href="members.html">成員介紹</a></li>
+                <li><a href="ccrew.html">CCREW介紹</a></li>
+                <li><a href="discography.html">打歌活動</a></li>
+                <li><a href="variety.html">綜藝活動</a></li>
+                <li><a href="official.html">官方影片</a></li>
+            </ul>
         </div>
-        <ul class="nav-menu">
-            <li><a href="index.html">團體介紹</a></li>
-            <li><a href="members.html">成員介紹</a></li>
-            <li><a href="ccrew.html">CCREW介紹</a></li>
-            <li><a href="discography.html">打歌活動</a></li>
-            <li><a href="variety.html">綜藝活動</a></li>
-            <li><a href="official.html">官方影片</a></li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
-<div class="container">
-    <div class="search-container">
-        <div style="display:flex; gap:5px; align-items:center;">
-            日期：<input type="date" id="startDate" class="search-box"> 至 <input type="date" id="endDate" class="search-box">
+    <div class="container">
+        <div class="search-container">
+            <div class="search-group">
+                <input type="date" id="startDate">
+                <span style="color:var(--dark-purple); font-weight:bold;">至</span>
+                <input type="date" id="endDate">
+            </div>
+
+            <input type="text" id="keywordSearch" class="searchStr" placeholder="搜尋標題、成員、分類...">
+            <div class="search-buttons">
+                <button class="btn-search" onclick="applyFilters()">搜尋</button>
+                <button class="btn-search" onclick="clearFilters()">清除</button>
+            </div>
         </div>
-        
-        <select id="categoryFilter" class="search-box">
-            <option value="">所有類型</option>
-            <option value="電台">電台</option>
-            <option value="綜藝">綜藝</option>
-            <option value="採訪">採訪</option>
-        </select>
 
-        <input type="text" id="keywordSearch" class="search-box" placeholder="搜尋標題、成員..." style="flex-grow: 1;">
-        
-        <button class="btn-search" onclick="applyFilters()">搜尋</button>
-        <button style="background:#eee; border:none; padding:10px 20px; border-radius:10px; cursor:pointer;" onclick="clearFilters()">清除</button>
+        <div id="varietyDisplay">
+            <p style="text-align: center; padding: 50px;">正在加載活動資料...</p>
+        </div>
     </div>
 
-    <div id="varietyDisplay">
-        <p style="text-align: center; padding: 50px;">正在加載活動資料...</p>
-    </div>
-</div>
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
+        let allVarietyData = [];
 
-<script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoOChbgdxhQb-iAwLewfnQgt8kdcBf_lww5VtlHzJxK1_Wuuzz6IxUxvtnAihK-nBD/exec";
-    let allVarietyData = [];
-
-    async function loadData() {
-        try {
-            const response = await fetch(`${SCRIPT_URL}?type=variety`);
-            allVarietyData = await response.json();
-            applyFilters();
-        } catch (e) {
-            document.getElementById('varietyDisplay').innerHTML = "<p style='text-align:center;'>資料讀取失敗，請稍後再試。</p>";
-        }
-    }
-
-    function applyFilters() {
-        const start = document.getElementById('startDate').value;
-        const end = document.getElementById('endDate').value;
-        const category = document.getElementById('categoryFilter').value;
-        const keyword = document.getElementById('keywordSearch').value.toLowerCase().trim();
-
-        const filtered = allVarietyData.filter(item => {
-            // 1. 分類過濾
-            if (category && item.mainCategory !== category) return false;
-
-            // 2. 日期過濾
-            let itemDate = item.date ? item.date.split('T')[0] : "";
-            if (start && itemDate < start) return false;
-            if (end && itemDate > end) return false;
-
-            // 3. 關鍵字過濾 ( subTitle, cast)
-            if (keyword) {
-                const searchStr = `${item.subTitle} ${item.cast}`.toLowerCase();
-                if (!searchStr.includes(keyword)) return false;
+        async function loadData() {
+            try {
+                const response = await fetch(`${SCRIPT_URL}?type=variety`);
+                allVarietyData = await response.json();
+                applyFilters();
+            } catch (e) {
+                document.getElementById('varietyDisplay').innerHTML = "<p style='text-align:center;'>資料讀取失敗，請稍後再試。</p>";
             }
-            return true;
-        });
+        }
 
-        renderOptimized(filtered);
-    }
+        function applyFilters() {
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            const keyword = document.getElementById('keywordSearch').value.toLowerCase().trim();
 
-    function renderOptimized(data) {
-        const container = document.getElementById('varietyDisplay');
-        container.innerHTML = "";
-        
-        const categories = ["電台", "綜藝", "採訪"];
-        const fragment = document.createDocumentFragment();
+            const filtered = allVarietyData.filter(item => {
 
-        categories.forEach(cat => {
-            const catData = data.filter(item => item.mainCategory === cat);
-            if (catData.length === 0) return;
+                let itemDate = item.date ? item.date.split('T')[0] : "";
+                if (start && itemDate < start) return false;
+                if (end && itemDate > end) return false;
 
-            const section = document.createElement('div');
-            section.className = 'category-group';
+                if (keyword) {
+                    const searchStr = `${item.subTitle} ${item.cast}${item.mainCategory}`.toLowerCase();
+                    if (!searchStr.includes(keyword)) return false;
+                }
+                return true;
+            });
 
-            const cardsHTML = catData.map(item => {
-                const dateStr = item.date ? item.date.split('T')[0] : "無日期";
-                const safeImg = item.imageUrl ? (item.imageUrl.startsWith('http') ? item.imageUrl : `images/Variety/${item.imageUrl}`) : 'images/none.jpg';
+            renderOptimized(filtered);
+        }
 
-                return `
-                    <div class="variety-card">
-                        <div class="img-container">
-                            <div class="img-blur-bg" style="background-image: url('${safeImg}')"></div>
-                            <img src="${safeImg}" class="variety-img" onerror="this.src='images/none.jpg'">
-                        </div>
-                        <div class="card-body">
-                            <div class="v-date">${dateStr}</div>
-                            <div class="v-sub">${item.subTitle}</div>
-                            <div class="v-title">${item.title}</div>
-                            <div class="v-cast">參與 ${item.cast}</div>
-                            <a href="${item.link}" target="_blank" class="watch-link">觀看</a>
-                        </div>
+        function renderOptimized(data) {
+            const container = document.getElementById('varietyDisplay');
+            container.innerHTML = "";
+
+            if (data.length === 0) {
+                container.innerHTML = "<p style='text-align:center; padding:50px;'>找不到符合條件的活動。</p>";
+                return;
+            }
+
+            // 1. 先按照 mainCategory (分類) 進行分組
+            const grouped = data.reduce((acc, item) => {
+                const category = item.mainCategory || "其他綜藝";
+                if (!acc[category]) acc[category] = [];
+                acc[category].push(item);
+                return acc;
+            }, {});
+
+            const fragment = document.createDocumentFragment();
+
+            for (const cat in grouped) {
+                const catData = grouped[cat];
+                const section = document.createElement('div');
+                section.className = 'category-group';
+
+                const cardsHTML = catData.map(item => {
+                    const dateStr = item.date ? item.date.split('T')[0] : "無日期";
+                    const safeImg = item.imageUrl ? (item.imageUrl.startsWith('http') ? item.imageUrl : `images/Variety/${item.imageUrl.trim()}`) : 'images/none.jpg';
+
+                    return `
+                <div class="variety-card">
+                    <div class="img-container">
+                        <div class="img-blur-bg" style="background-image: url('${safeImg}')"></div>
+                        <img src="${safeImg}" class="variety-img" onerror="this.src='images/none.jpg'">
                     </div>
-                `;
-            }).join('');
-
-            section.innerHTML = `
-                <h2 class="category-header">${cat} <span style="font-size:1rem; color:#999; font-weight:normal;">(${catData.length})</span></h2>
-                <div class="slider-container">
-                    <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
-                    <div class="cards-wrapper">${cardsHTML}</div>
-                    <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
+                    <div class="card-body">
+                        <div class="v-date">${dateStr}</div>
+                        <div class="v-sub">${item.subTitle || ''}</div>
+                        <div class="v-title">${item.title || ''}</div>
+                        <div class="v-cast">參與：${item.cast || '全體'}</div>
+                        <a href="${item.link}" target="_blank" class="watch-link">觀看</a>
+                    </div>
                 </div>
             `;
-            fragment.appendChild(section);
-        });
+                }).join('');
 
-        if (fragment.childNodes.length === 0) {
-            container.innerHTML = "<p style='text-align:center; padding:50px;'>找不到符合條件的活動。</p>";
-        } else {
+                section.innerHTML = `
+            <h2 class="category-header">${cat} <span style="font-size:1rem; color:#999; font-weight:normal;">(${catData.length})</span></h2>
+            <div class="slider-container">
+                <button class="nav-arrow left" onclick="scrollSlider(this, -1)">❮</button>
+                <div class="cards-wrapper">${cardsHTML}</div>
+                <button class="nav-arrow right" onclick="scrollSlider(this, 1)">❯</button>
+            </div>
+        `;
+                fragment.appendChild(section);
+            }
+
             container.appendChild(fragment);
         }
-    }
 
-    function scrollSlider(btn, dir) {
-        const wrapper = btn.parentElement.querySelector('.cards-wrapper');
-        wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
-    }
+        function scrollSlider(btn, dir) {
+            const wrapper = btn.parentElement.querySelector('.cards-wrapper');
+            wrapper.scrollBy({ left: dir * (wrapper.offsetWidth * 0.8), behavior: 'smooth' });
+        }
 
-    function clearFilters() {
-        document.getElementById('startDate').value = "";
-        document.getElementById('endDate').value = "";
-        document.getElementById('categoryFilter').value = "";
-        document.getElementById('keywordSearch').value = "";
-        applyFilters();
-    }
-    const menu = document.querySelector('#mobile-menu');
-    const menuLinks = document.querySelector('.nav-menu');
+        function clearFilters() {
+            document.getElementById('startDate').value = "";
+            document.getElementById('endDate').value = "";
+            document.getElementById('keywordSearch').value = "";
+            applyFilters();
+        }
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-menu');
 
-    menu.addEventListener('click', function() {
-        menu.classList.toggle('is-active');
-        menuLinks.classList.toggle('active');
-    });
-    
-    document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-        menu.classList.remove('is-active');
-        menuLinks.classList.remove('active');
-    }));
-    window.onload = loadData;
-</script>
+        menu.addEventListener('click', function () {
+            menu.classList.toggle('is-active');
+            menuLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
+            menu.classList.remove('is-active');
+            menuLinks.classList.remove('active');
+        }));
+        window.onload = loadData;
+    </script>
 </body>
+
 </html>
-
-
